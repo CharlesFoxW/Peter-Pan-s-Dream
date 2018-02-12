@@ -283,7 +283,9 @@ MonoBehaviour:
   thePlatform: {fileID: 1292854959871418, guid: a22cc58909d784d819c8d85f01b196a8,
     type: 2}
   generationPoint: {fileID: 803983225}
-  distanceBetween: 3
+  distanceBetween: 0
+  distanceBetweenMin: 1
+  distanceBetweenMax: 4
 --- !u!4 &999535610
 Transform:
   m_ObjectHideFlags: 0
@@ -350,7 +352,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 6.4004517
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
