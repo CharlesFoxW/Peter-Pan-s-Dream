@@ -25,7 +25,7 @@ public class PlatformGenerator : MonoBehaviour {
 
 		platformWidths = new float[theObjectPools.Length];
 		for (int i = 0; i < theObjectPools.Length; i++) {
-			platformWidths[i] = theObjectPools[i].pooledObject.GetComponent<BoxCollider2D> ().size.x;
+			platformWidths[i] = theObjectPools[i].pooledObject.GetComponent<BoxCollider2D>().size.x;
 		}
 	}
 	
@@ -36,7 +36,7 @@ public class PlatformGenerator : MonoBehaviour {
 
 			platformSelector = Random.Range (0, theObjectPools.Length);
 
-			transform.position = new Vector3(transform.position.x + platformWidths[platformSelector] + distanceBetween,transform.position.y, transform.position.z);
+			transform.position = new Vector3(transform.position.x + (platformWidths[platformSelector] / 2) + distanceBetween,transform.position.y, transform.position.z);
 
 
 			//Instantiate (/*thePlatform*/ thePlatforms[platformSelector], transform.position, transform.rotation);
@@ -47,6 +47,7 @@ public class PlatformGenerator : MonoBehaviour {
 			newPlatform.transform.rotation = transform.rotation;
 			newPlatform.SetActive (true);
 
+			transform.position = new Vector3(transform.position.x + (platformWidths[platformSelector] / 2),transform.position.y, transform.position.z);
 		}
 	}
 }
