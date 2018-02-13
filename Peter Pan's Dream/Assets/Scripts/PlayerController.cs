@@ -7,6 +7,9 @@ public class PlayerController : MonoBehaviour {
 	public float moveSpeed;
 	public float jumpForce;
 
+	//public float jumpTime;
+	//private float jumpTimeCounter;
+
 	private bool isJumpOnce; 
 	private bool isJumpTwice;
 
@@ -18,6 +21,7 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
 		myRigidbody = GetComponent<Rigidbody2D> ();
 		myAnimator = GetComponent<Animator> ();
+
 	}
 	
 	// Update is called once per frame
@@ -32,7 +36,7 @@ public class PlayerController : MonoBehaviour {
 			{
 				addJumpForce (jumpForce);
 				isJumpOnce = true;
-			}else if (!isJumpTwice)
+			} else if (!isJumpTwice)
 			{
 				addJumpForce (jumpForce);
 				isJumpTwice = true;
