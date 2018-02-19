@@ -5,8 +5,6 @@ TagManager:
   serializedVersion: 2
   tags:
   - killbox
-  - PlatformGenerationPoint
-  - PlatfromDestructionPoint
   layers:
   - Default
   - TransparentFX
