@@ -473,12 +473,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aca6ad6cabcd843dd8b60badd26a8bc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreText: {fileID: 0}
-  highScoreText: {fileID: 0}
+  scoreText: {fileID: 1254598205}
+  highScoreText: {fileID: 1180287273}
   scoreCount: 0
   hiscoreCount: 0
-  pointsPerSecond: 0
-  scoreIncreasing: 0
+  pointsPerSecond: 1
+  scoreIncreasing: 1
 --- !u!1 &733248712
 GameObject:
   m_ObjectHideFlags: 0
@@ -1160,6 +1160,7 @@ MonoBehaviour:
   - {fileID: 2097054727}
   maxHeightPoint: {fileID: 800895996}
   maxHeightChange: 5
+  randomCoinThreshold: 75
 --- !u!4 &999535610
 Transform:
   m_ObjectHideFlags: 0
@@ -1667,10 +1668,10 @@ RectTransform:
   m_Father: {fileID: 1750630088}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 94, y: -27.782562}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -106.55176, y: -27.782562}
+  m_SizeDelta: {x: 213.1, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1180287273
 MonoBehaviour:
@@ -1915,6 +1916,49 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 50.90545, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &1358980678
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1358980680}
+  - component: {fileID: 1358980679}
+  m_Layer: 0
+  m_Name: CoinPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1358980679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1358980678}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e89ce4a3a0fa5440e896fb16e87c0935, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledObject: {fileID: 1531381991250340, guid: b03cf70cc7ff34b869808a8444c61aa9,
+    type: 2}
+  pooledAmount: 15
+--- !u!4 &1358980680
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1358980678}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2105360311}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1668329287
 GameObject:
   m_ObjectHideFlags: 0
@@ -2699,6 +2743,49 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!1 &2105360309
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 2105360311}
+  - component: {fileID: 2105360310}
+  m_Layer: 0
+  m_Name: CoinGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2105360310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2105360309}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4822cec4b23c94c958ed2f79c58b0455, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinPool: {fileID: 1358980679}
+  distanceBetweenCoins: 1
+--- !u!4 &2105360311
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2105360309}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3.46, y: -4.57, z: 0}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_Children:
+  - {fileID: 1358980680}
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2141100084
 GameObject:
   m_ObjectHideFlags: 0

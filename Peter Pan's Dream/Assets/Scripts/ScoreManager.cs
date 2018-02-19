@@ -17,9 +17,9 @@ public class ScoreManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		if (PlayerPrefs.HasKey ("HighScoe")){
-			hiscoreCount = PlayerPrefs.GetFloat ("HighScoe");
-		}
+		if (PlayerPrefs.HasKey ("HighScore")) {
+			hiscoreCount = PlayerPrefs.GetFloat ("HighScore");
+		} 
 	}
 	
 	// Update is called once per frame
@@ -30,10 +30,14 @@ public class ScoreManager : MonoBehaviour {
 
 		if (scoreCount > hiscoreCount){
 			hiscoreCount = scoreCount;
-			PlayerPrefs.SetFloat ("HighScoe", hiscoreCount);
+			PlayerPrefs.SetFloat ("HighScore", hiscoreCount);
 		}
 
 		scoreText.text = "Score : " + Mathf.Round (scoreCount);
 		highScoreText.text = "High Score : " + Mathf.Round (hiscoreCount);
+	}
+
+	public void AddScore(int pointsToAdd){
+		scoreCount += pointsToAdd;
 	}
 }
