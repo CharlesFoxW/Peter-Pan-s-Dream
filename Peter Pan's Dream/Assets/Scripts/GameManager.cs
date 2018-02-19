@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour {
 
 	private PlatformDestroyer[] platformList;
 
+	private ScoreManager theScoreManager;
 
 
 	// Use this for initialization
@@ -21,6 +22,7 @@ public class GameManager : MonoBehaviour {
 		platformStartPoint = platformGenerator.position;
 		playerStartPoint = thePlayer.transform.position;
 		backGroundPosition = FindObjectOfType<ScrollingBackground> ().gameObject.transform.position;
+		theScoreManager = FindObjectOfType<ScoreManager> ();
 	}
 	
 	// Update is called once per frame
@@ -33,6 +35,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public IEnumerator RestartGameCo(){
+		theScoreManager.scoreIncreasing = false;
 		thePlayer.gameObject.SetActive (false);
 		yield return new WaitForSeconds (0.5f);
 
@@ -55,6 +58,7 @@ public class GameManager : MonoBehaviour {
 
 		thePlayer.gameObject.SetActive (true);
 
-
+		theScoreManager.scoreCount = 0;
+		theScoreManager.scoreIncreasing = true;
 	}
 }
