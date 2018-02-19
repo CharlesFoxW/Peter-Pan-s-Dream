@@ -6,6 +6,7 @@ public class PlayerController : MonoBehaviour {
 
 	public float moveSpeed;
 	public float jumpForce;
+	public GameManager gameManager;
 
 	//public float jumpTime;
 	//private float jumpTimeCounter;
@@ -17,11 +18,13 @@ public class PlayerController : MonoBehaviour {
 	private Animator myAnimator;
 	private Collider2D myCollider;
 
+	private float moveSpeedStore;
+
 	// Use this for initialization
 	void Start () {
 		myRigidbody = GetComponent<Rigidbody2D> ();
 		myAnimator = GetComponent<Animator> ();
-
+		moveSpeedStore = moveSpeed;
 	}
 	
 	// Update is called once per frame
@@ -62,8 +65,11 @@ public class PlayerController : MonoBehaviour {
 			myAnimator.SetBool ("Grounded",true);
 		}
 
+		if (collision.collider.gameObject.tag == "killbox" ){
+			gameManager.RestartGame ();	
+			// initalize parameters while restarting the game
+			moveSpeed = moveSpeedStore;
+		}
 	}
-
-
 
 }
