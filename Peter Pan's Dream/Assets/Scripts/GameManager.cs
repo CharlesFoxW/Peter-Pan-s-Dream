@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour {
 	public PlayerController thePlayer;
 	private Vector3 playerStartPoint;
 
+	private Vector3 backGroundPosition;
+
 	private PlatformDestroyer[] platformList;
 
 
@@ -18,6 +20,7 @@ public class GameManager : MonoBehaviour {
 	void Start () {
 		platformStartPoint = platformGenerator.position;
 		playerStartPoint = thePlayer.transform.position;
+		backGroundPosition = FindObjectOfType<ScrollingBackground> ().gameObject.transform.position;
 	}
 	
 	// Update is called once per frame
@@ -38,9 +41,20 @@ public class GameManager : MonoBehaviour {
 		for (int i = 0; i < platformList.Length; i++){
 			platformList [i].gameObject.SetActive (false);
 		}
+
+
 		thePlayer.transform.position = playerStartPoint;
 		platformGenerator.position = platformStartPoint;
+
+		//Set background position
+		ScrollingBackground[] backgrounds = FindObjectsOfType<ScrollingBackground>();
+			for (int i = 0; i < backgrounds.Length; i++){
+				backgrounds [i].gameObject.transform.position = backGroundPosition;		
+		}
+			
+
 		thePlayer.gameObject.SetActive (true);
+
 
 	}
 }
