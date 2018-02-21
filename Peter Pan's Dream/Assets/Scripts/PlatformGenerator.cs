@@ -85,7 +85,7 @@ public class PlatformGenerator : MonoBehaviour {
 
 				float ladyBugXPosition = Random.Range(-platformWidths[platformSelector] / 2f + 1f, platformWidths[platformSelector] / 2f - 1f);
 
-				Vector3 ladyBugPosition = new Vector3(ladyBugXPosition, 1.45f, 0f);
+				Vector3 ladyBugPosition = new Vector3(ladyBugXPosition, 1.22f, 0f);
 
 				newLadyBug.transform.position = transform.position + ladyBugPosition;
 				newLadyBug.transform.rotation = transform.rotation;
