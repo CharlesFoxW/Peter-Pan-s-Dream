@@ -29,6 +29,10 @@ public class PlatformGenerator : MonoBehaviour {
 	private CoinGenerator theCoinGenerator;
 	public float randomCoinThreshold; 
 
+	//ladybug generator:
+	public float randomLadyBugThreshold;
+	public ObjectPooler ladyBugPool;
+
 	// Use this for initialization
 	void Start () {
 		//platformWidth = thePlatform.GetComponent<BoxCollider2D> ().size.x; 
@@ -74,6 +78,18 @@ public class PlatformGenerator : MonoBehaviour {
 			if (Random.Range (0f, 100f) < randomCoinThreshold) {
 				theCoinGenerator.SpawnCoins (new Vector3 (transform.position.x,
 					transform.position.y + 1f, transform.position.z));
+			}
+
+			if (Random.Range (0f, 100f) < randomLadyBugThreshold) {
+				GameObject newLadyBug = ladyBugPool.GetPooledObject();
+
+				float ladyBugXPosition = Random.Range(-platformWidths[platformSelector] / 2f + 1f, platformWidths[platformSelector] / 2f - 1f);
+
+				Vector3 ladyBugPosition = new Vector3(ladyBugXPosition, 1.45f, 0f);
+
+				newLadyBug.transform.position = transform.position + ladyBugPosition;
+				newLadyBug.transform.rotation = transform.rotation;
+				newLadyBug.SetActive (true);
 			}
 
 			transform.position = new Vector3(transform.position.x + (platformWidths[platformSelector] / 2), 
