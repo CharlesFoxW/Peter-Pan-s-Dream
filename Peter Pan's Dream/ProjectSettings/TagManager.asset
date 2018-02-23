@@ -5,6 +5,13 @@ TagManager:
   serializedVersion: 2
   tags:
   - killbox
+  - Heal
+  - star
+  - coin
+  - Invincible
+  - FairyWithMag
+  - magnet
+  - boundary
   layers:
   - Default
   - TransparentFX
@@ -50,4 +57,7 @@ TagManager:
     locked: 0
   - name: Foreground
     uniqueID: 2120967565
+    locked: 0
+  - name: UI
+    uniqueID: 3772310869
     locked: 0

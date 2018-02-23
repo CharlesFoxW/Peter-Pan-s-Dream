@@ -12,5 +12,5 @@ EditorBuildSettings:
     path: Assets/Scenes/Daytime.unity
     guid: ea2cd2359673a4c7593ac2a1ec0f485c
   - enabled: 1
-    path: Assets/Scenes/night.unity
-    guid: c080da28110334e31a0bd8c98795985d
+    path: Assets/NightScene/_Scenes/Night.unity
+    guid: ab8ef5f57c6f04e42880b8b05e8278f8

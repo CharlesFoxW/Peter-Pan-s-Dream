@@ -10,7 +10,7 @@ public class Daytimecontrol : MonoBehaviour {
         timepast = 0f;
     }
     private float timepast = 0f;
-    private float timebar = 2f;
+    public float timebar = 10f;
     // Update is called once per frame
     void Update()
     {
@@ -18,6 +18,7 @@ public class Daytimecontrol : MonoBehaviour {
         if (timepast >= timebar)
         {
             Debug.Log("inchange");
+            timepast = 0f;
             SceneControl.Instance.LoadScene1();
         }
     }
