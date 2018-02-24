@@ -43,12 +43,15 @@ public class GhostControl : MonoBehaviour {
         if (isStatic && readyToShoot) {
             anim.SetTrigger("Stop");
             float step = ghostShootSpeed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
+            float x1 = targetPosition.x;
+            float y1 = targetPosition.y;
+            float x2 = transform.position.x;
+            float y2 = transform.position.y;
+            float yTarget = y1 - ((y2 - y1) * (x1 + 12f) / (x2 - x1));
+            transform.position = Vector3.MoveTowards(transform.position, new Vector3(-12f, yTarget), step);
         }
 
-        if (transform.position.Equals(targetPosition)) {
-            transform.gameObject.SetActive(false);
-            rb2d.velocity = new Vector2(GameControl.instance.scrollSpeed, 0);
+        if (transform.position.x <= -12f) {
             readyToShoot = false;
             isStatic = false;
         }
