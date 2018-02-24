@@ -18,6 +18,10 @@ public class PlayerController : MonoBehaviour {
 	private Animator myAnimator;
 	private Collider2D myCollider;
 
+	public AudioSource audioJump;
+	public AudioSource audioDie;
+	public AudioSource audioBg;
+
 	private float moveSpeedStore;
 
 	// Use this for initialization
@@ -39,10 +43,12 @@ public class PlayerController : MonoBehaviour {
 			{
 				addJumpForce (jumpForce);
 				isJumpOnce = true;
+				audioJump.Play ();
 			} else if (!isJumpTwice)
 			{
 				addJumpForce (jumpForce);
 				isJumpTwice = true;
+				audioJump.Play ();
 			}
 		
 		}
@@ -55,7 +61,7 @@ public class PlayerController : MonoBehaviour {
 		myAnimator.SetBool ("Grounded",false);
 	}
 
-	void OnCollisionEnter2D(Collision2D collision)
+	IEnumerator OnCollisionEnter2D(Collision2D collision)
 	{
 		
 		if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Ground")) 
@@ -66,6 +72,12 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		if (collision.collider.gameObject.tag == "killbox" ){
+			audioDie.Play ();
+			audioBg.Stop ();
+			moveSpeed = 0;
+			myRigidbody.velocity = new Vector2 (0, 0);
+			yield return new WaitForSeconds (2.5f);
+			audioBg.Play ();
 			gameManager.RestartGame ();	
 			// initalize parameters while restarting the game
 			moveSpeed = moveSpeedStore;

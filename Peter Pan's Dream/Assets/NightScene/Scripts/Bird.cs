@@ -12,12 +12,13 @@ public class Bird : MonoBehaviour
     private float invincibleTimeElapse = 0f;
     private bool isCollided = false;
     private bool isInvincible = false;
-
 	//private Animator anim;					//Reference to the Animator component.
 	private Rigidbody2D rb2d;				//Holds a reference to the Rigidbody2D component of the bird.
     private Collider2D polycollider;
     private Animator anim;
     private float moveSpeed = 0.1f;
+
+	public AudioSource asCoin;
 
 	void Start(){
 		//Get reference to the Animator component attached to this GameObject.
@@ -105,8 +106,10 @@ public class Bird : MonoBehaviour
             GameControl.instance.fairyWithMag = other.gameObject.transform.parent;
         } else if (other.gameObject.CompareTag("coin")) {
             GameControl.instance.BirdScored(5);
+			asCoin.Play ();
 //            Destroy(other.gameObject);
             other.gameObject.SetActive(false);
+
         } else if (other.gameObject.CompareTag("Invincible")) {
             GameObject invincible = other.gameObject.transform.GetChild(0).gameObject;
             if (invincible.activeSelf)

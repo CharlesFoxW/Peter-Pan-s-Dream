@@ -8,11 +8,13 @@ public class CameraController : MonoBehaviour {
 
 	private Vector3 lastPlayerPosition;
 	private float distanceToMove; 
+	public AudioSource audiobg;
 
 	// Use this for initialization
 	void Start () {
 		thePlayer = FindObjectOfType<PlayerController> ();
 		lastPlayerPosition = thePlayer.transform.position;
+		audiobg.Play ();
 	}
 	
 	// Update is called once per frame
