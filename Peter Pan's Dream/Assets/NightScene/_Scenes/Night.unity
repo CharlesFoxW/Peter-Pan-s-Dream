@@ -943,17 +943,18 @@ MonoBehaviour:
   fairyWithMagnetPrefab: {fileID: 1614303433559896, guid: 9c039e466487342448acfaed8658a6e4,
     type: 2}
   type: 0
-  spawnRate: 2
-  ghostSpawnRate: 0.8
+  curSet: 0
   curObsLocArr: 
   curColLocArr: 
   curFairyLocArr: 
   obsTypeCountCur: 1
+  timeSinceStart: 0
   timeSinceLastSpawned: 0
   timeSinceLastHeal: 0
   timeSinceLastInvincible: 0
   timeSinceLastMagnet: 0
   needToHeal: 0
+  stormMode: 0
 --- !u!114 &1244831760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -971,6 +972,7 @@ MonoBehaviour:
   Player: {fileID: 325587985}
   magnetPrefab: {fileID: 1077163791961320, guid: 2c82c3fbe6bd244d881e6192fcad31bb,
     type: 2}
+  maxSpeed: -10
   score: 0
   gameOver: 0
   scrollSpeed: -5
@@ -982,6 +984,7 @@ MonoBehaviour:
   fairyWithMag: {fileID: 0}
   Boundary_LEFT: -15
   Boundary_RIGHT: 20
+  nightTime: 10
 --- !u!4 &1244831761
 Transform:
   m_ObjectHideFlags: 0

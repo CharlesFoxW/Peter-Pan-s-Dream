@@ -11,6 +11,11 @@ public class GameControl : MonoBehaviour
     public GameObject hpComponent;
     public GameObject Player;
     public GameObject magnetPrefab;
+    private float speedUpInterval = 20f;
+    private float speedUpRate = -1f;
+    public float maxSpeed = -10f;
+    private float globalTimer = 0;
+    private float pTime = 0;
 
 	public int score = 0;						//The player's score.
 	public bool gameOver = false;				//Is the game over?
@@ -62,17 +67,28 @@ public class GameControl : MonoBehaviour
 	}
 
 	void Update() {
+
+//        globalTimer += Time.deltaTime;
+
         //Auto load scene when time's up
-        nightTimeElapsed += Time.deltaTime;
-        if (nightTimeElapsed > nightTime)
-        {
-            nightTimeElapsed = 0f;
-            SceneControl.Instance.LoadScene2();
-        }
+//        nightTimeElapsed += Time.deltaTime;
+//        if (nightTimeElapsed > nightTime)
+//        {
+//            nightTimeElapsed = 0f;
+//            SceneControl.Instance.LoadScene2();
+//        }
+
+//        if (globalTimer - pTime > speedUpInterval && scrollSpeed > maxSpeed)
+//        {
+//            pTime = globalTimer;
+//            scrollSpeed += speedUpRate;
+//        }
 
 		//If the game is over and the player has pressed some input...
 		if (gameOver && Input.GetMouseButtonDown(0)) {
 			//...reload the current scene.
+            globalTimer = 0f;
+            pTime = 0f;
 			SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 		}
         if (updateStars) {

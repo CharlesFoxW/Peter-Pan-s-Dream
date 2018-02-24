@@ -227,7 +227,7 @@ public class ObsPool : MonoBehaviour
 
         //Special Setting 3: Coin Storm
         settingList[16] = new Setting();
-        settingList[16].addItem((int)Obstacle.BatWithWave);
+        settingList[16].addItem((int)Collective.Star);
         settingList[16].addItem((int)Fairy.Magnet);
     }
 

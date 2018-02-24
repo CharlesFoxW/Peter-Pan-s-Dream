@@ -5,7 +5,7 @@ using UnityEngine;
 public class BatWaveScrolling : MonoBehaviour 
 {
 	private Rigidbody2D rb2d;
-    private readonly int FRAME_X = 12;
+    private float waveSpeed;
 
 	// Use this for initialization
 	void Start () 
@@ -14,18 +14,18 @@ public class BatWaveScrolling : MonoBehaviour
 		rb2d = GetComponent<Rigidbody2D>();
 
 		//Start the object moving.
-		float waveSpeed = GameControl.instance.scrollSpeed * 2f;
-		rb2d.velocity = new Vector2 (waveSpeed, 0);
+		waveSpeed = GameControl.instance.scrollSpeed * 2f;
+		//rb2d.velocity = new Vector2 (waveSpeed, 0);
 	}
 
 	void Update()
 	{
 		// If the game is over, stop scrolling.
-		if (GameControl.instance.gameOver)
+        if (!GameControl.instance.gameOver && transform.position.x > GameControl.instance.Boundary_LEFT)
 		{
-			rb2d.velocity = Vector2.zero;
+            transform.position = new Vector2(transform.position.x + waveSpeed * Time.deltaTime, transform.position.y);
 		}
-        if (transform.position.x < -FRAME_X)
+        else
         {
             DestroyGameObject();
         }
