@@ -9,11 +9,13 @@ public class SoundWaveControl : MonoBehaviour {
 	private float timeElaspe = 0f;
     private readonly int MAX_WAVE = 2;
     private int curWave = 0;
+    private AudioSource wavesound;
 
 	public float shootInterval = 1f;
 
 	void Start () {
 		rb2d = GetComponent<Rigidbody2D>(); // BatWithWave's Rigidbody2D.
+        wavesound = GetComponent<AudioSource>();
 		//rb2d.velocity = new Vector2 (GameControl.instance.scrollSpeed, 0); // Make speed of BatWithWave to be the same as background.
 	}
 
@@ -25,6 +27,7 @@ public class SoundWaveControl : MonoBehaviour {
                 transform.position.y);
 			timeElaspe += Time.deltaTime;
             if (timeElaspe >= shootInterval && curWave < MAX_WAVE) {
+                wavesound.Play();
                 Instantiate(wave, new Vector2(transform.position.x-2.2f,transform.position.y-0.3f), Quaternion.identity);
                 curWave++;
 				timeElaspe = 0f;

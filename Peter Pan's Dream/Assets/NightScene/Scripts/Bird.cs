@@ -20,7 +20,9 @@ public class Bird : MonoBehaviour
     private float currentScrollSpeed;
 
 	public AudioSource asCoin;
-    public AudioSource hurt;
+    public AudioSource hurtsound;
+    public AudioSource diesound;
+    public AudioSource healsound;
 
 	void Start(){
 		//Get reference to the Animator component attached to this GameObject.
@@ -82,10 +84,11 @@ public class Bird : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other) {
 		if (!isCollided && !isInvincible && other.tag != "boundary" && other.tag != "star" && other.tag != "Heal" 
             && other.tag != "magnet" && other.tag != "coin" && other.tag != "Invincible") {
-            hurt.Play();
 			if (GameControl.instance.ReduceHP (1)) {
+                diesound.Play();
 				BirdDie ();
 			} else {
+                hurtsound.Play();
 				anim.SetTrigger("collide");
 				isCollided = true;
 			}
@@ -103,6 +106,7 @@ public class Bird : MonoBehaviour
 			if (heal.activeSelf) {
 				heal.SetActive(false);
 				GameControl.instance.IncreaseHP (1);
+                healsound.Play();
 			}
 		} else if (other.gameObject.CompareTag("magnet")) {
             other.gameObject.SetActive(false);
