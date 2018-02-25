@@ -33,6 +33,8 @@ public class GhostControl : MonoBehaviour {
             } else if (isStatic && !readyToShoot) {
                 if (holdingTime < 1f) {
                     holdingTime += Time.deltaTime;
+                    if (holdingTime > 0.5f)
+                        anim.SetTrigger("Shake");
                 } else {
                     targetPosition = target.transform.position;
                     readyToShoot = true;
