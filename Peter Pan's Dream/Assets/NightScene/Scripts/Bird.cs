@@ -17,8 +17,10 @@ public class Bird : MonoBehaviour
     private Collider2D polycollider;
     private Animator anim;
     private float moveSpeed = 0.1f;
+    private float currentScrollSpeed;
 
 	public AudioSource asCoin;
+    public AudioSource hurt;
 
 	void Start(){
 		//Get reference to the Animator component attached to this GameObject.
@@ -50,6 +52,7 @@ public class Bird : MonoBehaviour
                 anim.SetTrigger("idle");
                 isInvincible = false;
                 invincibleTimeElapse = 0f;
+                GameControl.instance.scrollSpeed = currentScrollSpeed;
             }
         }
         //Don't allow control if the bird has died.
@@ -79,6 +82,7 @@ public class Bird : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other) {
 		if (!isCollided && !isInvincible && other.tag != "boundary" && other.tag != "star" && other.tag != "Heal" 
             && other.tag != "magnet" && other.tag != "coin" && other.tag != "Invincible") {
+            hurt.Play();
 			if (GameControl.instance.ReduceHP (1)) {
 				BirdDie ();
 			} else {
@@ -114,6 +118,8 @@ public class Bird : MonoBehaviour
             GameObject invincible = other.gameObject.transform.GetChild(0).gameObject;
             if (invincible.activeSelf)
             {
+                currentScrollSpeed = GameControl.instance.scrollSpeed;
+                GameControl.instance.scrollSpeed = -15f; //Speedup the scene
                 invincible.SetActive(false);
                 anim.SetTrigger("collide");
                 isCollided = false;
