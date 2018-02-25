@@ -18,8 +18,12 @@ public class Bird : MonoBehaviour
     private Animator anim;
     private float moveSpeed = 0.1f;
     private float currentScrollSpeed;
+    private bool reverseControl = false;
+    private float reverseTime = 10f;
+    private float reverseTimeElapsed = 0f;
 
 	public AudioSource asCoin;
+    public AudioSource gemsound;
     public AudioSource hurtsound;
     public AudioSource diesound;
     public AudioSource healsound;
@@ -57,18 +61,33 @@ public class Bird : MonoBehaviour
                 GameControl.instance.scrollSpeed = currentScrollSpeed;
             }
         }
+        if (reverseControl)
+        {
+            reverseTimeElapsed += Time.deltaTime;
+            if (reverseTimeElapsed >= reverseTime)
+            {
+                reverseControl = false;
+                reverseTimeElapsed = 0f;
+            }
+        }
         //Don't allow control if the bird has died.
         if (isDead == false) 
 		{
             if (Input.GetKey(KeyCode.UpArrow)) 
             {
                 //rb2d.AddForce(new Vector2(0, upForce));
-                transform.position = new Vector2(transform.position.x, transform.position.y + moveSpeed);
+                if (reverseControl)
+                    transform.position = new Vector2(transform.position.x, transform.position.y - moveSpeed);
+                else
+                    transform.position = new Vector2(transform.position.x, transform.position.y + moveSpeed);
             }
             else if (Input.GetKey(KeyCode.DownArrow))
             {
                 //rb2d.AddForce(new Vector2(0, -upForce));
-                transform.position = new Vector2(transform.position.x, transform.position.y - moveSpeed);
+                if (reverseControl)
+                    transform.position = new Vector2(transform.position.x, transform.position.y + moveSpeed);
+                else
+                    transform.position = new Vector2(transform.position.x, transform.position.y - moveSpeed);
             }
 
 
@@ -84,7 +103,7 @@ public class Bird : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other) {
 		if (!isCollided && !isInvincible && other.tag != "boundary" && other.tag != "star" && other.tag != "Heal" 
             && other.tag != "magnet" && other.tag != "coin" && other.tag != "Invincible"
-            && other.tag != "BronzeCoin" && other.tag != "SilverCoin") {
+            && other.tag != "BronzeCoin" && other.tag != "SilverCoin" && other.tag !="gem" && other.tag != "PandoraBox") {
 			if (GameControl.instance.ReduceHP (1)) {
                 diesound.Play();
 				BirdDie ();
@@ -128,6 +147,11 @@ public class Bird : MonoBehaviour
             asCoin.Play ();
             other.gameObject.SetActive(false);
 
+        } else if (other.gameObject.CompareTag("gem")) {
+            GameControl.instance.BirdScored(100);
+            gemsound.Play ();
+            other.gameObject.SetActive(false);
+
         } else if (other.gameObject.CompareTag("Invincible")) {
             GameObject invincible = other.gameObject.transform.GetChild(0).gameObject;
             if (invincible.activeSelf)
@@ -139,8 +163,35 @@ public class Bird : MonoBehaviour
                 isCollided = false;
                 isInvincible = true;
             }
+        } else if (other.gameObject.CompareTag("PandoraBox")) {
+            RandomPickup(other);
+            other.gameObject.SetActive(false);
         }
 
+    }
+
+    void RandomPickup(Collider2D other) {
+        float random = Random.Range(0, 10);
+        if (random < 6)
+            reverseControl = true;
+        else if (random >= 6 && random < 9)
+        {
+            GameControl.instance.IncreaseHP(1);
+            healsound.Play();
+        }
+//        else if (random >= 7 && random < 9)
+//        {
+//            GameControl.instance.hasMagnet = true;
+//            GameControl.instance.fairyWithMag = other.gameObject.transform.parent;
+//        }
+        else if (random >= 9)
+        {
+            currentScrollSpeed = GameControl.instance.scrollSpeed;
+            GameControl.instance.scrollSpeed = -15f; //Speedup the scene
+            anim.SetTrigger("collide");
+            isCollided = false;
+            isInvincible = true;
+        }
     }
 
     void BirdDie() {

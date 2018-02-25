@@ -140,7 +140,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1068224200}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &229639640
 AudioSource:
@@ -497,7 +497,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1068224200}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &645340395
 AudioSource:
@@ -691,6 +691,11 @@ Prefab:
       propertyPath: healsound
       value: 
       objectReference: {fileID: 229639640}
+    - target: {fileID: 114155381629665472, guid: 45a7c5631d9b74a5984dfe39b48e0199,
+        type: 2}
+      propertyPath: gemsound
+      value: 
+      objectReference: {fileID: 919037648}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 45a7c5631d9b74a5984dfe39b48e0199, type: 2}
   m_IsPrefabParent: 0
@@ -821,6 +826,115 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 26.67068, y: 1.8481483}
   m_EdgeRadius: 0
+--- !u!1 &919037646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 919037647}
+  - component: {fileID: 919037648}
+  m_Layer: 0
+  m_Name: Gem
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &919037647
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 919037646}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1068224200}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &919037648
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 919037646}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: c3edb929a8cdf4a6d9908584987d247e, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1 &1068224199
 GameObject:
   m_ObjectHideFlags: 0
@@ -847,6 +961,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1955368716}
+  - {fileID: 919037647}
   - {fileID: 645340394}
   - {fileID: 1873371754}
   - {fileID: 229639639}
@@ -1244,6 +1359,8 @@ MonoBehaviour:
     type: 2}
   lineCoinGoldPrefab: {fileID: 1691940041117858, guid: 71ad1bdd6d70e4c16a394602c24cc3aa,
     type: 2}
+  pandoraBoxPrefab: {fileID: 1876554605677022, guid: 94afb8a8794a34d168d4e6acd9452bfc,
+    type: 2}
   towerWithBrickPrefab: {fileID: 1213451546111654, guid: e92c1ece052364cfabb647cf0f28b0ba,
     type: 2}
   towerWithFireworkPrefab: {fileID: 1397854980068110, guid: 8cd35ffd6432d4b5cb3d453cf678b4da,
@@ -1265,6 +1382,7 @@ MonoBehaviour:
   curFairyLocArr: 
   obsTypeCountCur: 1
   timeSinceStart: 0
+  timeSinceLastPandoraBox: 0
   timeSinceLastCoin: 0
   timeSinceLastSpawned: 0
   timeSinceLastHeal: 0
@@ -1757,7 +1875,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1068224200}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!82 &1873371755
 AudioSource:
@@ -1877,7 +1995,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 49fb6632eab56408aa747887dc00bf23, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f377831ca33594aa8af6b7be9c9767fd, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
