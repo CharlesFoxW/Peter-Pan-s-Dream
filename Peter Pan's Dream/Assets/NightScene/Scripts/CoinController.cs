@@ -15,7 +15,7 @@ public class CoinController : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (GameControl.instance.hasMagnet && transform.position.x <= 2 && transform.position.x >= -13)
+        if (GameControl.instance.hasMagnet && transform.position.x <= 2 && transform.position.x >= -10)
         {
             float step = speed * Time.deltaTime;
             transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);

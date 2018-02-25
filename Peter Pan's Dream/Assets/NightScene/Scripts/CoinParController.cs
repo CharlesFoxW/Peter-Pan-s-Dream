@@ -23,7 +23,7 @@ public class CoinParController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (transform.position.x <= -13)
+        if (transform.position.x <= -12 && transform.position.x >= -13)
         {
             transform.position = coinParPosition;
             int i = 0;
