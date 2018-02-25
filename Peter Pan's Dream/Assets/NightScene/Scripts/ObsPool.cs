@@ -34,7 +34,13 @@ public class ObsPool : MonoBehaviour
      * CoinStorm            716
      * 
      * [--Collective--]
-     * 9SquareStar          800
+     * SquareCoinGold      800
+     * LineCoinGold        801
+     * LineCoinBronze      802
+     * LineCoinSilver      803
+     * CoinGold            804
+     * CoinBronze          805
+     * CoinSilver          806        
      * 
      * [--Fairy--]
      * Heal                 900
@@ -65,7 +71,13 @@ public class ObsPool : MonoBehaviour
 
     public enum Collective
     {
-        Star = 800
+        SquareCoinGold = 800,
+        LineCoinGold,
+        LineCoinBronze,
+        LineCoinSilver,
+        SingleCoinGold,
+        SingleCoinBronze,
+        SingleCoinSilver 
     }
 
     public enum Fairy
@@ -77,7 +89,8 @@ public class ObsPool : MonoBehaviour
 
     public GameObject towerPrefab;
     public GameObject batPrefab;
-    public GameObject starPrefab;
+    public GameObject squareCoinGoldPrefab;
+    public GameObject lineCoinGoldPrefab;
     public GameObject towerWithBrickPrefab;
     public GameObject towerWithFireworkPrefab;
     public GameObject batWithWavePrefab;
@@ -95,7 +108,8 @@ public class ObsPool : MonoBehaviour
     private GameObject[] batWithWaves;
     private GameObject[] towerWithFireworks;
     private GameObject[] ghosts;
-    private GameObject[] stars;
+    private GameObject[] squareCoinGolds;
+    private GameObject[] lineCoinGolds;
     private GameObject fairyWithHeal;
     private GameObject fairyWithInvincible;
     private GameObject fairyWithMagnet;
@@ -110,7 +124,7 @@ public class ObsPool : MonoBehaviour
     private float coinSpawnRate = float.MaxValue;
     private readonly int GHOST_POOL_SIZE = 10;
     private readonly int OBS_TYPE_COUNT_TOTAL = 6;
-    private readonly int COL_TYPE_COUNT_TOTAL = 1;
+    private readonly int COL_TYPE_COUNT_TOTAL = 2;
     private readonly int FAIRY_TYP_COUNT_TOTAL = 3;
     private readonly int SET_COUNT = 20;
 
@@ -123,8 +137,8 @@ public class ObsPool : MonoBehaviour
     private readonly float BAT_Y_MAX = 1.5f;
     private readonly float BAT_WAVE_Y_MIN = -3f;
     private readonly float BAT_WAVE_Y_MAX = 3.9f;
-    private readonly float STAR_Y_MIN = -2f;
-    private readonly float STAR_Y_MAX = 4.5f;
+    private readonly float COIN_Y_MIN = -2f;
+    private readonly float COIN_Y_MAX = 4.5f;
     private readonly float GHOST_Y_MIN = -3f;
     private readonly float GHOST_Y_MAX = 3.9f;
 
@@ -140,7 +154,7 @@ public class ObsPool : MonoBehaviour
     public float timeSinceLastHeal;
     public float timeSinceLastInvincible;
     public float timeSinceLastMagnet;
-    public ArrayList curObsTypeList = new ArrayList();
+    public ArrayList curObsTypeList;
     public bool needToHeal = false;
     public bool stormMode = false;
     private bool[] addedToList;
@@ -164,7 +178,8 @@ public class ObsPool : MonoBehaviour
         towers = new GameObject[DEFAULT_OBS_POOL_SIZE];
         bats = new GameObject[DEFAULT_OBS_POOL_SIZE];
         towerWithBricks = new GameObject[DEFAULT_OBS_POOL_SIZE];
-        stars = new GameObject[COIN_POOL_SIZE];
+        squareCoinGolds = new GameObject[COIN_POOL_SIZE];
+        lineCoinGolds = new GameObject[COIN_POOL_SIZE];
         batWithWaves = new GameObject[DEFAULT_OBS_POOL_SIZE];
         towerWithFireworks = new GameObject[DEFAULT_OBS_POOL_SIZE];
         ghosts = new GameObject[GHOST_POOL_SIZE];
@@ -172,7 +187,8 @@ public class ObsPool : MonoBehaviour
         GenerateObstacles(towerPrefab, towers, DEFAULT_OBS_POOL_SIZE);
         GenerateObstacles(batPrefab, bats, DEFAULT_OBS_POOL_SIZE);
         GenerateObstacles(towerWithBrickPrefab, towerWithBricks, DEFAULT_OBS_POOL_SIZE);
-        GenerateObstacles(starPrefab, stars, COIN_POOL_SIZE);
+        GenerateObstacles(squareCoinGoldPrefab, squareCoinGolds, COIN_POOL_SIZE);
+        GenerateObstacles(lineCoinGoldPrefab, lineCoinGolds, COIN_POOL_SIZE);
         GenerateObstacles(batWithWavePrefab, batWithWaves, DEFAULT_OBS_POOL_SIZE);
         GenerateObstacles(towerWithFireworkPrefab, towerWithFireworks, DEFAULT_OBS_POOL_SIZE);
         GenerateObstacles(ghostPrefab, ghosts, GHOST_POOL_SIZE);
@@ -227,7 +243,8 @@ public class ObsPool : MonoBehaviour
 
         //Special Setting 3: Coin Storm
         settingList[16] = new Setting();
-        settingList[16].addItem((int)Collective.Star);
+        settingList[16].addItem((int)Collective.SquareCoinGold);
+        settingList[16].addItem((int)Collective.LineCoinGold);
         settingList[16].addItem((int)Fairy.Magnet);
     }
 
@@ -319,7 +336,11 @@ public class ObsPool : MonoBehaviour
             if (timeSinceLastCoin >= coinSpawnRate) {
                 timeSinceLastCoin = 0f;
                 coinSpawnRate = float.MaxValue;
-                LetItShow((int)Collective.Star);
+                if (Random.Range(0,2) == 0) {
+                    LetItShow((int)Collective.SquareCoinGold);
+                } else {
+                    LetItShow((int)Collective.LineCoinGold);
+                }
             }
         }
     }
@@ -405,8 +426,11 @@ public class ObsPool : MonoBehaviour
             case (int)Obstacle.Ghost:
                 SetupObstacles(ghosts, new Vector2(spawnXPosition, Random.Range(GHOST_Y_MIN, GHOST_Y_MAX)), (int)Obstacle.Ghost, GHOST_POOL_SIZE);
                 break;
-            case (int)Collective.Star:
-                SetupCollectives(stars, new Vector2(spawnXPosition, Random.Range(STAR_Y_MIN, STAR_Y_MAX)), (int)Collective.Star, COIN_POOL_SIZE);
+            case (int)Collective.SquareCoinGold:
+                SetupCollectives(squareCoinGolds, new Vector2(spawnXPosition, Random.Range(COIN_Y_MIN, COIN_Y_MAX)), (int)Collective.SquareCoinGold, COIN_POOL_SIZE);
+                break;
+            case (int)Collective.LineCoinGold:
+                SetupCollectives(lineCoinGolds, new Vector2(spawnXPosition, Random.Range(COIN_Y_MIN, COIN_Y_MAX)), (int)Collective.LineCoinGold, COIN_POOL_SIZE);
                 break;
             case (int)Fairy.Heal:
                 if (timeSinceLastHeal >= 30f && needToHeal)
