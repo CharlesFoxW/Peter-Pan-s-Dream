@@ -105,7 +105,9 @@ public class ObsPool : MonoBehaviour
 
     //Main attributes <NEED TO BE TAKEN CARE>.
     private readonly int DEFAULT_OBS_POOL_SIZE = 5;
+    private readonly int COIN_POOL_SIZE = 10;
     private float spawnRate = 2f;
+    private float coinSpawnRate = float.MaxValue;
     private readonly int GHOST_POOL_SIZE = 10;
     private readonly int OBS_TYPE_COUNT_TOTAL = 6;
     private readonly int COL_TYPE_COUNT_TOTAL = 1;
@@ -114,15 +116,15 @@ public class ObsPool : MonoBehaviour
 
     //Costum attributes <NEED TO BE TAKEN CARE>.
     private readonly float DEFAULT_SPAWN_RATE_MIN = 1.5f;
-    private readonly float DEFAULT_SPAWN_RATE_MAX = 4f;
-    private readonly float STORM_SPAWN_RATE_MIN = 1f;
-    private readonly float STORM_SPAWN_RATE_MAX = 2f;
+    private readonly float DEFAULT_SPAWN_RATE_MAX = 3f;
+    private readonly float STORM_SPAWN_RATE_MIN = 0.7f;
+    private readonly float STORM_SPAWN_RATE_MAX = 1.5f;
     private readonly float BAT_Y_MIN = -2f;
     private readonly float BAT_Y_MAX = 1.5f;
     private readonly float BAT_WAVE_Y_MIN = -3f;
     private readonly float BAT_WAVE_Y_MAX = 3.9f;
     private readonly float STAR_Y_MIN = -2f;
-    private readonly float STAR_Y_MAX = 1.5f;
+    private readonly float STAR_Y_MAX = 4.5f;
     private readonly float GHOST_Y_MIN = -3f;
     private readonly float GHOST_Y_MAX = 3.9f;
 
@@ -133,6 +135,7 @@ public class ObsPool : MonoBehaviour
     public int[] curFairyLocArr;
     public int obsTypeCountCur = 1;
     public float timeSinceStart;
+    public float timeSinceLastCoin;
     public float timeSinceLastSpawned;
     public float timeSinceLastHeal;
     public float timeSinceLastInvincible;
@@ -146,6 +149,7 @@ public class ObsPool : MonoBehaviour
     void Start()
     {
         timeSinceStart = 0f;
+        timeSinceLastCoin = 0f;
         timeSinceLastSpawned = 0f;
         timeSinceLastHeal = 0f;
         timeSinceLastInvincible = 0f;
@@ -160,7 +164,7 @@ public class ObsPool : MonoBehaviour
         towers = new GameObject[DEFAULT_OBS_POOL_SIZE];
         bats = new GameObject[DEFAULT_OBS_POOL_SIZE];
         towerWithBricks = new GameObject[DEFAULT_OBS_POOL_SIZE];
-        stars = new GameObject[DEFAULT_OBS_POOL_SIZE];
+        stars = new GameObject[COIN_POOL_SIZE];
         batWithWaves = new GameObject[DEFAULT_OBS_POOL_SIZE];
         towerWithFireworks = new GameObject[DEFAULT_OBS_POOL_SIZE];
         ghosts = new GameObject[GHOST_POOL_SIZE];
@@ -168,7 +172,7 @@ public class ObsPool : MonoBehaviour
         GenerateObstacles(towerPrefab, towers, DEFAULT_OBS_POOL_SIZE);
         GenerateObstacles(batPrefab, bats, DEFAULT_OBS_POOL_SIZE);
         GenerateObstacles(towerWithBrickPrefab, towerWithBricks, DEFAULT_OBS_POOL_SIZE);
-        GenerateObstacles(starPrefab, stars, DEFAULT_OBS_POOL_SIZE);
+        GenerateObstacles(starPrefab, stars, COIN_POOL_SIZE);
         GenerateObstacles(batWithWavePrefab, batWithWaves, DEFAULT_OBS_POOL_SIZE);
         GenerateObstacles(towerWithFireworkPrefab, towerWithFireworks, DEFAULT_OBS_POOL_SIZE);
         GenerateObstacles(ghostPrefab, ghosts, GHOST_POOL_SIZE);
@@ -181,7 +185,6 @@ public class ObsPool : MonoBehaviour
         settingList[0] = new Setting();
         settingList[0].addItem((int)Obstacle.Tower);
         settingList[0].addItem((int)Obstacle.Bat);
-        settingList[0].addItem((int)Collective.Star);
         settingList[0].addItem((int)Fairy.Invincible);
 
         //Normal Setting 2: Tower, BatWithWave, Bat, Star, Ghost
@@ -190,7 +193,6 @@ public class ObsPool : MonoBehaviour
         settingList[1].addItem((int)Obstacle.BatWithWave);
         settingList[1].addItem((int)Obstacle.Bat);
         settingList[1].addItem((int)Obstacle.Ghost);
-        settingList[1].addItem((int)Collective.Star);
         settingList[1].addItem((int)Fairy.Invincible);
         settingList[1].addItem((int)Fairy.Magnet);
         settingList[1].addItem((int)Fairy.Heal);
@@ -200,7 +202,6 @@ public class ObsPool : MonoBehaviour
         settingList[2].addItem((int)Obstacle.TowerWithBrick);
         settingList[2].addItem((int)Obstacle.Bat);
         settingList[2].addItem((int)Obstacle.Ghost);
-        settingList[2].addItem((int)Collective.Star);
         settingList[2].addItem((int)Fairy.Invincible);
         settingList[2].addItem((int)Fairy.Magnet);
         settingList[2].addItem((int)Fairy.Heal);
@@ -209,7 +210,6 @@ public class ObsPool : MonoBehaviour
         settingList[3] = new Setting();
         settingList[3].addItem((int)Obstacle.TowerWithFirework);
         settingList[3].addItem((int)Obstacle.Ghost);
-        settingList[3].addItem((int)Collective.Star);
         settingList[3].addItem((int)Fairy.Invincible);
         settingList[3].addItem((int)Fairy.Magnet);
         settingList[3].addItem((int)Fairy.Heal);
@@ -240,6 +240,7 @@ public class ObsPool : MonoBehaviour
         }
 
         timeSinceStart += Time.deltaTime;
+        timeSinceLastCoin += Time.deltaTime;
         timeSinceLastInvincible += Time.deltaTime;
         timeSinceLastMagnet += Time.deltaTime;
         timeSinceLastSpawned += Time.deltaTime;
@@ -284,82 +285,42 @@ public class ObsPool : MonoBehaviour
             needToHeal = false;
         }
 
-        if (GameControl.instance.gameOver == false && timeSinceLastSpawned >= spawnRate)
+        if (GameControl.instance.gameOver == false)
         {
-
-            timeSinceLastSpawned = 0f;
-            spawnRate = Random.Range(DEFAULT_SPAWN_RATE_MIN, DEFAULT_SPAWN_RATE_MAX);
-            if (stormMode)
+            if (timeSinceLastSpawned >= spawnRate)
             {
-                spawnRate = Random.Range(STORM_SPAWN_RATE_MIN, STORM_SPAWN_RATE_MAX);
-            }
+                timeSinceLastSpawned = 0f;
+                spawnRate = Random.Range(DEFAULT_SPAWN_RATE_MIN, DEFAULT_SPAWN_RATE_MAX);
+                if (stormMode)
+                {
+                    spawnRate = Random.Range(STORM_SPAWN_RATE_MIN, STORM_SPAWN_RATE_MAX);
+                }
+                else
+                {
+                    if (spawnRate < 2f) 
+                    {
+                        coinSpawnRate = float.MaxValue;
+                    } 
+                    else 
+                    {
+                        coinSpawnRate = Random.Range(1f, spawnRate - 1f);
+                    }
+                    timeSinceLastCoin = 0f;
+                }
 
-            int typeIndex = Random.Range(0, obsTypeCountCur);
-            if (curObsTypeList.Count == 0)
-            {
-                return;
+                int typeIndex = Random.Range(0, obsTypeCountCur);
+                if (curObsTypeList.Count == 0)
+                {
+                    return;
+                }
+                type = (int)curObsTypeList[typeIndex];
+                LetItShow(type);
             }
-            type = (int)curObsTypeList[typeIndex];
-
-            switch (type)
-            {
-                case (int)Obstacle.Tower:
-                    SetupObstacles(towers, new Vector2(spawnXPosition, 0f), (int)Obstacle.Tower, DEFAULT_OBS_POOL_SIZE);
-                    break;
-                case (int)Obstacle.Bat:
-                    SetupObstacles(bats, new Vector2(spawnXPosition, Random.Range(BAT_Y_MIN, BAT_Y_MAX)), (int)Obstacle.Bat, DEFAULT_OBS_POOL_SIZE);
-                    break;
-                case (int)Obstacle.TowerWithBrick:
-                    SetupObstacles(towerWithBricks, new Vector2(spawnXPosition, 0f), (int)Obstacle.TowerWithBrick, DEFAULT_OBS_POOL_SIZE);
-                    break;
-                case (int)Obstacle.BatWithWave:
-                    SetupObstacles(batWithWaves, new Vector2(spawnXPosition, Random.Range(BAT_WAVE_Y_MIN, BAT_WAVE_Y_MAX)), (int)Obstacle.BatWithWave, DEFAULT_OBS_POOL_SIZE);
-                    break;
-                case (int)Obstacle.TowerWithFirework:
-                    SetupObstacles(towerWithFireworks, new Vector2(spawnXPosition, -3.2f), (int)Obstacle.TowerWithFirework, DEFAULT_OBS_POOL_SIZE);
-                    break;
-                case (int)Obstacle.Ghost:
-                    SetupObstacles(ghosts, new Vector2(spawnXPosition, Random.Range(GHOST_Y_MIN, GHOST_Y_MAX)), (int)Obstacle.Ghost, GHOST_POOL_SIZE);
-                    break;
-                case (int)Collective.Star:
-                    SetupCollectives(stars, new Vector2(spawnXPosition, Random.Range(STAR_Y_MIN, STAR_Y_MAX)), (int)Collective.Star, DEFAULT_OBS_POOL_SIZE);
-                    break;
-                case (int)Fairy.Heal:
-                    if (timeSinceLastHeal >= 30f && needToHeal)
-                    {
-                        fairyWithHeal.transform.position = new Vector2(spawnXPosition, 0f);
-                        timeSinceLastHeal = 0f;
-                    }
-                    else
-                    {
-                        // When the FairyWithHeal doesn't need to show up, and index was randomed to be here, then, skip this heal and random again immediately.
-                        timeSinceLastSpawned = spawnRate;
-                    }
-                    break;
-                case (int)Fairy.Invincible:
-                    if (timeSinceLastInvincible >= 60f)
-                    {
-                        fairyWithInvincible.transform.position = new Vector2(spawnXPosition, 0f);
-                        timeSinceLastInvincible = 0f;
-                    }
-                    else
-                    {
-                        timeSinceLastSpawned = spawnRate;
-                    }
-                    break;
-                case (int)Fairy.Magnet:
-                    if (timeSinceLastMagnet >= 30f)
-                    {
-                        fairyWithMagnet.transform.position = new Vector2(spawnXPosition, 0f);
-                        timeSinceLastMagnet = 0f;
-                    }
-                    else
-                    {
-                        timeSinceLastSpawned = spawnRate;
-                    }
-                    break;
+            if (timeSinceLastCoin >= coinSpawnRate) {
+                timeSinceLastCoin = 0f;
+                coinSpawnRate = float.MaxValue;
+                LetItShow((int)Collective.Star);
             }
-
         }
     }
 
@@ -420,6 +381,68 @@ public class ObsPool : MonoBehaviour
         curObsTypeList = settingList[setIndex].typeList;
         obsTypeCountCur = curObsTypeList.Count;
         addedToList[setIndex] = true;
+    }
+
+    void LetItShow(int typeIndex)
+    {
+        switch (typeIndex)
+        {
+            case (int)Obstacle.Tower:
+                SetupObstacles(towers, new Vector2(spawnXPosition, 0f), (int)Obstacle.Tower, DEFAULT_OBS_POOL_SIZE);
+                break;
+            case (int)Obstacle.Bat:
+                SetupObstacles(bats, new Vector2(spawnXPosition, Random.Range(BAT_Y_MIN, BAT_Y_MAX)), (int)Obstacle.Bat, DEFAULT_OBS_POOL_SIZE);
+                break;
+            case (int)Obstacle.TowerWithBrick:
+                SetupObstacles(towerWithBricks, new Vector2(spawnXPosition, 0f), (int)Obstacle.TowerWithBrick, DEFAULT_OBS_POOL_SIZE);
+                break;
+            case (int)Obstacle.BatWithWave:
+                SetupObstacles(batWithWaves, new Vector2(spawnXPosition, Random.Range(BAT_WAVE_Y_MIN, BAT_WAVE_Y_MAX)), (int)Obstacle.BatWithWave, DEFAULT_OBS_POOL_SIZE);
+                break;
+            case (int)Obstacle.TowerWithFirework:
+                SetupObstacles(towerWithFireworks, new Vector2(spawnXPosition, -3.2f), (int)Obstacle.TowerWithFirework, DEFAULT_OBS_POOL_SIZE);
+                break;
+            case (int)Obstacle.Ghost:
+                SetupObstacles(ghosts, new Vector2(spawnXPosition, Random.Range(GHOST_Y_MIN, GHOST_Y_MAX)), (int)Obstacle.Ghost, GHOST_POOL_SIZE);
+                break;
+            case (int)Collective.Star:
+                SetupCollectives(stars, new Vector2(spawnXPosition, Random.Range(STAR_Y_MIN, STAR_Y_MAX)), (int)Collective.Star, COIN_POOL_SIZE);
+                break;
+            case (int)Fairy.Heal:
+                if (timeSinceLastHeal >= 30f && needToHeal)
+                {
+                    fairyWithHeal.transform.position = new Vector2(spawnXPosition, 0f);
+                    timeSinceLastHeal = 0f;
+                }
+                else
+                {
+                    // When the FairyWithHeal doesn't need to show up, and index was randomed to be here, then, skip this heal and random again immediately.
+                    timeSinceLastSpawned = spawnRate;
+                }
+                break;
+            case (int)Fairy.Invincible:
+                if (timeSinceLastInvincible >= 60f)
+                {
+                    fairyWithInvincible.transform.position = new Vector2(spawnXPosition, 0f);
+                    timeSinceLastInvincible = 0f;
+                }
+                else
+                {
+                    timeSinceLastSpawned = spawnRate;
+                }
+                break;
+            case (int)Fairy.Magnet:
+                if (timeSinceLastMagnet >= 30f)
+                {
+                    fairyWithMagnet.transform.position = new Vector2(spawnXPosition, 0f);
+                    timeSinceLastMagnet = 0f;
+                }
+                else
+                {
+                    timeSinceLastSpawned = spawnRate;
+                }
+                break;
+        }
     }
 }
 
