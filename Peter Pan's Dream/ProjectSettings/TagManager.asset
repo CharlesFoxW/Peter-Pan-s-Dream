@@ -12,6 +12,8 @@ TagManager:
   - FairyWithMag
   - magnet
   - boundary
+  - BronzeCoin
+  - SilverCoin
   layers:
   - Default
   - TransparentFX

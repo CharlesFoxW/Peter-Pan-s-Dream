@@ -83,7 +83,8 @@ public class Bird : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other) {
 		if (!isCollided && !isInvincible && other.tag != "boundary" && other.tag != "star" && other.tag != "Heal" 
-            && other.tag != "magnet" && other.tag != "coin" && other.tag != "Invincible") {
+            && other.tag != "magnet" && other.tag != "coin" && other.tag != "Invincible"
+            && other.tag != "BronzeCoin" && other.tag != "SilverCoin") {
 			if (GameControl.instance.ReduceHP (1)) {
                 diesound.Play();
 				BirdDie ();
@@ -115,7 +116,16 @@ public class Bird : MonoBehaviour
         } else if (other.gameObject.CompareTag("coin")) {
             GameControl.instance.BirdScored(5);
 			asCoin.Play ();
-//            Destroy(other.gameObject);
+            other.gameObject.SetActive(false);
+
+        } else if (other.gameObject.CompareTag("BronzeCoin")) {
+            GameControl.instance.BirdScored(1);
+            asCoin.Play ();
+            other.gameObject.SetActive(false);
+
+        } else if (other.gameObject.CompareTag("SilverCoin")) {
+            GameControl.instance.BirdScored(2);
+            asCoin.Play ();
             other.gameObject.SetActive(false);
 
         } else if (other.gameObject.CompareTag("Invincible")) {

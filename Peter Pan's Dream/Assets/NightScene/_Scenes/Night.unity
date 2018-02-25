@@ -1240,7 +1240,10 @@ MonoBehaviour:
   towerPrefab: {fileID: 1323334010728048, guid: 6d0c37e3bb4524307b6189d19d41aa1b,
     type: 2}
   batPrefab: {fileID: 1201418896705046, guid: a802d13482c0b404ca8ea84050277c50, type: 2}
-  starPrefab: {fileID: 1012394377329738, guid: 3f0f3963800854c4198cb9646d412673, type: 2}
+  squareCoinGoldPrefab: {fileID: 1012394377329738, guid: 3f0f3963800854c4198cb9646d412673,
+    type: 2}
+  lineCoinGoldPrefab: {fileID: 1691940041117858, guid: 71ad1bdd6d70e4c16a394602c24cc3aa,
+    type: 2}
   towerWithBrickPrefab: {fileID: 1213451546111654, guid: e92c1ece052364cfabb647cf0f28b0ba,
     type: 2}
   towerWithFireworkPrefab: {fileID: 1397854980068110, guid: 8cd35ffd6432d4b5cb3d453cf678b4da,
