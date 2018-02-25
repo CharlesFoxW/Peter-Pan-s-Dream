@@ -58,6 +58,11 @@ public class ObsPool : MonoBehaviour
         Ghost
     }
 
+    public enum CollectiveSettings
+    {
+        Normal_1 = 600
+    }
+
     public enum Settings
     {
         Normal_1 = 700,
@@ -77,7 +82,9 @@ public class ObsPool : MonoBehaviour
         LineCoinSilver,
         SingleCoinGold,
         SingleCoinBronze,
-        SingleCoinSilver 
+        SingleCoinSilver,
+        PandoraBox = 850,
+        Gem
     }
 
     public enum Fairy
@@ -91,6 +98,7 @@ public class ObsPool : MonoBehaviour
     public GameObject batPrefab;
     public GameObject squareCoinGoldPrefab;
     public GameObject lineCoinGoldPrefab;
+    public GameObject pandoraBoxPrefab;
     public GameObject towerWithBrickPrefab;
     public GameObject towerWithFireworkPrefab;
     public GameObject batWithWavePrefab;
@@ -110,6 +118,7 @@ public class ObsPool : MonoBehaviour
     private GameObject[] ghosts;
     private GameObject[] squareCoinGolds;
     private GameObject[] lineCoinGolds;
+    private GameObject pandoraBox;
     private GameObject fairyWithHeal;
     private GameObject fairyWithInvincible;
     private GameObject fairyWithMagnet;
@@ -126,7 +135,8 @@ public class ObsPool : MonoBehaviour
     private readonly int OBS_TYPE_COUNT_TOTAL = 6;
     private readonly int COL_TYPE_COUNT_TOTAL = 2;
     private readonly int FAIRY_TYP_COUNT_TOTAL = 3;
-    private readonly int SET_COUNT = 20;
+    private readonly int OBS_SET_COUNT = 20;
+    private readonly int COL_SET_COUNT = 10;
 
     //Costum attributes <NEED TO BE TAKEN CARE>.
     private readonly float DEFAULT_SPAWN_RATE_MIN = 1.5f;
@@ -137,8 +147,8 @@ public class ObsPool : MonoBehaviour
     private readonly float BAT_Y_MAX = 1.5f;
     private readonly float BAT_WAVE_Y_MIN = -3f;
     private readonly float BAT_WAVE_Y_MAX = 3.9f;
-    private readonly float COIN_Y_MIN = -2f;
-    private readonly float COIN_Y_MAX = 4.5f;
+    private readonly float COL_Y_MIN = -2.5f;
+    private readonly float COL_Y_MAX = 3.5f;
     private readonly float GHOST_Y_MIN = -3f;
     private readonly float GHOST_Y_MAX = 3.9f;
 
@@ -149,6 +159,7 @@ public class ObsPool : MonoBehaviour
     public int[] curFairyLocArr;
     public int obsTypeCountCur = 1;
     public float timeSinceStart;
+    public float timeSinceLastPandoraBox;
     public float timeSinceLastCoin;
     public float timeSinceLastSpawned;
     public float timeSinceLastHeal;
@@ -157,12 +168,14 @@ public class ObsPool : MonoBehaviour
     public ArrayList curObsTypeList;
     public bool needToHeal = false;
     public bool stormMode = false;
-    private bool[] addedToList;
-    private Setting[] settingList;
+    private bool[] addedToObsList;
+    private Setting[] obsSettingList;
+    private Setting[] colSettingList;
 
     void Start()
     {
         timeSinceStart = 0f;
+        timeSinceLastPandoraBox = 0f;
         timeSinceLastCoin = 0f;
         timeSinceLastSpawned = 0f;
         timeSinceLastHeal = 0f;
@@ -172,8 +185,9 @@ public class ObsPool : MonoBehaviour
         curObsLocArr = new int[OBS_TYPE_COUNT_TOTAL];
         curColLocArr = new int[COL_TYPE_COUNT_TOTAL];
         curFairyLocArr = new int[FAIRY_TYP_COUNT_TOTAL];
-        addedToList = new bool[SET_COUNT];
-        settingList = new Setting[SET_COUNT];
+        addedToObsList = new bool[OBS_SET_COUNT];
+        obsSettingList = new Setting[OBS_SET_COUNT];
+        colSettingList = new Setting[COL_SET_COUNT];
 
         towers = new GameObject[DEFAULT_OBS_POOL_SIZE];
         bats = new GameObject[DEFAULT_OBS_POOL_SIZE];
@@ -193,59 +207,66 @@ public class ObsPool : MonoBehaviour
         GenerateObstacles(towerWithFireworkPrefab, towerWithFireworks, DEFAULT_OBS_POOL_SIZE);
         GenerateObstacles(ghostPrefab, ghosts, GHOST_POOL_SIZE);
 
+        pandoraBox = (GameObject)Instantiate(pandoraBoxPrefab, objectPoolPosition, Quaternion.identity);
         fairyWithHeal = (GameObject)Instantiate(fairyWithHealPrefab, objectPoolPosition, Quaternion.identity);
         fairyWithInvincible = (GameObject)Instantiate(fairyWithInvinciblePrefab, objectPoolPosition, Quaternion.identity);
         fairyWithMagnet = (GameObject)Instantiate(fairyWithMagnetPrefab, objectPoolPosition, Quaternion.identity);
 
         //Normal Setting 1: Tower, Bat, Star
-        settingList[0] = new Setting();
-        settingList[0].addItem((int)Obstacle.Tower);
-        settingList[0].addItem((int)Obstacle.Bat);
-        settingList[0].addItem((int)Fairy.Invincible);
+        obsSettingList[0] = new Setting();
+        obsSettingList[0].addItem((int)Obstacle.Tower);
+        obsSettingList[0].addItem((int)Obstacle.Bat);
+        obsSettingList[0].addItem((int)Fairy.Invincible);
 
         //Normal Setting 2: Tower, BatWithWave, Bat, Star, Ghost
-        settingList[1] = new Setting();
-        settingList[1].addItem((int)Obstacle.Tower);
-        settingList[1].addItem((int)Obstacle.BatWithWave);
-        settingList[1].addItem((int)Obstacle.Bat);
-        settingList[1].addItem((int)Obstacle.Ghost);
-        settingList[1].addItem((int)Fairy.Invincible);
-        settingList[1].addItem((int)Fairy.Magnet);
-        settingList[1].addItem((int)Fairy.Heal);
+        obsSettingList[1] = new Setting();
+        obsSettingList[1].addItem((int)Obstacle.Tower);
+        obsSettingList[1].addItem((int)Obstacle.BatWithWave);
+        obsSettingList[1].addItem((int)Obstacle.Bat);
+        obsSettingList[1].addItem((int)Obstacle.Ghost);
+        obsSettingList[1].addItem((int)Fairy.Invincible);
+        obsSettingList[1].addItem((int)Fairy.Magnet);
+        obsSettingList[1].addItem((int)Fairy.Heal);
 
         //Normal Setting 3: TowerWithBrick, Bat, Star, Ghost
-        settingList[2] = new Setting();
-        settingList[2].addItem((int)Obstacle.TowerWithBrick);
-        settingList[2].addItem((int)Obstacle.Bat);
-        settingList[2].addItem((int)Obstacle.Ghost);
-        settingList[2].addItem((int)Fairy.Invincible);
-        settingList[2].addItem((int)Fairy.Magnet);
-        settingList[2].addItem((int)Fairy.Heal);
+        obsSettingList[2] = new Setting();
+        obsSettingList[2].addItem((int)Obstacle.TowerWithBrick);
+        obsSettingList[2].addItem((int)Obstacle.Bat);
+        obsSettingList[2].addItem((int)Obstacle.Ghost);
+        obsSettingList[2].addItem((int)Fairy.Invincible);
+        obsSettingList[2].addItem((int)Fairy.Magnet);
+        obsSettingList[2].addItem((int)Fairy.Heal);
 
         //Normal Setting 4: TowerWithFirework, Star, Ghost
-        settingList[3] = new Setting();
-        settingList[3].addItem((int)Obstacle.TowerWithFirework);
-        settingList[3].addItem((int)Obstacle.Ghost);
-        settingList[3].addItem((int)Fairy.Invincible);
-        settingList[3].addItem((int)Fairy.Magnet);
-        settingList[3].addItem((int)Fairy.Heal);
+        obsSettingList[3] = new Setting();
+        obsSettingList[3].addItem((int)Obstacle.TowerWithFirework);
+        obsSettingList[3].addItem((int)Obstacle.Ghost);
+        obsSettingList[3].addItem((int)Fairy.Invincible);
+        obsSettingList[3].addItem((int)Fairy.Magnet);
+        obsSettingList[3].addItem((int)Fairy.Heal);
 
         //Special Setting 1: Ghost Storm
-        settingList[14] = new Setting();
-        settingList[14].addItem((int)Obstacle.Ghost);
-        settingList[14].addItem((int)Fairy.Invincible);
+        obsSettingList[14] = new Setting();
+        obsSettingList[14].addItem((int)Obstacle.Ghost);
+        obsSettingList[14].addItem((int)Fairy.Invincible);
 
         //Special Setting 2: Bat Storm
-        settingList[15] = new Setting();
-        settingList[15].addItem((int)Obstacle.BatWithWave);
-        settingList[15].addItem((int)Obstacle.Bat);
-        settingList[15].addItem((int)Fairy.Invincible);
+        obsSettingList[15] = new Setting();
+        obsSettingList[15].addItem((int)Obstacle.BatWithWave);
+        obsSettingList[15].addItem((int)Obstacle.Bat);
+        obsSettingList[15].addItem((int)Fairy.Invincible);
 
         //Special Setting 3: Coin Storm
-        settingList[16] = new Setting();
-        settingList[16].addItem((int)Collective.SquareCoinGold);
-        settingList[16].addItem((int)Collective.LineCoinGold);
-        settingList[16].addItem((int)Fairy.Magnet);
+        obsSettingList[16] = new Setting();
+        obsSettingList[16].addItem((int)Collective.SquareCoinGold);
+        obsSettingList[16].addItem((int)Collective.LineCoinGold);
+        obsSettingList[16].addItem((int)Fairy.Magnet);
+
+        //Collection 1: 
+        colSettingList[0] = new Setting();
+        colSettingList[0].addItem((int)Collective.LineCoinGold);
+        colSettingList[0].addItem((int)Collective.SquareCoinGold);
+        colSettingList[0].addItem((int)Collective.PandoraBox);
     }
 
     //This spawns columns as long as the game is not over.
@@ -257,36 +278,37 @@ public class ObsPool : MonoBehaviour
         }
 
         timeSinceStart += Time.deltaTime;
+        timeSinceLastPandoraBox += Time.deltaTime;
         timeSinceLastCoin += Time.deltaTime;
         timeSinceLastInvincible += Time.deltaTime;
         timeSinceLastMagnet += Time.deltaTime;
         timeSinceLastSpawned += Time.deltaTime;
 
-        if (timeSinceStart < 15f && !addedToList[0])
+        if (timeSinceStart < 15f && !addedToObsList[0])
         {
             UsingSetting((int)Settings.Normal_1);
         }
-        if (timeSinceStart > 15f && timeSinceStart < 30f && !addedToList[1])
+        if (timeSinceStart > 15f && timeSinceStart < 30f && !addedToObsList[1])
         {
             UsingSetting((int)Settings.Normal_2);
         }
-        if (timeSinceStart > 30f && timeSinceStart < 45f && !addedToList[(int)Settings.BatWithWaveStorm - 700])
+        if (timeSinceStart > 30f && timeSinceStart < 45f && !addedToObsList[(int)Settings.BatWithWaveStorm - 700])
         {
             UsingSetting((int)Settings.BatWithWaveStorm);
         }
-        if (timeSinceStart > 45f && timeSinceStart < 60f && !addedToList[2])
+        if (timeSinceStart > 45f && timeSinceStart < 60f && !addedToObsList[2])
         {
             UsingSetting((int)Settings.Normal_3);
         }
-        if (timeSinceStart > 60f && timeSinceStart < 75f && !addedToList[(int)Settings.CoinStorm - 700])
+        if (timeSinceStart > 60f && timeSinceStart < 75f && !addedToObsList[(int)Settings.CoinStorm - 700])
         {
             UsingSetting((int)Settings.CoinStorm);
         }
-        if (timeSinceStart > 75f && timeSinceStart < 90f && !addedToList[(int)Settings.GhostStorm - 700])
+        if (timeSinceStart > 75f && timeSinceStart < 90f && !addedToObsList[(int)Settings.GhostStorm - 700])
         {
             UsingSetting((int)Settings.GhostStorm);
         }
-        if (timeSinceStart > 90f && !addedToList[3])
+        if (timeSinceStart > 90f && !addedToObsList[3])
         {
             UsingSetting((int)Settings.Normal_4);
         }
@@ -334,13 +356,23 @@ public class ObsPool : MonoBehaviour
                 LetItShow(type);
             }
             if (timeSinceLastCoin >= coinSpawnRate) {
+                float tempLastCoin = timeSinceLastCoin;
                 timeSinceLastCoin = 0f;
                 coinSpawnRate = float.MaxValue;
-                if (Random.Range(0,2) == 0) {
-                    LetItShow((int)Collective.SquareCoinGold);
-                } else {
-                    LetItShow((int)Collective.LineCoinGold);
+                int colTypeIndex = (int)(colSettingList[0].typeList[Random.Range(0, 3)]);
+                if (colTypeIndex == (int)Collective.PandoraBox) 
+                {
+                    if (timeSinceLastPandoraBox < 30f) 
+                    {
+                        timeSinceLastCoin = tempLastCoin;
+                    } else {
+                        timeSinceLastCoin = 0f;
+                        timeSinceLastPandoraBox = 0f;
+                        LetItShow(colTypeIndex);
+                        return;
+                    }
                 }
+                LetItShow(colTypeIndex);
             }
         }
     }
@@ -399,9 +431,9 @@ public class ObsPool : MonoBehaviour
         {
             stormMode = false;
         }
-        curObsTypeList = settingList[setIndex].typeList;
+        curObsTypeList = obsSettingList[setIndex].typeList;
         obsTypeCountCur = curObsTypeList.Count;
-        addedToList[setIndex] = true;
+        addedToObsList[setIndex] = true;
     }
 
     void LetItShow(int typeIndex)
@@ -427,10 +459,13 @@ public class ObsPool : MonoBehaviour
                 SetupObstacles(ghosts, new Vector2(spawnXPosition, Random.Range(GHOST_Y_MIN, GHOST_Y_MAX)), (int)Obstacle.Ghost, GHOST_POOL_SIZE);
                 break;
             case (int)Collective.SquareCoinGold:
-                SetupCollectives(squareCoinGolds, new Vector2(spawnXPosition, Random.Range(COIN_Y_MIN, COIN_Y_MAX)), (int)Collective.SquareCoinGold, COIN_POOL_SIZE);
+                SetupCollectives(squareCoinGolds, new Vector2(spawnXPosition, Random.Range(COL_Y_MIN, COL_Y_MAX)), (int)Collective.SquareCoinGold, COIN_POOL_SIZE);
                 break;
             case (int)Collective.LineCoinGold:
-                SetupCollectives(lineCoinGolds, new Vector2(spawnXPosition, Random.Range(COIN_Y_MIN, COIN_Y_MAX)), (int)Collective.LineCoinGold, COIN_POOL_SIZE);
+                SetupCollectives(lineCoinGolds, new Vector2(spawnXPosition, Random.Range(COL_Y_MIN, COL_Y_MAX)), (int)Collective.LineCoinGold, COIN_POOL_SIZE);
+                break;
+            case (int)Collective.PandoraBox:
+                pandoraBox.transform.position = new Vector2(spawnXPosition, Random.Range(COL_Y_MIN, COL_Y_MAX));
                 break;
             case (int)Fairy.Heal:
                 if (timeSinceLastHeal >= 30f && needToHeal)
