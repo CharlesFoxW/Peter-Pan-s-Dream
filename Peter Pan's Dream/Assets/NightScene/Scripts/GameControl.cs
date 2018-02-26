@@ -41,6 +41,10 @@ public class GameControl : MonoBehaviour
     private float nightTimeElapsed = 0f;
     public float nightTime = 10f;
 
+    public float orbitDistance = 1.0f;
+    public float orbitDegreesPerSec = 180.0f;
+    public Vector3 relativeDistance = new Vector3(0, 0.5f);
+
 	void Awake() {
 		//If we don't currently have a game control...
 		if (instance == null) {
@@ -105,12 +109,17 @@ public class GameControl : MonoBehaviour
             timeSinceMag += Time.deltaTime;
             if (!existMagnet)
             {
-                magnetPrefab.transform.position = Player.transform.position;
+                magnetPrefab.transform.position = Player.transform.position - new Vector3(1f,0);
+                relativeDistance = magnetPrefab.transform.position - Player.transform.position;
                 magnetPrefab.SetActive(true);
                 existMagnet = true;
             }
-            magnetPrefab.transform.position = Vector3.MoveTowards(transform.position,Player.transform.position, 100f);
-            if (timeSinceMag >= 10f) {
+            magnetPrefab.transform.position = Player.transform.position + relativeDistance;
+            magnetPrefab.transform.RotateAround(Player.transform.position, new Vector3(0,1f,0), orbitDegreesPerSec * Time.deltaTime);
+            // Reset relative position after rotate
+            relativeDistance = magnetPrefab.transform.position - Player.transform.position;
+            if (timeSinceMag >= 10f)
+            {
                 timeSinceMag = 0f;
                 hasMagnet = false;
                 existMagnet = false;
