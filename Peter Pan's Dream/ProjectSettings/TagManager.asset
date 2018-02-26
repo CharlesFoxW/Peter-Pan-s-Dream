@@ -14,6 +14,9 @@ TagManager:
   - boundary
   - BronzeCoin
   - SilverCoin
+  - gem
+  - PandoraBox
+  - Firework
   layers:
   - Default
   - TransparentFX

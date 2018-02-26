@@ -12,12 +12,15 @@ public class FireworkGenerator : MonoBehaviour {
     private bool fired = false;
     private Rigidbody2D rb2d;
     private Animator anim;
+    private AudioSource firesound;
+
     public GameObject exploded;
 
 	// Use this for initialization
 	void Start () {
         rb2d = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        firesound = GetComponent<AudioSource>();
         anim.SetTrigger("Fire");
         randomY = Random.Range(MIN_Y, MAX_Y);
         //rb2d.velocity = new Vector2(GameControl.instance.scrollSpeed, 0);
@@ -35,6 +38,7 @@ public class FireworkGenerator : MonoBehaviour {
                 if (timeElapsed >= fireCountDown)
                 {
                     fired = true;
+                    firesound.Play();
                 }
             }
             else
