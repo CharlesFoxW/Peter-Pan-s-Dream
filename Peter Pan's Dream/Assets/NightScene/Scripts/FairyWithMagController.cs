@@ -16,7 +16,7 @@ public class FairyWithMagController : MonoBehaviour {
         if (transform.position.x < GameControl.instance.Boundary_RIGHT 
             && transform.position.x > GameControl.instance.Boundary_LEFT) {
             transform.position = new Vector2 (transform.position.x + GameControl.instance.scrollSpeed * Time.deltaTime, 
-                Mathf.Sin (Time.time * 2) * 2);
+                Mathf.Sin (Time.time * 5));
         }
     }
 }

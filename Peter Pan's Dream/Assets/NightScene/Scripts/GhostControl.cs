@@ -12,6 +12,7 @@ public class GhostControl : MonoBehaviour {
     private float holdingTime;
     private Rigidbody2D rb2d;
     private Animator anim;
+    private AudioSource ghostsound;
 
 	// Use this for initialization
     void Start () {
@@ -20,6 +21,7 @@ public class GhostControl : MonoBehaviour {
         readyToShoot = false;
         rb2d = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
+        ghostsound = GetComponent<AudioSource>();
         rb2d.velocity = new Vector2(GameControl.instance.scrollSpeed, 0);
 	}
 	
@@ -34,7 +36,10 @@ public class GhostControl : MonoBehaviour {
                 if (holdingTime < 1f) {
                     holdingTime += Time.deltaTime;
                     if (holdingTime > 0.5f)
+                    {
                         anim.SetTrigger("Shake");
+                        ghostsound.Play();
+                    }
                 } else {
                     targetPosition = target.transform.position;
                     readyToShoot = true;

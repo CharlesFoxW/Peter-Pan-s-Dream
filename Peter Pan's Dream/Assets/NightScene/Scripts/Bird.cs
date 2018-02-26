@@ -23,10 +23,14 @@ public class Bird : MonoBehaviour
     private float reverseTimeElapsed = 0f;
 
 	public AudioSource asCoin;
-    public AudioSource gemsound;
-    public AudioSource hurtsound;
-    public AudioSource diesound;
-    public AudioSource healsound;
+    public AudioSource gemSound;
+    public AudioSource hurtSound;
+    public AudioSource dieSound;
+    public AudioSource healSound;
+    public AudioSource invincibleClip;
+    public AudioSource fireworkClip;
+
+    public GameObject camera;
 
 	void Start(){
 		//Get reference to the Animator component attached to this GameObject.
@@ -56,6 +60,7 @@ public class Bird : MonoBehaviour
             if (invincibleTimeElapse >= invincibleTime)
             {
                 anim.SetTrigger("idle");
+                camera.GetComponent<AudioSource>().Play();
                 isInvincible = false;
                 invincibleTimeElapse = 0f;
                 GameControl.instance.scrollSpeed = currentScrollSpeed;
@@ -105,10 +110,15 @@ public class Bird : MonoBehaviour
             && other.tag != "magnet" && other.tag != "coin" && other.tag != "Invincible"
             && other.tag != "BronzeCoin" && other.tag != "SilverCoin" && other.tag !="gem" && other.tag != "PandoraBox") {
 			if (GameControl.instance.ReduceHP (1)) {
-                diesound.Play();
+                if (other.gameObject.CompareTag("Firework"))
+                {
+                    camera.GetComponent<AudioSource>().Stop();
+                    fireworkClip.Play();
+                }
+                dieSound.Play();
 				BirdDie ();
 			} else {
-                hurtsound.Play();
+                hurtSound.Play();
 				anim.SetTrigger("collide");
 				isCollided = true;
 			}
@@ -126,7 +136,7 @@ public class Bird : MonoBehaviour
 			if (heal.activeSelf) {
 				heal.SetActive(false);
 				GameControl.instance.IncreaseHP (1);
-                healsound.Play();
+                healSound.Play();
 			}
 		} else if (other.gameObject.CompareTag("magnet")) {
             other.gameObject.SetActive(false);
@@ -149,19 +159,15 @@ public class Bird : MonoBehaviour
 
         } else if (other.gameObject.CompareTag("gem")) {
             GameControl.instance.BirdScored(100);
-            gemsound.Play ();
+            gemSound.Play ();
             other.gameObject.SetActive(false);
 
         } else if (other.gameObject.CompareTag("Invincible")) {
             GameObject invincible = other.gameObject.transform.GetChild(0).gameObject;
             if (invincible.activeSelf)
             {
-                currentScrollSpeed = GameControl.instance.scrollSpeed;
-                GameControl.instance.scrollSpeed = -15f; //Speedup the scene
                 invincible.SetActive(false);
-                anim.SetTrigger("collide");
-                isCollided = false;
-                isInvincible = true;
+                TriggerInvincible();
             }
         } else if (other.gameObject.CompareTag("PandoraBox")) {
             RandomPickup(other);
@@ -177,7 +183,7 @@ public class Bird : MonoBehaviour
         else if (random >= 6 && random < 9)
         {
             GameControl.instance.IncreaseHP(1);
-            healsound.Play();
+            healSound.Play();
         }
 //        else if (random >= 7 && random < 9)
 //        {
@@ -186,12 +192,19 @@ public class Bird : MonoBehaviour
 //        }
         else if (random >= 9)
         {
-            currentScrollSpeed = GameControl.instance.scrollSpeed;
-            GameControl.instance.scrollSpeed = -15f; //Speedup the scene
-            anim.SetTrigger("collide");
-            isCollided = false;
-            isInvincible = true;
+            TriggerInvincible();
         }
+    }
+
+    void TriggerInvincible()
+    {
+        currentScrollSpeed = GameControl.instance.scrollSpeed;
+        GameControl.instance.scrollSpeed = -15f; //Speedup the scene
+        invincibleClip.Play();
+        camera.GetComponent<AudioSource>().Pause();
+        anim.SetTrigger("collide");
+        isCollided = false;
+        isInvincible = true;
     }
 
     void BirdDie() {

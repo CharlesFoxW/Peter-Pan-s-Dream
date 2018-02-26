@@ -7,6 +7,7 @@ public class BrickControl : MonoBehaviour {
     private Rigidbody2D rb2d;
     public GameObject brick;
     private Animator anim;
+    private AudioSource throwSound;
 
 	public float FALL_INTERVAL = 1f;
     private float timeElaspe = 0f;
@@ -14,7 +15,7 @@ public class BrickControl : MonoBehaviour {
     void Start () {
         rb2d = GetComponent<Rigidbody2D>();
         anim = transform.Find("tower").gameObject.GetComponent<Animator>();
-
+        throwSound = GetComponent<AudioSource>();
         //rb2d.velocity = new Vector2 (GameControl.instance.scrollSpeed, 0);
     }
 
@@ -28,6 +29,7 @@ public class BrickControl : MonoBehaviour {
 
             if (timeElaspe >= FALL_INTERVAL) {
                 Instantiate(brick, new Vector2(transform.position.x,2), Quaternion.identity);
+                throwSound.Play();
                 timeElaspe = 0f;
             }
 
