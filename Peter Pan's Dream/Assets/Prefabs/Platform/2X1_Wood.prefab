@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4199062128203496}
   - component: {fileID: 212499685471202972}
   - component: {fileID: 61970705269405682}
+  - component: {fileID: 114702105623957802}
   m_Layer: 8
   m_Name: 2X1_Wood
   m_TagString: Untagged
@@ -66,6 +67,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.9414883, y: 0.57288456}
   m_EdgeRadius: 0
+--- !u!114 &114702105623957802
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1876785898389426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e7f070d7928746078354617ad3698bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platformDestructionPoint: {fileID: 0}
 --- !u!212 &212499685471202972
 SpriteRenderer:
   m_ObjectHideFlags: 1

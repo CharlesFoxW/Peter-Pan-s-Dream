@@ -13,7 +13,6 @@ public class PlatformGenerator : MonoBehaviour {
 	public float distanceBetweenMin;
 	public float distanceBetweenMax;
 
-	//public GameObject[] thePlatforms;
 	private int platformSelector;
 	private float[] platformWidths;
 
@@ -34,16 +33,9 @@ public class PlatformGenerator : MonoBehaviour {
 	public float randomLadyBugThreshold;
 	public ObjectPooler ladyBugPool;
 
-	/*
-	public float rightLimit = 1.0f;
-	public float leftLimit = -1.0f;
-	public float speed = 1.0f;
-	private int direction = 1;
-	*/
 
 	// Use this for initialization
 	void Start () {
-		//platformWidth = thePlatform.GetComponent<BoxCollider2D> ().size.x; 
 
 		platformWidths = new float[theObjectPools.Length];
 		for (int i = 0; i < theObjectPools.Length; i++) {
@@ -58,16 +50,7 @@ public class PlatformGenerator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		/*
-		if (transform.position.x > rightLimit) {
-			direction = -1;
-		}
-		else if (transform.position.x < leftLimit) {
-			direction = 1;
-		}
 
-		float offset = direction * speed * Time.deltaTime;
-		*/
 		
 		if (transform.position.x < generationPoint.position.x){
 			distanceBetween = Random.Range (distanceBetweenMin, distanceBetweenMax);
@@ -82,16 +65,11 @@ public class PlatformGenerator : MonoBehaviour {
 			if (platformSelector < 4) {	// grass platforms
 				heightChange = (float)(level - 1) * heightLevel + heightOffset;
 			} else {	// wood platforms
-				Debug.Log (platformWidths[platformSelector]);
 				heightChange = heightLevel + heightOffset;
 			}
 
 			transform.position = new Vector3 (transform.position.x + (platformWidths[platformSelector] / 2) + distanceBetween,
 				heightChange, transform.position.z);
-			
-
-
-			//Instantiate(/*thePlatform*/ thePlatforms[platformSelector], transform.position, transform.rotation);
 
 
 			GameObject newPlatform = theObjectPools[platformSelector].GetPooledObject();
@@ -109,12 +87,14 @@ public class PlatformGenerator : MonoBehaviour {
 				if (platformWidths [platformSelector] > 5.2f) {
 					GameObject newLadyBug = ladyBugPool.GetPooledObject ();
 
-					float ladyBugXPosition = Random.Range (-platformWidths [platformSelector] / 2f + 1f, platformWidths [platformSelector] / 2f - 1f);
+					Vector3 ladyBugPositionOffset = new Vector3 (0f, 1f, 0f);
 
-					Vector3 ladyBugPosition = new Vector3 (ladyBugXPosition, 1f, 0f);
-
-					newLadyBug.transform.position = transform.position + ladyBugPosition;
+					newLadyBug.transform.position = transform.position + ladyBugPositionOffset;
 					newLadyBug.transform.rotation = transform.rotation;
+
+					// pass the parameters used for moving the ladybugs.
+					LadyBugController.PassParameters(newLadyBug, newPlatform.transform.position, 
+						newPlatform.GetComponent<BoxCollider2D>().size.x);
 					newLadyBug.SetActive (true);
 				}
 			}

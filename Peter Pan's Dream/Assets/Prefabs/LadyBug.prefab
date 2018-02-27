@@ -22,6 +22,7 @@ GameObject:
   - component: {fileID: 212234474256464610}
   - component: {fileID: 61970073532019910}
   - component: {fileID: 114007961047012694}
+  - component: {fileID: 114772748850266282}
   m_Layer: 8
   m_Name: LadyBug
   m_TagString: killbox
@@ -79,6 +80,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   platformDestructionPoint: {fileID: 0}
+--- !u!114 &114772748850266282
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1306301566402244}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee05727d6d55648869745d1a17253990, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movingSpeed: 4
 --- !u!212 &212234474256464610
 SpriteRenderer:
   m_ObjectHideFlags: 1

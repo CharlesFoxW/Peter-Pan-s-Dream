@@ -521,7 +521,6 @@ MonoBehaviour:
   highScoreText: {fileID: 1180287273}
   scoreCount: 0
   hiscoreCount: 0
-  audioCoin: {fileID: 0}
   pointsPerSecond: 1
   scoreIncreasing: 1
 --- !u!1 &564803744
@@ -1462,7 +1461,7 @@ MonoBehaviour:
   maxHeightChange: 5
   heightLevel: 4
   randomCoinThreshold: 75
-  randomLadyBugThreshold: 60
+  randomLadyBugThreshold: 50
   ladyBugPool: {fileID: 1862778180}
 --- !u!4 &999535610
 Transform:
