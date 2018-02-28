@@ -104,7 +104,7 @@ public class PlatformGenerator : MonoBehaviour {
 
 			if (Random.Range (0f, 100f) < randomCoinThreshold) {
 				theCoinGenerator.SpawnCoins (new Vector3 (transform.position.x,
-					transform.position.y + 1f, transform.position.z));
+					transform.position.y + 1f, transform.position.z), platformWidths[platformSelector]);
 			}
 
 			if (Random.Range (0f, 100f) < randomLadyBugThreshold) {

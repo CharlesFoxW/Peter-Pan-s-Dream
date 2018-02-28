@@ -1490,7 +1490,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f385def4d13f489782086c7a7247fe6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastHeight: -5
   thePlatform: {fileID: 1757093938585956, guid: 5915d6c30b74740fd97790f032bdf08b,
     type: 2}
   generationPoint: {fileID: 803983225}
@@ -2557,7 +2556,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pooledObject: {fileID: 1531381991250340, guid: b03cf70cc7ff34b869808a8444c61aa9,
     type: 2}
-  pooledAmount: 15
+  pooledAmount: 20
 --- !u!4 &1358980680
 Transform:
   m_ObjectHideFlags: 0
