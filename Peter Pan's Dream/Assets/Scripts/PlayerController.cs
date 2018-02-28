@@ -63,12 +63,15 @@ public class PlayerController : MonoBehaviour {
 
 	IEnumerator OnCollisionEnter2D(Collision2D collision)
 	{
-		
 		if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Ground")) 
 		{
-			isJumpOnce = false;
-			isJumpTwice = false;
-			myAnimator.SetBool ("Grounded",true);
+			Debug.Log (collision.relativeVelocity.y);
+			if (collision.relativeVelocity.y > 0) {
+				isJumpOnce = false;
+				isJumpTwice = false;
+			}
+			myAnimator.SetBool ("Grounded", true);
+
 		}
 
 		if (collision.collider.gameObject.tag == "killbox" ){
