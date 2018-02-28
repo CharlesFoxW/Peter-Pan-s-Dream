@@ -15,8 +15,12 @@ public class PlatformGenerator : MonoBehaviour {
 
 	private int platformSelector;
 	private float[] platformWidths;
+	private float[] platformHeights;
+
 
 	public ObjectPooler[] theObjectPools;
+
+	List<int>[] platformByLevel;
 
 	private float minHeight;
 	private float maxHeight;
@@ -24,6 +28,13 @@ public class PlatformGenerator : MonoBehaviour {
 	public float maxHeightChange;
 	private float heightChange;
 	public float heightLevel;
+	private float prevLevel = 0;
+	private float curSameLevelNum = 0;
+	private float maxSameLevelNum = 3;
+	private float heightOffset = -0.85f;
+
+	public bool isFirstGround = true;
+
 
 	//coin generator parameters
 	private CoinGenerator theCoinGenerator;
@@ -38,48 +49,79 @@ public class PlatformGenerator : MonoBehaviour {
 	void Start () {
 
 		platformWidths = new float[theObjectPools.Length];
+		platformHeights = new float[theObjectPools.Length];
+
 		for (int i = 0; i < theObjectPools.Length; i++) {
 			platformWidths[i] = theObjectPools[i].pooledObject.GetComponent<BoxCollider2D>().size.x;
+			platformHeights[i] = theObjectPools[i].pooledObject.GetComponent<BoxCollider2D>().size.y;
+
 		}
 
 		minHeight = transform.position.y;
 		maxHeight = maxHeightPoint.position.y;
 
+		platformByLevel = new List<int>[3];
+		//platformByLevel[0] = new List<int>{8};
+		//platformByLevel[1] = new List<int>{8};
+		//platformByLevel[2] = new List<int>{8};
+		platformByLevel[0] = new List<int>{6, 7, 8};
+		platformByLevel[1] = new List<int>{0, 1, 2, 3, 6};
+		platformByLevel[2] = new List<int>{0, 1, 2, 3, 4, 5};
+
 		theCoinGenerator = FindObjectOfType<CoinGenerator> ();
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-
+		
 		
 		if (transform.position.x < generationPoint.position.x){
-			distanceBetween = Random.Range (distanceBetweenMin, distanceBetweenMax);
+			
 
-			platformSelector = Random.Range (0, theObjectPools.Length);
+			int level = Random.Range (0, 3);
 
-			int level = Random.Range (0, 2);
-
-			//heightChange = transform.position.y + Random.Range (maxHeightChange, -maxHeightChange);
-			float heightOffset = -2f;
-
-			if (platformSelector < 4) {	// grass platforms
-				heightChange = (float)(level - 1) * heightLevel + heightOffset;
-			} else {	// wood platforms
-				heightChange = heightLevel + heightOffset;
+			if (level != prevLevel) {
+				curSameLevelNum = 1;
+			} else if (curSameLevelNum < maxSameLevelNum) {
+				curSameLevelNum++;
+			} else {
+				while (level == prevLevel) {
+					level = Random.Range (0, 2);
+				}
+				curSameLevelNum = 1;
 			}
+			if (prevLevel == level || isFirstGround) {
+				distanceBetween = Random.Range (1.5f, distanceBetweenMax);
+				isFirstGround = false;
+			} else {
+				distanceBetween = Random.Range (distanceBetweenMin, distanceBetweenMax);
+			}
+				
+			prevLevel = level;
+
+			platformSelector = platformByLevel[level][Random.Range(0, platformByLevel[level].Count)];
+
+
+			heightChange = (float)(level - 1) * heightLevel + heightOffset;
 
 			transform.position = new Vector3 (transform.position.x + (platformWidths[platformSelector] / 2) + distanceBetween,
-				heightChange, transform.position.z);
-
+				heightChange , transform.position.z);
 
 			GameObject newPlatform = theObjectPools[platformSelector].GetPooledObject();
-			newPlatform.transform.position = transform.position;
+			newPlatform.transform.position = new Vector3 (
+				transform.position.x,
+				heightChange - platformHeights[platformSelector] / 2,
+				transform.position.z
+			);
 			newPlatform.transform.rotation = transform.rotation;
 			newPlatform.SetActive (true);
 
+			Vector3 ladyBugPositionOffset = new Vector3 (0f, 0.8f, 0f);
+
+
 			if (Random.Range (0f, 100f) < randomCoinThreshold) {
-				theCoinGenerator.SpawnCoins (new Vector3 (transform.position.x,
-					transform.position.y + 1f, transform.position.z));
+				theCoinGenerator.SpawnCoins (transform.position + ladyBugPositionOffset);
 			}
 
 			if (Random.Range (0f, 100f) < randomLadyBugThreshold) {
@@ -87,7 +129,6 @@ public class PlatformGenerator : MonoBehaviour {
 				if (platformWidths [platformSelector] > 5.2f) {
 					GameObject newLadyBug = ladyBugPool.GetPooledObject ();
 
-					Vector3 ladyBugPositionOffset = new Vector3 (0f, 1f, 0f);
 
 					newLadyBug.transform.position = transform.position + ladyBugPositionOffset;
 					newLadyBug.transform.rotation = transform.rotation;

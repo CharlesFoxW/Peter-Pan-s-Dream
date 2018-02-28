@@ -75,7 +75,10 @@ public class PlayerController : MonoBehaviour {
 			audioDie.Play ();
 			audioBg.Stop ();
 			moveSpeed = 0;
+			isJumpOnce = true;
+			isJumpTwice = true;
 			myRigidbody.velocity = new Vector2 (0, 0);
+
 			yield return new WaitForSeconds (2.5f);
 			audioBg.Play ();
 			gameManager.RestartGame ();	
