@@ -11,6 +11,6 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Daytime.unity
     guid: ea2cd2359673a4c7593ac2a1ec0f485c
-  - enabled: 1
+  - enabled: 0
     path: Assets/NightScene/_Scenes/Night.unity
     guid: ab8ef5f57c6f04e42880b8b05e8278f8
