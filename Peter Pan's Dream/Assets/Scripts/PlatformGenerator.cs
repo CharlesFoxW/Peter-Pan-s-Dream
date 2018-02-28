@@ -6,6 +6,7 @@ public class PlatformGenerator : MonoBehaviour {
 
 	public GameObject thePlatform;
 	public Transform generationPoint;
+
 	public float distanceBetween;
 
 	private float platformWidth;
@@ -18,10 +19,20 @@ public class PlatformGenerator : MonoBehaviour {
 
 	public ObjectPooler[] theObjectPools;
 
-	private float minHeight;
-	private float maxHeight;
+	private float lastHeight;
+
+	public Transform lowerPoint;
+	public Transform middlePoint;
+	public Transform highPoint;
 	public Transform maxHeightPoint;
-	public float maxHeightChange;
+
+	private float lowerHeight;
+	private float middleHeight;
+	private float highHeight;
+	private float maxHeight;
+	private float offset;
+
+	//	public float maxHeightChange;
 	private float heightChange;
 	public float heightLevel;
 
@@ -42,34 +53,48 @@ public class PlatformGenerator : MonoBehaviour {
 			platformWidths[i] = theObjectPools[i].pooledObject.GetComponent<BoxCollider2D>().size.x;
 		}
 
-		minHeight = transform.position.y;
+		lowerHeight = lowerPoint.position.y;
+		middleHeight = middlePoint.position.y;
+		highHeight = highPoint.position.y;
 		maxHeight = maxHeightPoint.position.y;
+		offset = 1.0f;
+		lastHeight = lowerHeight;
 
 		theCoinGenerator = FindObjectOfType<CoinGenerator> ();
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 
-		
+
 		if (transform.position.x < generationPoint.position.x){
 			distanceBetween = Random.Range (distanceBetweenMin, distanceBetweenMax);
 
-			platformSelector = Random.Range (0, theObjectPools.Length);
 
-			int level = Random.Range (0, 2);
+			//add thick platform
+			float curHeight = 0;
 
-			//heightChange = transform.position.y + Random.Range (maxHeightChange, -maxHeightChange);
-			float heightOffset = -2f;
-
-			if (platformSelector < 4) {	// grass platforms
-				heightChange = (float)(level - 1) * heightLevel + heightOffset;
-			} else {	// wood platforms
-				heightChange = heightLevel + heightOffset;
+			if (lastHeight <= middleHeight){ //lower
+				platformSelector = Random.Range (0, 7);
+			}else if (lastHeight <= highHeight){ //middle
+				platformSelector = Random.Range (0, theObjectPools.Length);
+			}else {//high
+				platformSelector = Random.Range (3, 7); 
 			}
 
+
+			if (platformSelector < 3) {
+				curHeight = Random.Range (lowerHeight, middleHeight - offset);
+			} else if (platformSelector < 7) { 
+				curHeight = Random.Range (middleHeight, highHeight - 2.0f * offset);
+			} else { 
+				curHeight = Random.Range (highHeight, maxHeight);
+			}	
+
+			lastHeight = curHeight;
+
 			transform.position = new Vector3 (transform.position.x + (platformWidths[platformSelector] / 2) + distanceBetween,
-				heightChange, transform.position.z);
+				curHeight, transform.position.z);
 
 
 			GameObject newPlatform = theObjectPools[platformSelector].GetPooledObject();
@@ -83,7 +108,7 @@ public class PlatformGenerator : MonoBehaviour {
 			}
 
 			if (Random.Range (0f, 100f) < randomLadyBugThreshold) {
-				
+
 				if (platformWidths [platformSelector] > 5.2f) {
 					GameObject newLadyBug = ladyBugPool.GetPooledObject ();
 
