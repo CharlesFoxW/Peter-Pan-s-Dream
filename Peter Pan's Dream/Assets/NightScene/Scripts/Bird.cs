@@ -29,6 +29,7 @@ public class Bird : MonoBehaviour
     public AudioSource healSound;
     public AudioSource invincibleClip;
     public AudioSource fireworkClip;
+    public AudioSource pickUpMagSound;
 
     public GameObject camera;
 
@@ -140,6 +141,7 @@ public class Bird : MonoBehaviour
 			}
 		} else if (other.gameObject.CompareTag("magnet")) {
             other.gameObject.SetActive(false);
+            pickUpMagSound.Play();
             GameControl.instance.hasMagnet = true;
             GameControl.instance.fairyWithMag = other.gameObject.transform.parent;
         } else if (other.gameObject.CompareTag("coin")) {

@@ -14,7 +14,7 @@ public class BrickControl : MonoBehaviour {
 
     void Start () {
         rb2d = GetComponent<Rigidbody2D>();
-        anim = transform.Find("tower").gameObject.GetComponent<Animator>();
+        anim = transform.GetChild(0).gameObject.GetComponent<Animator>();
         throwSound = GetComponent<AudioSource>();
         //rb2d.velocity = new Vector2 (GameControl.instance.scrollSpeed, 0);
     }
