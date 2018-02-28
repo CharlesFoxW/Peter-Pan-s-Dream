@@ -175,7 +175,7 @@ public class ObsPool : MonoBehaviour
 
     //Main attributes <NEED TO BE TAKEN CARE>.
     private readonly int DEFAULT_OBS_POOL_SIZE = 4;
-    private readonly int COIN_POOL_SIZE = 5;
+    private readonly int COIN_POOL_SIZE = 4;
     private float spawnRate = 2f;
     private float coinSpawnRate = float.MaxValue;
     private readonly int GHOST_POOL_SIZE = 10;
@@ -243,20 +243,20 @@ public class ObsPool : MonoBehaviour
         bats = new GameObject[DEFAULT_OBS_POOL_SIZE];
         towerWithBricks = new GameObject[DEFAULT_OBS_POOL_SIZE];
 
-        singleCoinBronzes = new GameObject[COIN_POOL_SIZE];
-        doubleCoinBronzes = new GameObject[COIN_POOL_SIZE];
+        //singleCoinBronzes = new GameObject[COIN_POOL_SIZE];
+        //doubleCoinBronzes = new GameObject[COIN_POOL_SIZE];
         lineThreeCoinBronzes = new GameObject[COIN_POOL_SIZE];
         squareFourCoinBronzes = new GameObject[COIN_POOL_SIZE];
         //squareNineCoinBronzes = new GameObject[COIN_POOL_SIZE];
 
-        singleCoinSilvers = new GameObject[COIN_POOL_SIZE];
-        doubleCoinSilvers = new GameObject[COIN_POOL_SIZE];
+        //singleCoinSilvers = new GameObject[COIN_POOL_SIZE];
+        //doubleCoinSilvers = new GameObject[COIN_POOL_SIZE];
         lineThreeCoinSilvers = new GameObject[COIN_POOL_SIZE];
         squareFourCoinSilvers = new GameObject[COIN_POOL_SIZE];
         //squareNineCoinSilvers = new GameObject[COIN_POOL_SIZE];
 
-        singleCoinGolds = new GameObject[COIN_POOL_SIZE];
-        doubleCoinGolds = new GameObject[COIN_POOL_SIZE];
+        //singleCoinGolds = new GameObject[COIN_POOL_SIZE];
+        //doubleCoinGolds = new GameObject[COIN_POOL_SIZE];
         lineThreeCoinGolds = new GameObject[COIN_POOL_SIZE];
         squareFourCoinGolds = new GameObject[COIN_POOL_SIZE];
         squareNineCoinGolds = new GameObject[COIN_POOL_SIZE];
@@ -268,18 +268,18 @@ public class ObsPool : MonoBehaviour
         GenerateObstacles(towerPrefab, towers, DEFAULT_OBS_POOL_SIZE);
         GenerateObstacles(batPrefab, bats, DEFAULT_OBS_POOL_SIZE);
         GenerateObstacles(towerWithBrickPrefab, towerWithBricks, DEFAULT_OBS_POOL_SIZE);
-        GenerateObstacles(singleCoinBronzePrefab, singleCoinBronzes, COIN_POOL_SIZE);
-        GenerateObstacles(doubleCoinBronzePrefab, doubleCoinBronzes, COIN_POOL_SIZE);
+        //GenerateObstacles(singleCoinBronzePrefab, singleCoinBronzes, COIN_POOL_SIZE);
+        //GenerateObstacles(doubleCoinBronzePrefab, doubleCoinBronzes, COIN_POOL_SIZE);
         GenerateObstacles(lineThreeCoinBronzePrefab, lineThreeCoinBronzes, COIN_POOL_SIZE);
         GenerateObstacles(squareFourCoinBronzePrefab, squareFourCoinBronzes, COIN_POOL_SIZE);
         //GenerateObstacles(squareNineCoinBronzePrefab, squareNineCoinBronzes, COIN_POOL_SIZE);
-        GenerateObstacles(singleCoinSilverPrefab, singleCoinSilvers, COIN_POOL_SIZE);
-        GenerateObstacles(doubleCoinSilverPrefab, doubleCoinSilvers, COIN_POOL_SIZE);
+        //GenerateObstacles(singleCoinSilverPrefab, singleCoinSilvers, COIN_POOL_SIZE);
+        //GenerateObstacles(doubleCoinSilverPrefab, doubleCoinSilvers, COIN_POOL_SIZE);
         GenerateObstacles(lineThreeCoinSilverPrefab, lineThreeCoinSilvers, COIN_POOL_SIZE);
         GenerateObstacles(squareFourCoinSilverPrefab, squareFourCoinSilvers, COIN_POOL_SIZE);
         //GenerateObstacles(squareNineCoinSilverPrefab, squareNineCoinSilvers, COIN_POOL_SIZE);
-        GenerateObstacles(singleCoinGoldPrefab, singleCoinGolds, COIN_POOL_SIZE);
-        GenerateObstacles(doubleCoinGoldPrefab, doubleCoinGolds, COIN_POOL_SIZE);
+        //GenerateObstacles(singleCoinGoldPrefab, singleCoinGolds, COIN_POOL_SIZE);
+        //GenerateObstacles(doubleCoinGoldPrefab, doubleCoinGolds, COIN_POOL_SIZE);
         GenerateObstacles(lineThreeCoinGoldPrefab, lineThreeCoinGolds, COIN_POOL_SIZE);
         GenerateObstacles(squareFourCoinGoldPrefab, squareFourCoinGolds, COIN_POOL_SIZE);
         GenerateObstacles(squareNineCoinGoldPrefab, squareNineCoinGolds, COIN_POOL_SIZE);
@@ -375,38 +375,38 @@ public class ObsPool : MonoBehaviour
 
         //Collection 1: 
         colSettingList[0] = new Setting();
-        colSettingList[0].addItem((int)Collective.SingleCoinBronze);
-        colSettingList[0].addItem((int)Collective.DoubleCoinBronze);
+        //colSettingList[0].addItem((int)Collective.SingleCoinBronze);
+        //colSettingList[0].addItem((int)Collective.DoubleCoinBronze);
         colSettingList[0].addItem((int)Collective.LineThreeCoinBronze);
         colSettingList[0].addItem((int)Collective.PandoraBox);
 
         //Collection 2: 
         colSettingList[1] = new Setting();
-        colSettingList[1].addItem((int)Collective.SingleCoinSilver);
-        colSettingList[1].addItem((int)Collective.DoubleCoinSilver);
-        colSettingList[1].addItem((int)Collective.DoubleCoinBronze);
+        //colSettingList[1].addItem((int)Collective.SingleCoinSilver);
+        //colSettingList[1].addItem((int)Collective.DoubleCoinSilver);
+        //colSettingList[1].addItem((int)Collective.DoubleCoinBronze);
         colSettingList[1].addItem((int)Collective.LineThreeCoinBronze);
         colSettingList[1].addItem((int)Collective.PandoraBox);
 
         //Collection 3: 
         colSettingList[2] = new Setting();
-        colSettingList[2].addItem((int)Collective.SingleCoinSilver);
-        colSettingList[2].addItem((int)Collective.DoubleCoinSilver);
+        //colSettingList[2].addItem((int)Collective.SingleCoinSilver);
+        //colSettingList[2].addItem((int)Collective.DoubleCoinSilver);
         colSettingList[2].addItem((int)Collective.LineThreeCoinSilver);
         colSettingList[2].addItem((int)Collective.PandoraBox);
 
         //Collection 4: 
         colSettingList[3] = new Setting();
-        colSettingList[3].addItem((int)Collective.SingleCoinGold);
-        colSettingList[3].addItem((int)Collective.DoubleCoinGold);
-        colSettingList[3].addItem((int)Collective.DoubleCoinSilver);
+        //colSettingList[3].addItem((int)Collective.SingleCoinGold);
+        //colSettingList[3].addItem((int)Collective.DoubleCoinGold);
+        //colSettingList[3].addItem((int)Collective.DoubleCoinSilver);
         colSettingList[3].addItem((int)Collective.LineThreeCoinSilver);
         colSettingList[3].addItem((int)Collective.PandoraBox);
 
         //Collection 5: 
         colSettingList[4] = new Setting();
-        colSettingList[4].addItem((int)Collective.SingleCoinGold);
-        colSettingList[4].addItem((int)Collective.DoubleCoinGold);
+        //colSettingList[4].addItem((int)Collective.SingleCoinGold);
+        //colSettingList[4].addItem((int)Collective.DoubleCoinGold);
         colSettingList[4].addItem((int)Collective.LineThreeCoinGold);
         colSettingList[4].addItem((int)Collective.SquareFourCoinGold);
         colSettingList[4].addItem((int)Collective.PandoraBox);

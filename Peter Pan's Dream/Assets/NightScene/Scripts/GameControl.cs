@@ -123,7 +123,7 @@ public class GameControl : MonoBehaviour
                 timeSinceMag = 0f;
                 hasMagnet = false;
                 existMagnet = false;
-                fairyWithMag.Find("magnet").gameObject.SetActive(true);
+                fairyWithMag.GetChild(1).gameObject.SetActive(true);
                 magnetPrefab.SetActive(false);
             }
         }
