@@ -1534,7 +1534,7 @@ MonoBehaviour:
     type: 2}
   generationPoint: {fileID: 803983225}
   distanceBetween: 0
-  distanceBetweenMin: 1.5
+  distanceBetweenMin: -2
   distanceBetweenMax: 3.5
   theObjectPools:
   - {fileID: 1076825539}
@@ -1549,6 +1549,7 @@ MonoBehaviour:
   maxHeightPoint: {fileID: 800895996}
   maxHeightChange: 5
   heightLevel: 3
+  isFirstGround: 1
   randomCoinThreshold: 75
   randomLadyBugThreshold: 100
   ladyBugPool: {fileID: 1862778180}
@@ -2463,7 +2464,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: d2d33bc7dd9154c85be384eaf04e2055, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.64
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2819,7 +2820,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5b200bbe3f1524f7595477eb25214593, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.77
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -2928,7 +2929,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 49fb6632eab56408aa747887dc00bf23, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 0
   Mute: 0
