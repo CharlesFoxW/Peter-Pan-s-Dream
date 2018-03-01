@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1876785898389426}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.76, y: -2.03, z: 0}
+  m_LocalPosition: {x: -17.866398, y: 12.870669, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -54,10 +54,10 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.036418438, y: 0.04855776}
+  m_Offset: {x: 0.036418438, y: -0.0344882}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0.6360287}
     oldSize: {x: 2.16, y: 0.67}
     newSize: {x: 2.16, y: 0.67}
     adaptiveTilingThreshold: 0.5
