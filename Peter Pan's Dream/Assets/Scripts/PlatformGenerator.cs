@@ -44,6 +44,10 @@ public class PlatformGenerator : MonoBehaviour {
 	public float randomLadyBugThreshold;
 	public ObjectPooler ladyBugPool;
 
+	//sniper generator:
+	public float randomSniperThreshold;
+	public ObjectPooler sniperPool;
+
 
 	// Use this for initialization
 	void Start () {
@@ -120,13 +124,25 @@ public class PlatformGenerator : MonoBehaviour {
 			Vector3 ladyBugPositionOffset = new Vector3 (0f, 0.6f, 0f);
 			Vector3 coinPositionOffset = new Vector3 (0f, 1f, 0f);
 
+
 			if (Random.Range (0f, 100f) < randomCoinThreshold) {
 				theCoinGenerator.SpawnCoins (transform.position + coinPositionOffset, platformWidths[platformSelector]);
 			}
 
-			if (Random.Range (0f, 100f) < randomLadyBugThreshold) {
+			if (platformWidths [platformSelector] > 5.2f) {
 				
-				if (platformWidths [platformSelector] > 5.2f) {
+				if (Random.Range (0f, 100f) < randomSniperThreshold) {
+
+					GameObject newSniper = sniperPool.GetPooledObject ();
+
+					float sniperXPositionOffset = Random.Range (0f, platformWidths[platformSelector] / 2);
+					Vector3 sniperPositionOffset = new Vector3 (sniperXPositionOffset, 0.6f, 0f);
+					newSniper.transform.position = transform.position + sniperPositionOffset;
+					newSniper.transform.rotation = transform.rotation;
+					newSniper.SetActive (true);
+
+				} else if (Random.Range (0f, 100f) < randomLadyBugThreshold) {
+					
 					GameObject newLadyBug = ladyBugPool.GetPooledObject ();
 
 
@@ -134,11 +150,14 @@ public class PlatformGenerator : MonoBehaviour {
 					newLadyBug.transform.rotation = transform.rotation;
 
 					// pass the parameters used for moving the ladybugs.
-					LadyBugController.PassParameters(newLadyBug, newPlatform.transform.position, 
-						newPlatform.GetComponent<BoxCollider2D>().size.x);
+					LadyBugController.PassParameters (newLadyBug, newPlatform.transform.position, 
+						newPlatform.GetComponent<BoxCollider2D> ().size.x);
 					newLadyBug.SetActive (true);
+
 				}
+
 			}
+
 
 			transform.position = new Vector3(transform.position.x + (platformWidths[platformSelector] / 2), 
 				transform.position.y, transform.position.z);
