@@ -17,6 +17,9 @@ TagManager:
   - gem
   - PandoraBox
   - Firework
+  - PlatformGenerationPoint
+  - PlatfromDestructionPoint
+  - DTEnemy
   layers:
   - Default
   - TransparentFX

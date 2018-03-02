@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class LadyBugController : MonoBehaviour {
 
+	private GameManager myGameManager;
+	private Rigidbody2D myRigidbody;
+
 	private Vector3 platformPosition;
 	private float platformSize = 0;
 	private Vector3 rightCorner;
@@ -11,6 +14,8 @@ public class LadyBugController : MonoBehaviour {
 
 	private bool movingRight = false;
 	public float movingSpeed;
+
+	private PlayerController theController;
 
 	public static LadyBugController PassParameters(GameObject where, Vector3 pfPosition, float pfSize) {
 		LadyBugController myLadyBugController = where.GetComponent<LadyBugController>();
@@ -23,7 +28,9 @@ public class LadyBugController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+		theController = FindObjectOfType<PlayerController> ();
+		myRigidbody = theController.GetComponent<Rigidbody2D> ();
+		myGameManager = FindObjectOfType<GameManager> ();
 	}
 	
 	// Update is called once per frame
@@ -44,7 +51,27 @@ public class LadyBugController : MonoBehaviour {
 		} else {
 			transform.position = Vector3.MoveTowards (transform.position, leftCorner, movingSpeed * Time.deltaTime);
 		}
-
-
+			
 	}
+
+	IEnumerator OnTriggerEnter2D(Collider2D other){
+		if (other.gameObject.name == "Player"){
+			Debug.Log ("HIIIII");
+			if (SceneControl.Instance.HP > 1) {
+				SceneControl.Instance.HP--;
+			} else {
+				theController.audioDie.Play ();
+				theController.audioBg.Stop ();
+
+				myRigidbody.velocity = new Vector2 (0, 0);
+
+				yield return new WaitForSeconds (1f);
+				theController.audioBg.Play ();
+				myGameManager.RestartGame ();	
+				// initalize parameters while restarting the game
+
+			}
+		}
+	}
+		
 }

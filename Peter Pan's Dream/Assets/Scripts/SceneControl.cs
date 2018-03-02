@@ -9,6 +9,9 @@ public class SceneControl : MonoBehaviour {
     public int HP;
     public int score;
     public Scene now;
+
+	private ScoreManager theScoreManager;
+
     void Awake()
     {
         if (Instance == null)
@@ -25,6 +28,7 @@ public class SceneControl : MonoBehaviour {
 
         SceneManager.LoadScene("MainScene");
         HP = 3;score = 0;
+		theScoreManager = FindObjectOfType<ScoreManager>();
 	}
 	public void daybegin()
     {
@@ -36,8 +40,8 @@ public class SceneControl : MonoBehaviour {
     public void LoadScene1()
     {
         Debug.Log("ChangetoNight");
-        SceneControl.Instance.HP =3;
-        SceneControl.Instance.score =0;
+        SceneControl.Instance.HP = 3;
+		SceneControl.Instance.score = (int)theScoreManager.scoreCount;
         SceneManager.LoadScene("Night");
     }
     public void LoadScene2()

@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour {
 			
 
 		thePlayer.gameObject.SetActive (true);
-
+		SceneControl.Instance.HP = 3;
 		theScoreManager.scoreCount = 0;
 		theScoreManager.scoreIncreasing = true;
 	}

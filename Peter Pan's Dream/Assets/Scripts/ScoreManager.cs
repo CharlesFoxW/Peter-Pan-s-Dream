@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class ScoreManager : MonoBehaviour {
 
 	public Text scoreText;
+	public Text hp;
 	public Text highScoreText;
 
 	public float scoreCount;
@@ -34,6 +35,7 @@ public class ScoreManager : MonoBehaviour {
 		}
 
 		scoreText.text = "Score : " + Mathf.Round (scoreCount);
+		hp.text = "HP : " + SceneControl.Instance.HP;
 		highScoreText.text = "High Score : " + Mathf.Round (hiscoreCount);
 	}
 

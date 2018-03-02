@@ -88,6 +88,30 @@ public class PlayerController : MonoBehaviour {
 			// initalize parameters while restarting the game
 			moveSpeed = moveSpeedStore;
 		}
+
+		if (collision.collider.gameObject.tag == "DTEnemy") {
+			
+			if (SceneControl.Instance.HP > 1) {
+				SceneControl.Instance.HP--;
+
+			} else {
+				audioDie.Play ();
+				audioBg.Stop ();
+				moveSpeed = 0;
+				isJumpOnce = true;
+				isJumpTwice = true;
+				myRigidbody.velocity = new Vector2 (0, 0);
+
+				yield return new WaitForSeconds (2.5f);
+				audioBg.Play ();
+				gameManager.RestartGame ();	
+				// initalize parameters while restarting the game
+				moveSpeed = moveSpeedStore;
+			}
+
+		}
 	}
+		
+
 
 }

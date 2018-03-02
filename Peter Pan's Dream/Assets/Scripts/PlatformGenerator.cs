@@ -117,11 +117,11 @@ public class PlatformGenerator : MonoBehaviour {
 			newPlatform.transform.rotation = transform.rotation;
 			newPlatform.SetActive (true);
 
-			Vector3 ladyBugPositionOffset = new Vector3 (0f, 0.8f, 0f);
-
+			Vector3 ladyBugPositionOffset = new Vector3 (0f, 0.6f, 0f);
+			Vector3 coinPositionOffset = new Vector3 (0f, 1f, 0f);
 
 			if (Random.Range (0f, 100f) < randomCoinThreshold) {
-				theCoinGenerator.SpawnCoins (transform.position + ladyBugPositionOffset, platformWidths[platformSelector]);
+				theCoinGenerator.SpawnCoins (transform.position + coinPositionOffset, platformWidths[platformSelector]);
 			}
 
 			if (Random.Range (0f, 100f) < randomLadyBugThreshold) {

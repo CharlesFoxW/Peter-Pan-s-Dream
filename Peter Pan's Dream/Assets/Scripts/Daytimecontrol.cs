@@ -10,7 +10,7 @@ public class Daytimecontrol : MonoBehaviour {
         timepast = 0f;
     }
     private float timepast = 0f;
-    public float timebar = 60f;
+    private float timebar = 30f;
     // Update is called once per frame
     void Update()
     {
