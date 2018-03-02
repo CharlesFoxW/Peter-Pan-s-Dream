@@ -88,19 +88,21 @@ public class PlayerController : MonoBehaviour {
 			// initalize parameters while restarting the game
 			moveSpeed = moveSpeedStore;
 		}
-
-		if (collision.collider.gameObject.tag == "DTEnemy") {
 			
+			
+	}
+
+	IEnumerator OnTriggerEnter2D(Collider2D other){
+		if (other.tag == "DTEnemy") {
 			if (SceneControl.Instance.HP > 1) {
 				SceneControl.Instance.HP--;
-
 			} else {
 				audioDie.Play ();
 				audioBg.Stop ();
 				moveSpeed = 0;
 				isJumpOnce = true;
 				isJumpTwice = true;
-				myRigidbody.velocity = new Vector2 (0, 0);
+				gameObject.SetActive (false);
 
 				yield return new WaitForSeconds (2.5f);
 				audioBg.Play ();
@@ -108,10 +110,9 @@ public class PlayerController : MonoBehaviour {
 				// initalize parameters while restarting the game
 				moveSpeed = moveSpeedStore;
 			}
-
 		}
+
 	}
-		
 
 
 }

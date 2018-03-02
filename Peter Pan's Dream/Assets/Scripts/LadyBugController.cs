@@ -54,24 +54,6 @@ public class LadyBugController : MonoBehaviour {
 			
 	}
 
-	IEnumerator OnTriggerEnter2D(Collider2D other){
-		if (other.gameObject.name == "Player"){
-			Debug.Log ("HIIIII");
-			if (SceneControl.Instance.HP > 1) {
-				SceneControl.Instance.HP--;
-			} else {
-				theController.audioDie.Play ();
-				theController.audioBg.Stop ();
 
-				myRigidbody.velocity = new Vector2 (0, 0);
-
-				yield return new WaitForSeconds (1f);
-				theController.audioBg.Play ();
-				myGameManager.RestartGame ();	
-				// initalize parameters while restarting the game
-
-			}
-		}
-	}
 		
 }
