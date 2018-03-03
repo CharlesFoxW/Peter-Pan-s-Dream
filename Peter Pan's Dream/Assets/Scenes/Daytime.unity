@@ -1685,7 +1685,7 @@ MonoBehaviour:
     type: 2}
   generationPoint: {fileID: 803983225}
   distanceBetween: 0
-  distanceBetweenMin: 0
+  distanceBetweenMin: 0.4
   distanceBetweenMax: 3.5
   theObjectPools:
   - {fileID: 1076825539}
@@ -1704,7 +1704,7 @@ MonoBehaviour:
   randomCoinThreshold: 75
   randomLadyBugThreshold: 75
   ladyBugPool: {fileID: 1862778180}
-  randomSniperThreshold: 35
+  randomSniperThreshold: 30
   sniperPool: {fileID: 47384269}
 --- !u!4 &999535610
 Transform:
