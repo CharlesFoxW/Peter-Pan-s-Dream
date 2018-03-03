@@ -126,7 +126,10 @@ public class PlatformGenerator : MonoBehaviour {
 
 
 			if (Random.Range (0f, 100f) < randomCoinThreshold) {
-				theCoinGenerator.SpawnCoins (transform.position + coinPositionOffset, platformWidths[platformSelector]);
+				theCoinGenerator.SpawnCoins (
+					transform.position + coinPositionOffset,
+					platformWidths[platformSelector],
+					newPlatform.GetComponent<Renderer>().bounds);
 			}
 
 			if (platformWidths [platformSelector] > 5.2f) {
@@ -136,7 +139,7 @@ public class PlatformGenerator : MonoBehaviour {
 					GameObject newSniper = sniperPool.GetPooledObject ();
 
 					float sniperXPositionOffset = Random.Range (0f, platformWidths[platformSelector] / 2);
-					Vector3 sniperPositionOffset = new Vector3 (sniperXPositionOffset, 0.6f, 0f);
+					Vector3 sniperPositionOffset = new Vector3 (sniperXPositionOffset, 1f, 0f);
 					newSniper.transform.position = transform.position + sniperPositionOffset;
 					newSniper.transform.rotation = transform.rotation;
 					newSniper.SetActive (true);

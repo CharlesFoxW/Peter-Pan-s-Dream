@@ -19,6 +19,7 @@ public class PlayerController : MonoBehaviour {
 	private Collider2D myCollider;
 
 	public AudioSource audioJump;
+	public AudioSource audioHurt;
 	public AudioSource audioDie;
 	public AudioSource audioBg;
 
@@ -50,7 +51,6 @@ public class PlayerController : MonoBehaviour {
 				isJumpTwice = true;
 				audioJump.Play ();
 			}
-		
 		}
 
 
@@ -65,7 +65,6 @@ public class PlayerController : MonoBehaviour {
 	{
 		if (collision.collider.gameObject.layer == LayerMask.NameToLayer("Ground")) 
 		{
-			Debug.Log (collision.relativeVelocity.y);
 			if (collision.relativeVelocity.y > 0) {
 				isJumpOnce = false;
 				isJumpTwice = false;
@@ -75,6 +74,7 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		if (collision.collider.gameObject.tag == "killbox" ){
+			Debug.Log ("die1");
 			audioDie.Play ();
 			audioBg.Stop ();
 			moveSpeed = 0;
@@ -95,16 +95,25 @@ public class PlayerController : MonoBehaviour {
 	IEnumerator OnTriggerEnter2D(Collider2D other){
 		if (other.tag == "DTEnemy") {
 			if (SceneControl.Instance.HP > 1) {
+				audioHurt.Play ();
 				SceneControl.Instance.HP--;
 			} else {
+				Debug.Log ("die2");
+
 				audioDie.Play ();
 				audioBg.Stop ();
 				moveSpeed = 0;
 				isJumpOnce = true;
 				isJumpTwice = true;
-				gameObject.SetActive (false);
+				myRigidbody.velocity = new Vector2 (0, 0);
+				Vector3 prevScale = transform.localScale;
+				transform.localScale = new Vector3 (0, 0, 0);
+
+				//gameObject.SetActive (false); // stuck if uncomment this line
 
 				yield return new WaitForSeconds (2.5f);
+				transform.localScale = prevScale;
+
 				audioBg.Play ();
 				gameManager.RestartGame ();	
 				// initalize parameters while restarting the game

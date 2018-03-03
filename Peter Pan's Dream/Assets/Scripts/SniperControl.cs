@@ -12,7 +12,7 @@ public class SniperControl : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		firePointOffset = new Vector3 (-0.8f, -0.3f, 0f);
+		firePointOffset = new Vector3 (-0.8f, -0.5f, 0f);
 		shotCounter = waitBetweenShots;
 	}
 	

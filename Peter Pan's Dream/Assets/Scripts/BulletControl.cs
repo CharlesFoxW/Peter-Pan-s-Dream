@@ -20,7 +20,7 @@ public class BulletControl : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other) {
 		if (other.name == "Player") {
-			Debug.Log ("AAAAAAAAAAA!!!");
+			Debug.Log ("be shot!");
 
 
 
