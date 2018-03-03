@@ -1685,7 +1685,7 @@ MonoBehaviour:
     type: 2}
   generationPoint: {fileID: 803983225}
   distanceBetween: 0
-  distanceBetweenMin: -2
+  distanceBetweenMin: 0
   distanceBetweenMax: 3.5
   theObjectPools:
   - {fileID: 1076825539}
