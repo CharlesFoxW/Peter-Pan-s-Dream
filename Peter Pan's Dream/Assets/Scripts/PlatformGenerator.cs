@@ -48,6 +48,8 @@ public class PlatformGenerator : MonoBehaviour {
 	public float randomSniperThreshold;
 	public ObjectPooler sniperPool;
 
+	public ObjectPooler ropePool;
+
 
 	// Use this for initialization
 	void Start () {
@@ -67,7 +69,7 @@ public class PlatformGenerator : MonoBehaviour {
 		platformByLevel = new List<int>[3];
 		//platformByLevel[0] = new List<int>{8};
 		//platformByLevel[1] = new List<int>{8};
-		//platformByLevel[2] = new List<int>{8};
+		//platformByLevel[2] = new List<int>{4, 5};
 		platformByLevel[0] = new List<int>{6, 7, 8};
 		platformByLevel[1] = new List<int>{0, 1, 2, 3, 6};
 		platformByLevel[2] = new List<int>{0, 1, 2, 3, 4, 5};
@@ -104,6 +106,8 @@ public class PlatformGenerator : MonoBehaviour {
 				
 			prevLevel = level;
 
+			//level = 2;
+
 			platformSelector = platformByLevel[level][Random.Range(0, platformByLevel[level].Count)];
 
 
@@ -131,6 +135,24 @@ public class PlatformGenerator : MonoBehaviour {
 					platformWidths[platformSelector],
 					newPlatform.GetComponent<Renderer>().bounds);
 			}
+
+			if (platformSelector == 4 || platformSelector == 5) {
+				GameObject ropeLeft = ropePool.GetPooledObject ();
+				ropeLeft.SetActive (true);
+				GameObject ropeRight = ropePool.GetPooledObject ();
+				ropeRight.SetActive (true);
+
+				float xOffset = platformWidths [platformSelector] / 2 - 0.1f;
+				float yOffset = 3;
+
+				ropeLeft.transform.position = transform.position + new Vector3(-xOffset, yOffset, 0);
+				ropeRight.transform.position = transform.position + new Vector3(xOffset, yOffset, 0);
+
+
+
+
+			}
+
 
 			if (platformWidths [platformSelector] > 5.2f) {
 				
