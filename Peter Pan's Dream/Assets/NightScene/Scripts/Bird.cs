@@ -7,7 +7,7 @@ public class Bird : MonoBehaviour
     private float protectTime = 2f;
     public float invincibleTime = 10f;
 	private bool isDead = false;			//Has the player collided with a wall?
-    private float timeElapse = 0f;
+    private float scoreTimeElapse = 0f;
     private float protectTimeElapse = 0f;
     private float invincibleTimeElapse = 0f;
     private bool isCollided = false;
@@ -21,6 +21,8 @@ public class Bird : MonoBehaviour
     private bool reverseControl = false;
     private float reverseTime = 10f;
     private float reverseTimeElapsed = 0f;
+    private float reverseSoundTime = 0f;
+    private float startPos_y;
 
 	public AudioSource asCoin;
     public AudioSource gemSound;
@@ -30,6 +32,7 @@ public class Bird : MonoBehaviour
     public AudioSource invincibleClip;
     public AudioSource fireworkClip;
     public AudioSource pickUpMagSound;
+    public AudioSource dizzyClip;
 
     public GameObject camera;
 
@@ -70,10 +73,18 @@ public class Bird : MonoBehaviour
         if (reverseControl)
         {
             reverseTimeElapsed += Time.deltaTime;
+            if (reverseTimeElapsed - reverseSoundTime > 2)
+            {
+                dizzyClip.Play();
+                reverseSoundTime = reverseTimeElapsed;
+            }
+            GameControl.instance.hasDizzyBirds = true;
             if (reverseTimeElapsed >= reverseTime)
             {
                 reverseControl = false;
+                GameControl.instance.hasDizzyBirds = false;
                 reverseTimeElapsed = 0f;
+                reverseSoundTime = 0f;
             }
         }
         //Don't allow control if the bird has died.
@@ -81,7 +92,6 @@ public class Bird : MonoBehaviour
 		{
             if (Input.GetKey(KeyCode.UpArrow)) 
             {
-                //rb2d.AddForce(new Vector2(0, upForce));
                 if (reverseControl)
                     transform.position = new Vector2(transform.position.x, transform.position.y - moveSpeed);
                 else
@@ -89,19 +99,67 @@ public class Bird : MonoBehaviour
             }
             else if (Input.GetKey(KeyCode.DownArrow))
             {
-                //rb2d.AddForce(new Vector2(0, -upForce));
                 if (reverseControl)
                     transform.position = new Vector2(transform.position.x, transform.position.y + moveSpeed);
                 else
                     transform.position = new Vector2(transform.position.x, transform.position.y - moveSpeed);
             }
 
+            //Control script for PC testing
+//            if (Input.GetMouseButtonDown(0))
+//            {
+//                startPos_y = Input.mousePosition.y;
+//            }
+//            if (Input.GetMouseButton(0))
+//            {
+//                float offset = Input.mousePosition.y - startPos_y;
+//                float curMoveSpeed = offset / Screen.height * 0.5f;
+//                if (curMoveSpeed > 0.2)
+//                    curMoveSpeed = 0.2f;
+//
+//
+//                if (reverseControl)
+//                    transform.position = new Vector2(transform.position.x, transform.position.y - curMoveSpeed);
+//                else
+//                    transform.position = new Vector2(transform.position.x, transform.position.y + curMoveSpeed);
+//            }
 
-            timeElapse += Time.deltaTime;
-            if (timeElapse >= GameControl.instance.scoreRate)
+
+            //Control script for phone
+//            if (Input.touchCount > 0)
+//            {
+//                Touch touch = Input.GetTouch(0);
+//
+//                // Handle finger movements based on touch phase.
+//                switch (touch.phase)
+//                {
+//                    // Record initial touch position.
+//                    case TouchPhase.Began:
+//                        startPos_y = touch.position.y;
+//                        break;
+//
+//                        // Determine direction by comparing the current touch position with the initial one.
+//                    case TouchPhase.Moved:
+//                        float offset = touch.position.y - startPos_y;
+//                        float curMoveSpeed = offset / Screen.height * 0.5f;
+//                        if (curMoveSpeed > 0.2)
+//                            curMoveSpeed = 0.2f;
+//
+//                        if (reverseControl)
+//                            transform.position = new Vector2(transform.position.x, transform.position.y - curMoveSpeed);
+//                        else
+//                            transform.position = new Vector2(transform.position.x, transform.position.y + curMoveSpeed);
+//                        break;
+//
+//                }
+//            }
+
+
+            scoreTimeElapse += Time.deltaTime;
+            if (scoreTimeElapse >= GameControl.instance.scoreRate)
             {
                 GameControl.instance.BirdScored(1);
-                timeElapse = 0;
+                scoreTimeElapse = 0;
             }
 		}
 	}
@@ -181,7 +239,10 @@ public class Bird : MonoBehaviour
     void RandomPickup(Collider2D other) {
         float random = Random.Range(0, 10);
         if (random < 6)
+        {
             reverseControl = true;
+            dizzyClip.Play();
+        }
         else if (random >= 6 && random < 9)
         {
             GameControl.instance.IncreaseHP(1);
