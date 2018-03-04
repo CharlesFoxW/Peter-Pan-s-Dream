@@ -94,9 +94,12 @@ public class PlayerController : MonoBehaviour {
 
 	IEnumerator OnTriggerEnter2D(Collider2D other){
 		if (other.tag == "DTEnemy") {
-			if (SceneControl.Instance.HP > 1) {
+			
+			SceneControl.Instance.HP--;
+
+			if (SceneControl.Instance.HP > 0) {
 				audioHurt.Play ();
-				SceneControl.Instance.HP--;
+
 			} else {
 				Debug.Log ("die2");
 
