@@ -16,6 +16,11 @@ public class ScoreManager : MonoBehaviour {
 
 	public bool scoreIncreasing;
 
+
+	//HP
+	public Sprite[] hpSprite;
+	public Image hpImage;
+
 	// Use this for initialization
 	void Start () {
 		if (PlayerPrefs.HasKey ("HighScore")) {
@@ -35,7 +40,7 @@ public class ScoreManager : MonoBehaviour {
 		}
 
 		scoreText.text = "Score : " + Mathf.Round (scoreCount);
-		hp.text = "HP : " + SceneControl.Instance.HP;
+		hpImage.sprite = hpSprite [SceneControl.Instance.HP];
 		highScoreText.text = "High Score : " + Mathf.Round (hiscoreCount);
 	}
 

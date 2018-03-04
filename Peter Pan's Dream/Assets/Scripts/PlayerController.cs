@@ -74,6 +74,8 @@ public class PlayerController : MonoBehaviour {
 		}
 
 		if (collision.collider.gameObject.tag == "killbox" ){
+			SceneControl.Instance.HP = 0;
+
 			Debug.Log ("die1");
 			audioDie.Play ();
 			audioBg.Stop ();
@@ -99,7 +101,8 @@ public class PlayerController : MonoBehaviour {
 				SceneControl.Instance.HP--;
 			} else {
 				Debug.Log ("die2");
-
+				SceneControl.Instance.HP--;
+		
 				audioDie.Play ();
 				audioBg.Stop ();
 				moveSpeed = 0;
