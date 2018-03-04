@@ -11,6 +11,7 @@ public class GameControl : MonoBehaviour
     public GameObject hpComponent;
     public GameObject Player;
     public GameObject magnetPrefab;
+    public GameObject dizzyBirdsPrefab;
     private float speedUpInterval = 20f;
     private float speedUpRate = -1f;
     public float maxSpeed = -10f;
@@ -32,6 +33,8 @@ public class GameControl : MonoBehaviour
 
     public bool hasMagnet = false;
     private bool existMagnet = false;
+    public bool hasDizzyBirds = false;
+    private bool existDizzyBird = false;
     private float timeSinceMag = 0f;
     public Transform fairyWithMag;
 
@@ -63,7 +66,9 @@ public class GameControl : MonoBehaviour
 		};
 
         magnetPrefab = (GameObject)Instantiate(magnetPrefab, Player.transform.position, Quaternion.identity); 
+        dizzyBirdsPrefab = (GameObject)Instantiate(dizzyBirdsPrefab, Player.transform.position, Quaternion.identity); 
         magnetPrefab.SetActive(false);
+        dizzyBirdsPrefab.SetActive(false);
 	}
 
 	public int getHP() {
@@ -104,6 +109,25 @@ public class GameControl : MonoBehaviour
                     child.gameObject.SetActive(true);
                 }
             }
+        }
+        if (hasDizzyBirds) 
+        {
+            if (!existDizzyBird)
+            {
+                dizzyBirdsPrefab.transform.position = Player.transform.position + new Vector3(0.54f, 0.22f);
+                // Start Animation
+                dizzyBirdsPrefab.SetActive(true);
+                existDizzyBird = true;
+            }
+            else
+            {
+                dizzyBirdsPrefab.transform.position = Player.transform.position + new Vector3(0.54f, 0.22f);
+            }
+        } 
+        else 
+        {
+            existDizzyBird = false;
+            dizzyBirdsPrefab.SetActive(false);
         }
         if (hasMagnet) {
             timeSinceMag += Time.deltaTime;

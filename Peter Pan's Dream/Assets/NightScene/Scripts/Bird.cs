@@ -70,9 +70,11 @@ public class Bird : MonoBehaviour
         if (reverseControl)
         {
             reverseTimeElapsed += Time.deltaTime;
+            GameControl.instance.hasDizzyBirds = true;
             if (reverseTimeElapsed >= reverseTime)
             {
                 reverseControl = false;
+                GameControl.instance.hasDizzyBirds = false;
                 reverseTimeElapsed = 0f;
             }
         }
