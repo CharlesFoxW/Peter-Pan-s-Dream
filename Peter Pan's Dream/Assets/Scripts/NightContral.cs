@@ -15,7 +15,13 @@ public class NightContral : MonoBehaviour {
         timepast += Time.deltaTime;
         if (timepast >= timebar)
         {
-            SceneControl.Instance.LoadScene2();
+			StartCoroutine(FadeScene());
         }
+	}
+
+	IEnumerator FadeScene() {
+		float time = GameObject.Find ("Fade").GetComponent<FadeScene> ().BeginFade (1);
+		yield return new WaitForSeconds (time);
+		SceneControl.Instance.LoadScene1 ();
 	}
 }

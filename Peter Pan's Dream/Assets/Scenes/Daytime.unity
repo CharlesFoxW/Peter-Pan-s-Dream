@@ -1117,6 +1117,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd1d53e56023643548d2111ae2d52c22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myFade: {fileID: 1035263365}
 --- !u!4 &671085743
 Transform:
   m_ObjectHideFlags: 0
@@ -3557,6 +3558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d77282121327c42c28460496279b3e3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myFade: {fileID: 1035263365}
 --- !u!114 &1523428975
 MonoBehaviour:
   m_ObjectHideFlags: 0

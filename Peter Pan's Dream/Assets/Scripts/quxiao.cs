@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class quxiao : MonoBehaviour {
 
+	public GameObject myFade;
 	// Use this for initialization
 	void Start () {
     }
@@ -13,14 +14,19 @@ public class quxiao : MonoBehaviour {
 	void Update () {
         this.GetComponent<Button>().onClick.AddListener(delegate ()
         { 
-            StartCoroutine(FadeScene());
+				Time.timeScale = 1;
+            	StartCoroutine(FadeScene());
         });
     }
     IEnumerator FadeScene()
     {
-        float time = GameObject.Find("Fade").GetComponent<FadeScene>().BeginFade(1);
+        float time = myFade.GetComponent<FadeScene>().BeginFade(1);
         yield return new WaitForSeconds(time);
         SceneControl.Instance.nexttype = 0;
-        SceneManager.LoadScene("Daytime");
+		SceneControl.Instance.daybegin ();
     }
+
+
+
+
 }

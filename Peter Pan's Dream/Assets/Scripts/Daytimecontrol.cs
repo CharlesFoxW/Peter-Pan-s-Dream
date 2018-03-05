@@ -4,22 +4,37 @@ using UnityEngine;
 
 public class Daytimecontrol : MonoBehaviour {
 
+	public GameObject myFade;
+
     // Use this for initialization
     void Start()
     {
         timepast = 0f;
     }
     private float timepast = 0f;
-    private float timebar = 5f;
+    private float timebar = 10f;
     // Update is called once per frame
     void Update()
     {
-        timepast += Time.deltaTime;
-        if (timepast >= timebar)
+		
+		timepast += Time.deltaTime;
+
+		if (!PlayerController.isDead && timepast >= timebar)
         {
             Debug.Log("inchange");
             timepast = 0f;
-            SceneControl.Instance.LoadScene1();
+			StartCoroutine (FadeScene ());
         }
+
     }
+
+	IEnumerator FadeScene() {
+
+		float time = myFade.GetComponent<FadeScene> ().BeginFade (1);
+		yield return new WaitForSeconds (time);
+		SceneControl.Instance.LoadScene1 ();
+
+	}
+
+
 }

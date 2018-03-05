@@ -28,6 +28,8 @@ public class PlayerController : MonoBehaviour {
 
 	private float moveSpeedStore;
 
+	public static bool isDead = false;
+
 	public void jihuo()
 	{
 		gameOvertext.SetActive(true);
@@ -36,6 +38,7 @@ public class PlayerController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		PlayerController.isDead = false;
 		myRigidbody = GetComponent<Rigidbody2D> ();
 		myAnimator = GetComponent<Animator> ();
 		moveSpeedStore = moveSpeed;
@@ -84,6 +87,7 @@ public class PlayerController : MonoBehaviour {
 
 		if (collision.collider.gameObject.tag == "killbox" ){
 			Debug.Log ("die1");
+			PlayerController.isDead = true;
 			audioDie.Play ();
 			audioBg.Stop ();
 			moveSpeed = 0;
@@ -116,7 +120,7 @@ public class PlayerController : MonoBehaviour {
 
 			} else {
 				Debug.Log ("die2");
-
+				PlayerController.isDead = true;
 				audioDie.Play ();
 				audioBg.Stop ();
 				moveSpeed = 0;
@@ -129,6 +133,7 @@ public class PlayerController : MonoBehaviour {
 				//gameObject.SetActive (false); // stuck if uncomment this line
 
 				yield return new WaitForSeconds (2.5f);
+
 				transform.localScale = prevScale;
 
 				//audioBg.Play ();
