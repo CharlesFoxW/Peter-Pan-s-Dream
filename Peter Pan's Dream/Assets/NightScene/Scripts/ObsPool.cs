@@ -618,7 +618,7 @@ public class ObsPool : MonoBehaviour
                 SetupObstacles(batWithWaves, new Vector2(spawnXPosition, Random.Range(BAT_WAVE_Y_MIN, BAT_WAVE_Y_MAX)), (int)Obstacle.BatWithWave, DEFAULT_OBS_POOL_SIZE);
                 break;
             case (int)Obstacle.TowerWithFirework:
-                SetupObstacles(towerWithFireworks, new Vector2(spawnXPosition, -3.2f), (int)Obstacle.TowerWithFirework, DEFAULT_OBS_POOL_SIZE);
+                SetupObstacles(towerWithFireworks, new Vector2(spawnXPosition, 0f), (int)Obstacle.TowerWithFirework, DEFAULT_OBS_POOL_SIZE);
                 break;
             case (int)Obstacle.Ghost:
                 SetupObstacles(ghosts, new Vector2(spawnXPosition, Random.Range(GHOST_Y_MIN, GHOST_Y_MAX)), (int)Obstacle.Ghost, GHOST_POOL_SIZE);
