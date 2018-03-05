@@ -555,6 +555,11 @@ public class ObsPool : MonoBehaviour
     {
         int currentLocation = curObsLocArr[curObsTypeIndex];
         obsObjArr[currentLocation].transform.position = verAttr;
+        if (curObsTypeIndex == (int)Obstacle.Tower && Random.Range(0,2) < 1) 
+        {
+            obsObjArr[currentLocation].transform.localScale = new Vector3(1f, -1f, 1f);
+            obsObjArr[currentLocation].transform.position += new Vector3(0f, 2f, 0f);
+        }
         currentLocation++;
         if (currentLocation >= poolSize)
         {
