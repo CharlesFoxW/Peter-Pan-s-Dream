@@ -5,12 +5,24 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
+  - enabled: 0
+    path: Assets/__DELETED_GUID_Trash/c7b3fa15e8d0b4c2c868a7dbd079924d
+    guid: c7b3fa15e8d0b4c2c868a7dbd079924d
+  - enabled: 1
+    path: Assets/Scenes/logo.unity
+    guid: 0f432999325034c4089b7ffcca7f29fd
   - enabled: 1
     path: Assets/Scenes/MainScene.unity
-    guid: c7b3fa15e8d0b4c2c868a7dbd079924d
+    guid: 63038e00dd2b1400cb38db64ddee8405
   - enabled: 1
     path: Assets/Scenes/Daytime.unity
     guid: ea2cd2359673a4c7593ac2a1ec0f485c
   - enabled: 1
     path: Assets/NightScene/_Scenes/Night.unity
     guid: ab8ef5f57c6f04e42880b8b05e8278f8
+  - enabled: 1
+    path: Assets/Scenes/anim.unity
+    guid: 0c8adbc3b56fa4cada6d4ff6911be93c
+  - enabled: 1
+    path: Assets/Scenes/introduc.unity
+    guid: ee217115a210f4413b8603b709b4df4d

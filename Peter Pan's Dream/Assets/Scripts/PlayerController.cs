@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
+	public GameObject gameOvertext;
+	public GameObject Image;
+
 	public float moveSpeed;
 	public float jumpForce;
 	public GameManager gameManager;
@@ -24,6 +27,12 @@ public class PlayerController : MonoBehaviour {
 	public AudioSource audioBg;
 
 	private float moveSpeedStore;
+
+	public void jihuo()
+	{
+		gameOvertext.SetActive(true);
+		Image.SetActive(true);
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -83,10 +92,15 @@ public class PlayerController : MonoBehaviour {
 			myRigidbody.velocity = new Vector2 (0, 0);
 
 			yield return new WaitForSeconds (2.5f);
-			audioBg.Play ();
-			gameManager.RestartGame ();	
+			//audioBg.Play ();
+
+			jihuo(); 
+			Time.timeScale = 0;
+
+			//gameManager.RestartGame ();	
 			// initalize parameters while restarting the game
-			moveSpeed = moveSpeedStore;
+
+			//5moveSpeed = moveSpeedStore;
 		}
 			
 			
@@ -117,10 +131,15 @@ public class PlayerController : MonoBehaviour {
 				yield return new WaitForSeconds (2.5f);
 				transform.localScale = prevScale;
 
-				audioBg.Play ();
-				gameManager.RestartGame ();	
+				//audioBg.Play ();
+
+				jihuo(); 
+				Time.timeScale = 0;
+
+				//gameManager.RestartGame ();	
 				// initalize parameters while restarting the game
-				moveSpeed = moveSpeedStore;
+
+				//moveSpeed = moveSpeedStore;
 			}
 		}
 
