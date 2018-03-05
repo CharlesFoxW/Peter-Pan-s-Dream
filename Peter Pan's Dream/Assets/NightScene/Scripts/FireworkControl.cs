@@ -30,7 +30,7 @@ public class FireworkControl : MonoBehaviour {
             {
                 if (transform.position.x <= fireposition && transform.position.x > LEFT_X)
                 {
-                    Instantiate(Firework, new Vector2(transform.position.x, -2), Quaternion.identity);
+                    Instantiate(Firework, new Vector2(transform.position.x, -2.5f), Quaternion.identity);
                     fired = true;
                 }
             }
