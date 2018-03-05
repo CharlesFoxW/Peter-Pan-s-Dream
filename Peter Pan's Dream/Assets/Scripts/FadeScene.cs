@@ -19,7 +19,7 @@ public class FadeScene : MonoBehaviour {
 	public float BeginFade(int direction)
 	{
 		fadeDir = direction;
-		return 1 / fadeSpeed;
+		return 1f / fadeSpeed;
 	}
 	void onLevelwasLoading()
 	{

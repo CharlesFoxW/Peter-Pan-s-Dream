@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour {
 
 	public static bool isDead = false;
 
-	public void jihuo()
+	public void PopUpMenu()
 	{
 		gameOvertext.SetActive(true);
 		Image.SetActive(true);
@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour {
 			yield return new WaitForSeconds (2.5f);
 			//audioBg.Play ();
 
-			jihuo(); 
+            PopUpMenu(); 
 			Time.timeScale = 0;
 
 			//gameManager.RestartGame ();	
@@ -138,7 +138,7 @@ public class PlayerController : MonoBehaviour {
 
 				//audioBg.Play ();
 
-				jihuo(); 
+                PopUpMenu();
 				Time.timeScale = 0;
 
 				//gameManager.RestartGame ();	

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 using UnityEngine.SceneManagement;
-public class introduction : MonoBehaviour {
+public class IntroScene : MonoBehaviour {
     public AudioSource button;
     void Start () {
         this.GetComponent<Button>().onClick.AddListener(delegate ()

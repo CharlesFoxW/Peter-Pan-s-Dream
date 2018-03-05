@@ -230,9 +230,9 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 250076401}
-  - component: {fileID: 250076403}
+  - component: {fileID: 250076402}
   m_Layer: 0
-  m_Name: logocontrol
+  m_Name: LogoControl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -251,7 +251,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &250076403
+--- !u!114 &250076402
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
@@ -488,7 +488,7 @@ GameObject:
   - component: {fileID: 1428314916}
   - component: {fileID: 1428314915}
   m_Layer: 0
-  m_Name: texttexture
+  m_Name: TextTexture
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

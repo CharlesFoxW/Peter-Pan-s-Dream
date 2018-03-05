@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-public class quxiao : MonoBehaviour {
+public class ButtonRestart : MonoBehaviour {
 
 	public GameObject myFade;
 	// Use this for initialization

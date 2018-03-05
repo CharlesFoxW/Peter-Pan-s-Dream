@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-public class loading : MonoBehaviour {
+public class LoadingScreen : MonoBehaviour {
 
     private Image ScrollBarImage;
     private float i = 0.0f;

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class donghua : MonoBehaviour {
+public class Animation : MonoBehaviour {
 
     // Use this for initialization
     public Sprite[] Sprites;

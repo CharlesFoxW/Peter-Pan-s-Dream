@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class animcontrol : MonoBehaviour {
-    private float time = 6.5f;
+public class AnimationControl : MonoBehaviour {
+    private float durationTime = 5f;
     private float nowtime = 0.0f;
     // Use this for initialization
     void Start () {
@@ -13,7 +13,7 @@ public class animcontrol : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         nowtime += Time.deltaTime;
-        if (nowtime>=time)
+        if (nowtime>=durationTime)
         {
             nowtime = 0f;
             switch (SceneControl.Instance.nexttype)

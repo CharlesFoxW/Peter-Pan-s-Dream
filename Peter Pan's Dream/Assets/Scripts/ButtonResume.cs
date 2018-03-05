@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class goon : MonoBehaviour {
+public class ButtonResume : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
