@@ -32,27 +32,54 @@ public class PlayerController : MonoBehaviour {
 		myAnimator = GetComponent<Animator> ();
 		moveSpeedStore = moveSpeed;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		myRigidbody.velocity = new Vector2 (moveSpeed, myRigidbody.velocity.y); // keep running
+
+    // Update is called once per frame
+    void Update()
+    {
+        myRigidbody.velocity = new Vector2(moveSpeed, myRigidbody.velocity.y); // keep running
 
 
-		// jump movement
-		if (Input.GetKeyDown(KeyCode.UpArrow)){
-			// only hit jump twice
-			if (!isJumpOnce) 
-			{
-				addJumpForce (jumpForce);
-				isJumpOnce = true;
-				audioJump.Play ();
-			} else if (!isJumpTwice)
-			{
-				addJumpForce (jumpForce);
-				isJumpTwice = true;
-				audioJump.Play ();
-			}
-		}
+        // jump movement
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            // only hit jump twice
+            if (!isJumpOnce)
+            {
+                addJumpForce(jumpForce);
+                isJumpOnce = true;
+                audioJump.Play();
+            }
+            else if (!isJumpTwice)
+            {
+                addJumpForce(jumpForce);
+                isJumpTwice = true;
+                audioJump.Play();
+            }
+        }
+
+        // Touch Screen Control:
+        if (Input.touchCount > 0) {
+            Touch touch = Input.GetTouch(0);
+
+            if (touch.phase == TouchPhase.Began)
+            {
+                // only hit jump twice
+                if (!isJumpOnce)
+                {
+                    addJumpForce(jumpForce);
+                    isJumpOnce = true;
+                    audioJump.Play();
+                }
+                else if (!isJumpTwice)
+                {
+                    addJumpForce(jumpForce);
+                    isJumpTwice = true;
+                    audioJump.Play();
+                }
+            }
+
+
+        }
 
 
 	}
