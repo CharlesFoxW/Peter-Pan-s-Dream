@@ -7,10 +7,13 @@ public class Daytimecontrol : MonoBehaviour {
     public static float timepast = 0f;
     private float timebar = 10f;
 
+    private ScoreManager myScoreManager;
+
     // Use this for initialization
     void Start()
     {
         timepast = 0f;
+        myScoreManager = FindObjectOfType<ScoreManager>();
     }
 	
     // Update is called once per frame
@@ -21,6 +24,7 @@ public class Daytimecontrol : MonoBehaviour {
         {
             Debug.Log("inchange");
             timepast = 0f;
+            SceneControl.Instance.score = myScoreManager.getScore();
             SceneControl.Instance.LoadScene1();
         }
     }

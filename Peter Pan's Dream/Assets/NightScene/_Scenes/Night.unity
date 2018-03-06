@@ -2758,7 +2758,7 @@ MonoBehaviour:
   fairyWithMag: {fileID: 0}
   Boundary_LEFT: -15
   Boundary_RIGHT: 20
-  nightTime: 10
+  nightTime: 5
   orbitDistance: 10
   orbitDegreesPerSec: 180
   relativeDistance: {x: 0, y: 0, z: 5}

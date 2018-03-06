@@ -23,13 +23,14 @@ public class ScoreManager : MonoBehaviour {
 	void Start () {
 		if (PlayerPrefs.HasKey ("HighScore")) {
 			hiscoreCount = PlayerPrefs.GetFloat ("HighScore");
-		} 
+		}
+        scoreCount += SceneControl.Instance.score;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-        SceneControl.Instance.score = (int)Mathf.Round(scoreCount);
+        //SceneControl.Instance.score = (int)Mathf.Round(scoreCount);
 
         if (!PlayerController.isDead && scoreIncreasing){
             scoreCount += (pointsPerSecond * Time.deltaTime);
@@ -40,7 +41,7 @@ public class ScoreManager : MonoBehaviour {
 			PlayerPrefs.SetFloat ("HighScore", hiscoreCount);
 		}
 
-        scoreText.text = "Score : " + SceneControl.Instance.score;
+        scoreText.text = "Score : " + (int)Mathf.Round(scoreCount);
 		//hp.text = "HP : " + SceneControl.Instance.HP;
 		//highScoreText.text = "High Score : " + Mathf.Round (hiscoreCount);
 
@@ -65,6 +66,10 @@ public class ScoreManager : MonoBehaviour {
 	}
 
 	public void AddScore(int pointsToAdd){
-        SceneControl.Instance.score += pointsToAdd;
+        scoreCount += pointsToAdd;
 	}
+
+    public int getScore() {
+        return (int)Mathf.Round(scoreCount);
+    }
 }
