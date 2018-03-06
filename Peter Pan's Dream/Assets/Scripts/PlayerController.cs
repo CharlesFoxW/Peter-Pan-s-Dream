@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour {
 	public AudioSource audioDie;
 	public AudioSource audioBg;
 
+
 	private float moveSpeedStore;
 
 	// Use this for initialization
@@ -84,7 +85,9 @@ public class PlayerController : MonoBehaviour {
 
 			yield return new WaitForSeconds (2.5f);
 			audioBg.Play ();
-			gameManager.RestartGame ();	
+
+			PauseUI.GameIsOver = true;
+			//gameManager.RestartGame ();	
 			// initalize parameters while restarting the game
 			moveSpeed = moveSpeedStore;
 		}
@@ -118,7 +121,9 @@ public class PlayerController : MonoBehaviour {
 				transform.localScale = prevScale;
 
 				audioBg.Play ();
-				gameManager.RestartGame ();	
+
+				PauseUI.GameIsOver = true;
+				//gameManager.RestartGame ();	
 				// initalize parameters while restarting the game
 				moveSpeed = moveSpeedStore;
 			}

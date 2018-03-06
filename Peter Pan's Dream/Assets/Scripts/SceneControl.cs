@@ -8,7 +8,6 @@ public class SceneControl : MonoBehaviour {
     public static SceneControl Instance;
     public int HP;
     public int score;
-    public Scene now;
 
 	private ScoreManager theScoreManager;
 
@@ -34,13 +33,11 @@ public class SceneControl : MonoBehaviour {
     public void Start () {
 
         SceneManager.LoadScene("MainScene");
-        HP = 3;score = 0;
+        HP = 3;
+		score = 0;
 		theScoreManager = FindObjectOfType<ScoreManager>();
 	}
-	public void daybegin()
-    {
-        SceneManager.LoadScene("Daytime"); HP = 3; score = 0;
-    }
+		
 	// Update is called once per frame
 	void Update () {     
 	}
@@ -51,6 +48,7 @@ public class SceneControl : MonoBehaviour {
 		//SceneControl.Instance.score = (int)theScoreManager.scoreCount;
         SceneManager.LoadScene("Night");
     }
+
     public void LoadScene2()
     {
         Debug.Log("ChangetoDay");

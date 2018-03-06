@@ -9,13 +9,13 @@ public class Daytimecontrol : MonoBehaviour {
     {
         timepast = 0f;
     }
-    private float timepast = 0f;
+	public static float timepast = 0f;
     private float timebar = 30f;
     // Update is called once per frame
     void Update()
     {
         timepast += Time.deltaTime;
-        if (timepast >= timebar)
+		if (PauseUI.GameIsOver == false && timepast >= timebar)
         {
             Debug.Log("inchange");
             timepast = 0f;
