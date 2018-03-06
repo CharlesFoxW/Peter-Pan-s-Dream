@@ -44,16 +44,14 @@ public class SceneControl : MonoBehaviour {
     public void LoadScene1()
     {
         Debug.Log("ChangetoNight");
-        SceneControl.Instance.HP = 3;
-		//SceneControl.Instance.score = (int)theScoreManager.scoreCount;
+       
         SceneManager.LoadScene("Night");
     }
 
     public void LoadScene2()
     {
         Debug.Log("ChangetoDay");
-        SceneControl.Instance.HP = 3;
-        SceneControl.Instance.score = 0;
+
         SceneManager.LoadScene("Daytime");
     }
 }

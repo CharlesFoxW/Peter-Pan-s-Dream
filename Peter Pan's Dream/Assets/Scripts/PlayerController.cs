@@ -26,8 +26,11 @@ public class PlayerController : MonoBehaviour {
 
 	private float moveSpeedStore;
 
+    public static bool isDead = false;
+
 	// Use this for initialization
 	void Start () {
+        PlayerController.isDead = false;
 		myRigidbody = GetComponent<Rigidbody2D> ();
 		myAnimator = GetComponent<Animator> ();
 		moveSpeedStore = moveSpeed;
@@ -103,6 +106,7 @@ public class PlayerController : MonoBehaviour {
 
 		if (collision.collider.gameObject.tag == "killbox" ){
 			Debug.Log ("die1");
+            PlayerController.isDead = true;
 			audioDie.Play ();
 			audioBg.Stop ();
 			moveSpeed = 0;
@@ -132,7 +136,7 @@ public class PlayerController : MonoBehaviour {
 
 			} else {
 				Debug.Log ("die2");
-
+                PlayerController.isDead = true;
 				audioDie.Play ();
 				audioBg.Stop ();
 				moveSpeed = 0;

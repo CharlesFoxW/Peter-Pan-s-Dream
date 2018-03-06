@@ -24,7 +24,11 @@ public class PauseUI : MonoBehaviour {
 			}
 		}
 
-		if (GameIsOver){
+        if (GameIsPaused) {
+            Pause();
+        }
+
+        if (GameIsOver){
 			pauseUI.SetActive (true);
 			Daytimecontrol.timepast = 0f;
 			Time.timeScale = 0f;
@@ -53,6 +57,7 @@ public class PauseUI : MonoBehaviour {
 		Time.timeScale = 1f;
 		Daytimecontrol.timepast = 0f;
 		GameIsOver = false;
+        GameIsPaused = false;
 		pauseUI.SetActive (false);
 		gameManager.RestartGame ();
 	}
