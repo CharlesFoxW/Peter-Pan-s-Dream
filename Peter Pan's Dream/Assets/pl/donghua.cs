@@ -8,7 +8,6 @@ public class donghua : MonoBehaviour {
     public Sprite[] Sprites;
     public float speed;
     private SpriteRenderer spriterenderer;
-
     void Start()
     {
         spriterenderer = GetComponent<SpriteRenderer>();

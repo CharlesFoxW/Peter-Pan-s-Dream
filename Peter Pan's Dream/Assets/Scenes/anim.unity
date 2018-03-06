@@ -4037,7 +4037,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1821582695}
   - component: {fileID: 1821582694}
-  - component: {fileID: 1821582693}
   - component: {fileID: 1821582696}
   m_Layer: 0
   m_Name: dong1
@@ -4046,25 +4045,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1821582693
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1821582692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acdb844f175bce544a2cd35ca615e748, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Sprites:
-  - {fileID: 21300000, guid: 279fb2cce7246194499a7da59ca58d80, type: 3}
-  - {fileID: 21300000, guid: 74f82de01536a27449f7941dcb585e0b, type: 3}
-  - {fileID: 21300000, guid: 48ac79d6bae9e7e46a033a3e9a8fe8fc, type: 3}
-  - {fileID: 21300000, guid: aa03fc9cc383b0b4ab3a510463ded420, type: 3}
-  - {fileID: 21300000, guid: 99a5882d6cc3ac84891764b09b6533be, type: 3}
-  - {fileID: 21300000, guid: 5cc51cf2aebce984a85fda2c4c9f60b4, type: 3}
-  speed: 3
 --- !u!212 &1821582694
 SpriteRenderer:
   m_ObjectHideFlags: 0
