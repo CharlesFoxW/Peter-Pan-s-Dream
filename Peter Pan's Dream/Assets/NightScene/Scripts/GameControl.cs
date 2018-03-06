@@ -71,6 +71,7 @@ public class GameControl : MonoBehaviour
         dizzyBirdsPrefab.SetActive(false);
 
         score = SceneControl.Instance.score;
+        scoreText.text = "Score: " + score.ToString();
         ReduceHP(3 - SceneControl.Instance.HP);
 	}
 
@@ -88,6 +89,7 @@ public class GameControl : MonoBehaviour
         {
             nightTimeElapsed = 0f;
             SceneControl.Instance.HP = getHP();
+            SceneControl.Instance.score = score;
             SceneControl.Instance.LoadScene2();
         }
 

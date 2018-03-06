@@ -24,6 +24,9 @@ public class PauseuiNight : MonoBehaviour {
             pauseUI.SetActive (true);
             Time.timeScale = 0f;
         }
+        if (GameIsPaused) {
+            Pause();
+        }
 	}
 
 
@@ -48,6 +51,7 @@ public class PauseuiNight : MonoBehaviour {
         Time.timeScale = 1f;
         //GameControl.instance.globalTimer = 0;
         GameControl.instance.gameOver = false;
+        GameIsPaused = false;
         pauseUI.SetActive (false);
         SceneControl.Instance.HP = 3;
         SceneControl.Instance.score = 0;
