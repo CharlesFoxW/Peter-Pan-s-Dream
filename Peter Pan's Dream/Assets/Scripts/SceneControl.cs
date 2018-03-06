@@ -14,15 +14,22 @@ public class SceneControl : MonoBehaviour {
 
     void Awake()
     {
+		// If the instance reference has not been set, yet, 
         if (Instance == null)
         {
-            DontDestroyOnLoad(gameObject);
+			// Set this instance as the instance reference.
             Instance = this;
         }
-        else if (Instance != null)
+		else if (Instance != this)
         {
+			// If the instance reference has already been set, and this is not the
+			// the instance reference, destroy this game object.
             Destroy(gameObject);
         }
+
+		// Do not destroy this object, when we load a new scene.
+		DontDestroyOnLoad(gameObject);
+
     }
     public void Start () {
 
