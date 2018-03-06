@@ -2622,6 +2622,7 @@ MonoBehaviour:
   dizzyBirdsPrefab: {fileID: 1011931101218716, guid: 5bc888c197f244b88aeba48a9a2ec058,
     type: 2}
   maxSpeed: -10
+  globalTimer: 0
   score: 0
   gameOver: 0
   scrollSpeed: -5
@@ -2634,7 +2635,7 @@ MonoBehaviour:
   fairyWithMag: {fileID: 0}
   Boundary_LEFT: -15
   Boundary_RIGHT: 20
-  nightTime: 10
+  nightTime: 30
   orbitDistance: 10
   orbitDegreesPerSec: 180
   relativeDistance: {x: 0, y: 0, z: 5}

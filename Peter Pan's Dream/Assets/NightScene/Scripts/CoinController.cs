@@ -6,7 +6,7 @@ public class CoinController : MonoBehaviour {
 
     private GameObject target;
 
-    private float speed = 7f;
+    private float speed = 10f;
 
     // Use this for initialization
     void Start () {
@@ -15,10 +15,13 @@ public class CoinController : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        if (GameControl.instance.hasMagnet && transform.position.x <= 2 && transform.position.x >= -10)
+        if (GameControl.instance.hasMagnet)
         {
-            float step = speed * Time.deltaTime;
-            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
+            Vector2 distance = target.transform.position - transform.position;
+            if (distance.magnitude < 5f) {
+                float step = speed * Time.deltaTime;
+                transform.position = Vector3.MoveTowards(transform.position, target.transform.position, step);
+            }
         }
     }
 }

@@ -7,11 +7,8 @@ public class PauseuiNight : MonoBehaviour {
 	public GameObject pauseUI;
 	public static bool GameIsPaused = false;
 
-	private GameManager gameManager;
-
 	// Use this for initialization
-	void Start(){
-		gameManager = FindObjectOfType<GameManager> ();
+    void Start(){		
 	}
 
 	void Update () {
@@ -22,15 +19,22 @@ public class PauseuiNight : MonoBehaviour {
 				Pause ();
 			}
 		}
-
+        if (GameControl.instance.gameOver)
+        {
+            pauseUI.SetActive (true);
+            Time.timeScale = 0f;
+        }
 	}
 
 
 	public void Resume(){
-		pauseUI.SetActive (false);
-		Time.timeScale = 1f;
-		GameIsPaused = false;
-
+        pauseUI.SetActive (false);
+        if (GameControl.instance.gameOver){
+            Restart ();
+        }else{
+            Time.timeScale = 1f;
+            GameIsPaused = false;
+        }
 	}
 
 	void Pause(){
@@ -41,10 +45,18 @@ public class PauseuiNight : MonoBehaviour {
 
 	public void Restart(){
 		Debug.Log ("restart game.....");
+        Time.timeScale = 1f;
+        //GameControl.instance.globalTimer = 0;
+        GameControl.instance.gameOver = false;
+        pauseUI.SetActive (false);
+        SceneControl.Instance.HP = 3;
+        SceneControl.Instance.score = 0;
+        SceneControl.Instance.LoadScene2();
 	}
 
 	public void ExitGame(){
 		Debug.Log ("exit game");
+        Application.Quit ();
 	}
 
 }
