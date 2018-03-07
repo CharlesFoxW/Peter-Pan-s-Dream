@@ -48,6 +48,9 @@ public class GameControl : MonoBehaviour
     public float orbitDegreesPerSec = 180.0f;
     public Vector3 relativeDistance = new Vector3(0, 0.5f);
 
+    // Fade Effect:
+    public GameObject myFade;
+
 	void Awake() {
 		//If we don't currently have a game control...
 		if (instance == null) {
@@ -90,7 +93,7 @@ public class GameControl : MonoBehaviour
             nightTimeElapsed = 0f;
             SceneControl.Instance.HP = getHP();
             SceneControl.Instance.score = score;
-            SceneControl.Instance.LoadScene2();
+            StartCoroutine(FadeScene());
         }
 
         //Auto speed up
@@ -208,5 +211,14 @@ public class GameControl : MonoBehaviour
     public void RenewStars(Transform parent) {
         updateStars = true;
         lastStars = parent;
-    }    
+    }
+
+    IEnumerator FadeScene()
+    {
+        Time.timeScale = 0.5f;
+        float time = myFade.GetComponent<FadeScene>().BeginFade(1);
+        yield return new WaitForSeconds(time);
+        Time.timeScale = 1f;
+        SceneControl.Instance.LoadScene2();
+    }
 }

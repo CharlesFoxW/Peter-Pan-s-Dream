@@ -30,7 +30,7 @@ public class PauseUI : MonoBehaviour {
 
         if (GameIsOver){
 			pauseUI.SetActive (true);
-			Daytimecontrol.timepast = 0f;
+			DaytimeControl.timepast = 0f;
 			Time.timeScale = 0f;
 		}
 	}
@@ -55,7 +55,7 @@ public class PauseUI : MonoBehaviour {
 	public void Restart(){
 		Debug.Log ("restart game.....");
 		Time.timeScale = 1f;
-		Daytimecontrol.timepast = 0f;
+		DaytimeControl.timepast = 0f;
 		GameIsOver = false;
         GameIsPaused = false;
 		pauseUI.SetActive (false);

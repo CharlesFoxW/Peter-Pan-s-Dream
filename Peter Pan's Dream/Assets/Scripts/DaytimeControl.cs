@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Daytimecontrol : MonoBehaviour {
-    
+public class DaytimeControl : MonoBehaviour {
+
+    public GameObject myFade;
     public static float timepast = 0f;
     private float timebar = 10f;
 
@@ -25,7 +26,16 @@ public class Daytimecontrol : MonoBehaviour {
             Debug.Log("inchange");
             timepast = 0f;
             SceneControl.Instance.score = myScoreManager.getScore();
-            SceneControl.Instance.LoadScene1();
+            StartCoroutine(FadeScene());
         }
+    }
+
+    IEnumerator FadeScene()
+    {
+        Time.timeScale = 0.5f;
+        float time = myFade.GetComponent<FadeScene>().BeginFade(1);
+        yield return new WaitForSeconds(time);
+        Time.timeScale = 1f;
+        SceneControl.Instance.LoadScene1();
     }
 }
