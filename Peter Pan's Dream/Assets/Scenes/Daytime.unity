@@ -2619,7 +2619,7 @@ MonoBehaviour:
   randomCoinThreshold: 75
   randomHealingStarThreshold: 10
   HealingStarPool: {fileID: 1532976922}
-  randomLadyBugThreshold: 55
+  randomLadyBugThreshold: 45
   ladyBugPool: {fileID: 1862778180}
   randomSniperThreshold: 30
   sniperPool: {fileID: 47384269}
