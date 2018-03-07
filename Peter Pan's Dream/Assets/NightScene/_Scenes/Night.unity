@@ -2668,7 +2668,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6acd72f18ce794ed6b726a13e8c4be7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerPrefab: {fileID: 1298235990908988, guid: 653b4fa1edf9747388f3c9e57f500f15,
+  towerPrefab: {fileID: 1050440980146826, guid: 653b4fa1edf9747388f3c9e57f500f15,
     type: 2}
   batPrefab: {fileID: 1201418896705046, guid: a802d13482c0b404ca8ea84050277c50, type: 2}
   singleCoinBronzePrefab: {fileID: 1559380952783550, guid: 6eee0bb5142df48ef8dfb02a55c33c00,
@@ -2764,7 +2764,6 @@ MonoBehaviour:
   fairyWithMag: {fileID: 0}
   Boundary_LEFT: -15
   Boundary_RIGHT: 20
-  nightTime: 60
   orbitDistance: 10
   orbitDegreesPerSec: 180
   relativeDistance: {x: 0, y: 0, z: 5}
@@ -4251,7 +4250,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -138.4, y: -28.199951}
+  m_AnchoredPosition: {x: -203.5, y: -28.199951}
   m_SizeDelta: {x: 269.1, y: 56.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2129455699

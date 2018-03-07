@@ -128,32 +128,54 @@ public class Bird : MonoBehaviour
 
 
             //Control script for phone
+//            if (Input.touchCount > 0)
+//            {
+//                Touch touch = Input.GetTouch(0);
+//
+//                // Handle finger movements based on touch phase.
+//                switch (touch.phase)
+//                {
+//                    // Record initial touch position.
+//                    case TouchPhase.Began:
+//                        startPos_y = touch.position.y;
+//                        break;
+//
+//                        // Determine direction by comparing the current touch position with the initial one.
+//                    case TouchPhase.Moved:
+//                        float offset = touch.position.y - startPos_y;
+//                        float curMoveSpeed = offset / Screen.height * 0.5f;
+//                        if (curMoveSpeed > 0.2)
+//                            curMoveSpeed = 0.2f;
+//
+//                        if (reverseControl)
+//                            transform.position = new Vector2(transform.position.x, transform.position.y - curMoveSpeed);
+//                        else
+//                            transform.position = new Vector2(transform.position.x, transform.position.y + curMoveSpeed);
+//                        break;
+//
+//                }
+//            }
+
+            //Control for phone mode B
             if (Input.touchCount > 0)
             {
                 Touch touch = Input.GetTouch(0);
-
-                // Handle finger movements based on touch phase.
-                switch (touch.phase)
+                float mid_y = Screen.height / 2;
+                if (touch.position.y - mid_y > 0)
                 {
-                    // Record initial touch position.
-                    case TouchPhase.Began:
-                        startPos_y = touch.position.y;
-                        break;
-
-                        // Determine direction by comparing the current touch position with the initial one.
-                    case TouchPhase.Moved:
-                        float offset = touch.position.y - startPos_y;
-                        float curMoveSpeed = offset / Screen.height * 0.5f;
-                        if (curMoveSpeed > 0.2)
-                            curMoveSpeed = 0.2f;
-
-                        if (reverseControl)
-                            transform.position = new Vector2(transform.position.x, transform.position.y - curMoveSpeed);
-                        else
-                            transform.position = new Vector2(transform.position.x, transform.position.y + curMoveSpeed);
-                        break;
-
+                    if (reverseControl)
+                        transform.position = new Vector2(transform.position.x, transform.position.y - moveSpeed);
+                    else
+                        transform.position = new Vector2(transform.position.x, transform.position.y + moveSpeed);
                 }
+                else
+                {
+                    if (reverseControl)
+                        transform.position = new Vector2(transform.position.x, transform.position.y + moveSpeed);
+                    else
+                        transform.position = new Vector2(transform.position.x, transform.position.y - moveSpeed);
+                }
+
             }
 
 

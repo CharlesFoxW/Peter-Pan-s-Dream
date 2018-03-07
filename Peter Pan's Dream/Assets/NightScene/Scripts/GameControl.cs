@@ -42,7 +42,7 @@ public class GameControl : MonoBehaviour
     public float Boundary_RIGHT = 15;
 
     private float nightTimeElapsed = 0f;
-    public float nightTime = 10f;
+    private float nightTime = 60f;
 
     public float orbitDistance = 1.0f;
     public float orbitDegreesPerSec = 180.0f;
