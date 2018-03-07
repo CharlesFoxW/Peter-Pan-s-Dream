@@ -34,7 +34,7 @@ public class Bird : MonoBehaviour
     public AudioSource pickUpMagSound;
     public AudioSource dizzyClip;
 
-    public GameObject camera;
+    //public GameObject camera;
 
 	public AudioSource backgroundSound;
 
@@ -66,7 +66,7 @@ public class Bird : MonoBehaviour
             if (invincibleTimeElapse >= invincibleTime)
             {
                 anim.SetTrigger("idle");
-                camera.GetComponent<AudioSource>().Play();
+                backgroundSound.Play();
                 isInvincible = false;
                 invincibleTimeElapse = 0f;
                 GameControl.instance.scrollSpeed = currentScrollSpeed;
@@ -195,7 +195,7 @@ public class Bird : MonoBehaviour
 			if (GameControl.instance.ReduceHP (1)) {
                 if (other.gameObject.CompareTag("Firework"))
                 {
-                    camera.GetComponent<AudioSource>().Stop();
+                    backgroundSound.Stop();
                     fireworkClip.Play();
                 }
                 dieSound.Play();
@@ -288,7 +288,7 @@ public class Bird : MonoBehaviour
         currentScrollSpeed = GameControl.instance.scrollSpeed;
         GameControl.instance.scrollSpeed = -15f; //Speedup the scene
         invincibleClip.Play();
-        camera.GetComponent<AudioSource>().Pause();
+        backgroundSound.Pause();
         anim.SetTrigger("collide");
         isCollided = false;
         isInvincible = true;
