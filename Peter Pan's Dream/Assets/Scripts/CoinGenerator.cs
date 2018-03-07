@@ -13,10 +13,13 @@ public class CoinGenerator : MonoBehaviour {
 	private float curHeightIncrease;
 	private Bounds platformBounds;
 
+	private Bounds sniperBounds;
 
-	public void SpawnCoins (Vector3 startPosition, float width, Bounds bounds){
+	public void SpawnCoins (Vector3 startPosition, float width, Bounds pb, Bounds sb){
 
-		platformBounds = bounds;
+		platformBounds = pb;
+		sniperBounds = sb;
+
 		int selector = 8;
 		int pickStyle = Random.Range (0, selector + 1);
 
@@ -260,7 +263,8 @@ public class CoinGenerator : MonoBehaviour {
 			startPosition.y + curHeightIncrease + minHeightOffset + y*distanceBetweenCoins,
 			startPosition.z);
 		Bounds coinBounds = coin.GetComponent<Renderer> ().bounds;
-		if (coin.transform.position.y < 6 && !coinBounds.Intersects(platformBounds)) {
+		if (coin.transform.position.y < 6 && !coinBounds.Intersects(platformBounds) &&
+			!coinBounds.Intersects(sniperBounds)) {
 			coin.SetActive (true); // ignore coins overlapping with ground
 		}
 	}

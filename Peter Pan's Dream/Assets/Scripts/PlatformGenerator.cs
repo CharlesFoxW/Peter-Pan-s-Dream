@@ -133,13 +133,6 @@ public class PlatformGenerator : MonoBehaviour {
 			Vector3 coinPositionOffset = new Vector3 (0f, 1f, 0f);
 
 
-			if (Random.Range (0f, 100f) < randomCoinThreshold) {
-				theCoinGenerator.SpawnCoins (
-					transform.position + coinPositionOffset,
-					platformWidths[platformSelector],
-					newPlatform.GetComponent<Renderer>().bounds);
-			}
-
             if (Random.Range(0f, 100f) < randomHealingStarThreshold) {
                 
                 GameObject newHealingStar = HealingStarPool.GetPooledObject();
@@ -163,11 +156,10 @@ public class PlatformGenerator : MonoBehaviour {
 				ropeLeft.transform.position = transform.position + new Vector3(-xOffset, yOffset, 0);
 				ropeRight.transform.position = transform.position + new Vector3(xOffset, yOffset, 0);
 
-
-
-
 			}
 
+			Bounds platformBounds = newPlatform.GetComponent<Renderer> ().bounds;
+			Bounds sniperBounds = new Bounds();
 
 			if (platformWidths [platformSelector] > 5.2f) {
 				
@@ -180,7 +172,7 @@ public class PlatformGenerator : MonoBehaviour {
 					newSniper.transform.position = transform.position + sniperPositionOffset;
 					newSniper.transform.rotation = transform.rotation;
 					newSniper.SetActive (true);
-
+					sniperBounds = newSniper.GetComponent<Renderer> ().bounds;
 				} else if (Random.Range (0f, 100f) < randomLadyBugThreshold) {
 					
 					GameObject newLadyBug = ladyBugPool.GetPooledObject ();
@@ -191,13 +183,21 @@ public class PlatformGenerator : MonoBehaviour {
 
 					// pass the parameters used for moving the ladybugs.
 					LadyBugController.PassParameters (newLadyBug, newPlatform.transform.position, 
-						newPlatform.GetComponent<BoxCollider2D> ().size.x);
+					newPlatform.GetComponent<BoxCollider2D> ().size.x);
 					newLadyBug.SetActive (true);
 
 				}
 
 			}
 
+			if (Random.Range (0f, 100f) < randomCoinThreshold) {
+				theCoinGenerator.SpawnCoins (
+					transform.position + coinPositionOffset,
+					platformWidths[platformSelector],
+					platformBounds,
+					sniperBounds
+				);
+			}
 
 			transform.position = new Vector3(transform.position.x + (platformWidths[platformSelector] / 2), 
 				transform.position.y, transform.position.z);
