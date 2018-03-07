@@ -2828,6 +2828,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   platformGenerator: {fileID: 999535610}
   thePlayer: {fileID: 1955585271}
+  audioBg: {fileID: 663708292}
 --- !u!4 &1079225071
 Transform:
   m_ObjectHideFlags: 0

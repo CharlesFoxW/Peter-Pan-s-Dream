@@ -36,6 +36,8 @@ public class Bird : MonoBehaviour
 
     public GameObject camera;
 
+	public AudioSource backgroundSound;
+
 	void Start(){
 		//Get reference to the Animator component attached to this GameObject.
 		//anim = GetComponent<Animator> ();
@@ -275,6 +277,7 @@ public class Bird : MonoBehaviour
         rb2d.velocity = Vector2.zero;
         rb2d.gravityScale = 1f;
         isDead = true;
+		backgroundSound.Stop ();
         GameControl.instance.BirdDied();
     }
 }
