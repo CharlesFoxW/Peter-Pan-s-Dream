@@ -132,8 +132,11 @@ public class PlatformGenerator : MonoBehaviour {
 			Vector3 ladyBugPositionOffset = new Vector3 (0f, 0.6f, 0f);
 			Vector3 coinPositionOffset = new Vector3 (0f, 1f, 0f);
 
+			Bounds platformBounds = newPlatform.GetComponent<Renderer> ().bounds;
+			Bounds sniperBounds = new Bounds();
+			Bounds starBounds = new Bounds();
 
-            if (Random.Range(0f, 100f) < randomHealingStarThreshold) {
+			if (SceneControl.Instance.HP < 3 && Random.Range(0f, 100f) < randomHealingStarThreshold) {
                 
                 GameObject newHealingStar = HealingStarPool.GetPooledObject();
 
@@ -142,6 +145,7 @@ public class PlatformGenerator : MonoBehaviour {
                 newHealingStar.transform.position = transform.position + sniperPositionOffset;
                 newHealingStar.transform.rotation = transform.rotation;
                 newHealingStar.SetActive(true);
+				starBounds = newHealingStar.GetComponent<Renderer> ().bounds;
             }
 
 			if (platformSelector == 4 || platformSelector == 5) {
@@ -157,9 +161,7 @@ public class PlatformGenerator : MonoBehaviour {
 				ropeRight.transform.position = transform.position + new Vector3(xOffset, yOffset, 0);
 
 			}
-
-			Bounds platformBounds = newPlatform.GetComponent<Renderer> ().bounds;
-			Bounds sniperBounds = new Bounds();
+				
 
 			if (platformWidths [platformSelector] > 5.2f) {
 				
@@ -195,7 +197,8 @@ public class PlatformGenerator : MonoBehaviour {
 					transform.position + coinPositionOffset,
 					platformWidths[platformSelector],
 					platformBounds,
-					sniperBounds
+					sniperBounds,
+					starBounds
 				);
 			}
 

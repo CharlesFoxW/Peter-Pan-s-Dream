@@ -6,7 +6,7 @@ public class DaytimeControl : MonoBehaviour {
 
     public GameObject myFade;
     public static float timepast = 0f;
-    private float timebar = 40f;
+    private float timebar = 60f;
 
     private ScoreManager myScoreManager;
 

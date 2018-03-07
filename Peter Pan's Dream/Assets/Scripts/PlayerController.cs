@@ -22,6 +22,7 @@ public class PlayerController : MonoBehaviour {
 	public AudioSource audioHurt;
 	public AudioSource audioDie;
 	public AudioSource audioBg;
+	public AudioSource audioHealUp;
 
 
 	private float moveSpeedStore;
@@ -163,6 +164,7 @@ public class PlayerController : MonoBehaviour {
                 Debug.Log("Healing by 1...");
                 SceneControl.Instance.HP++;
             }
+			audioHealUp.Play ();
             other.gameObject.SetActive(false);
         }
 
