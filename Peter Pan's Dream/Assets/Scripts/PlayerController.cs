@@ -158,7 +158,13 @@ public class PlayerController : MonoBehaviour {
 				// initalize parameters while restarting the game
 				moveSpeed = moveSpeedStore;
 			}
-		}
+        } else if (other.tag == "Heal") {
+            if (SceneControl.Instance.HP < 3 && SceneControl.Instance.HP > 0) {
+                Debug.Log("Healing by 1...");
+                SceneControl.Instance.HP++;
+            }
+            other.gameObject.SetActive(false);
+        }
 
 	}
 

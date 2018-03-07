@@ -38,7 +38,11 @@ public class PlatformGenerator : MonoBehaviour {
 
 	//coin generator parameters
 	private CoinGenerator theCoinGenerator;
-	public float randomCoinThreshold; 
+	public float randomCoinThreshold;
+
+    //Healing Stars:
+    public float randomHealingStarThreshold;
+    public ObjectPooler HealingStarPool;
 
 	//ladybug generator:
 	public float randomLadyBugThreshold;
@@ -135,6 +139,17 @@ public class PlatformGenerator : MonoBehaviour {
 					platformWidths[platformSelector],
 					newPlatform.GetComponent<Renderer>().bounds);
 			}
+
+            if (Random.Range(0f, 100f) < randomHealingStarThreshold) {
+                
+                GameObject newHealingStar = HealingStarPool.GetPooledObject();
+
+                float starXPositionOffset = Random.Range(-platformWidths[platformSelector] / 2, platformWidths[platformSelector] / 2);
+                Vector3 sniperPositionOffset = new Vector3(starXPositionOffset, 1f, 0f);
+                newHealingStar.transform.position = transform.position + sniperPositionOffset;
+                newHealingStar.transform.rotation = transform.rotation;
+                newHealingStar.SetActive(true);
+            }
 
 			if (platformSelector == 4 || platformSelector == 5) {
 				GameObject ropeLeft = ropePool.GetPooledObject ();
