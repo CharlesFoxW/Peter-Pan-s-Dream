@@ -16,6 +16,8 @@ public class GameManager : MonoBehaviour {
 
 	private ScoreManager theScoreManager;
 
+	public AudioSource audioBg;
+
 
 	// Use this for initialization
 	void Start () {
@@ -31,6 +33,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void RestartGame(){
+		audioBg.Play ();
 		StartCoroutine ("RestartGameCo");
 	}
 

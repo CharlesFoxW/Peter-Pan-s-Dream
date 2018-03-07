@@ -115,7 +115,7 @@ public class PlayerController : MonoBehaviour {
 			myRigidbody.velocity = new Vector2 (0, 0);
 
 			yield return new WaitForSeconds (2.5f);
-			audioBg.Play ();
+			//audioBg.Play ();
 
 			PauseUI.GameIsOver = true;
 			//gameManager.RestartGame ();	
@@ -151,7 +151,7 @@ public class PlayerController : MonoBehaviour {
 				yield return new WaitForSeconds (2.5f);
 				transform.localScale = prevScale;
 
-				audioBg.Play ();
+				//audioBg.Play ();
 
 				PauseUI.GameIsOver = true;
 				//gameManager.RestartGame ();	
