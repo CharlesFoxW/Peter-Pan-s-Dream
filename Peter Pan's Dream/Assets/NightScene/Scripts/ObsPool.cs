@@ -336,57 +336,61 @@ public class ObsPool : MonoBehaviour
         timeSinceLastMagnet += Time.deltaTime;
         timeSinceLastSpawned += Time.deltaTime;
 
-        if (timeSinceStart < 15f && !addedToObsList[0])
-        {
-            UsingSetting((int)Settings.Normal_1);
-            curColTypeList = colSettingList[(int)CollectiveSettings.Normal_1 - 600].typeList;
-        }
-        if (timeSinceStart > 15f && timeSinceStart < 30f && !addedToObsList[1])
-        {
-            UsingSetting((int)Settings.Normal_2);
-        }
-        if (timeSinceStart > 30f && timeSinceStart < 45f && !addedToObsList[(int)Settings.BatWithWaveStorm - 700])
-        {
-            UsingSetting((int)Settings.BatWithWaveStorm);
-            curColTypeList = colSettingList[(int)CollectiveSettings.Normal_2 - 600].typeList;
-        }
-        if (timeSinceStart > 45f && timeSinceStart < 60f && !addedToObsList[2])
-        {
-            UsingSetting((int)Settings.Normal_3);
-        }
-        if (timeSinceStart > 60f && timeSinceStart < 75f && !addedToObsList[(int)Settings.BronzeCoinStorm - 700])
-        {
-            UsingSetting((int)Settings.BronzeCoinStorm);
-            curColTypeList = colSettingList[(int)CollectiveSettings.Normal_3 - 600].typeList;
-        }
-        if (timeSinceStart > 75f && timeSinceStart < 90f && !addedToObsList[3]) 
-        {
-            UsingSetting((int)Settings.Normal_4);
-        }
-        if (timeSinceStart > 90f && timeSinceStart < 105f && !addedToObsList[(int)Settings.SilverCoinStorm - 700])
-        {
-            UsingSetting((int)Settings.SilverCoinStorm);
-            curColTypeList = colSettingList[(int)CollectiveSettings.Normal_4 - 600].typeList;
-            addedToObsList[2] = false;
-        }
-        if (timeSinceStart > 105f && timeSinceStart < 120f && !addedToObsList[2])
-        {
-            UsingSetting((int)Settings.Normal_3);
-        }
-        if (timeSinceStart > 120f && timeSinceStart < 135f && !addedToObsList[(int)Settings.GhostStorm - 700])
-        {
-            UsingSetting((int)Settings.GhostStorm);
+        if (SceneControl.Instance.roundToNight == 1) {
+            if (timeSinceStart < 15f && !addedToObsList[0])
+            {
+                UsingSetting((int)Settings.Normal_1);
+                curColTypeList = colSettingList[(int)CollectiveSettings.Normal_1 - 600].typeList;
+            }
+            if (timeSinceStart > 15f && timeSinceStart < 30f && !addedToObsList[1])
+            {
+                UsingSetting((int)Settings.Normal_2);
+            }
+        } else if (SceneControl.Instance.roundToNight == 2) {
+            if (timeSinceStart < 15f && !addedToObsList[(int)Settings.BatWithWaveStorm - 700])
+            {
+                UsingSetting((int)Settings.BatWithWaveStorm);
+                curColTypeList = colSettingList[(int)CollectiveSettings.Normal_2 - 600].typeList;
+            }
+            if (timeSinceStart > 15f && timeSinceStart < 30f && !addedToObsList[2])
+            {
+                UsingSetting((int)Settings.Normal_3);
+            }
+        } else if (SceneControl.Instance.roundToNight == 3) {
+            if (timeSinceStart < 15f && !addedToObsList[(int)Settings.BronzeCoinStorm - 700])
+            {
+                UsingSetting((int)Settings.BronzeCoinStorm);
+                curColTypeList = colSettingList[(int)CollectiveSettings.Normal_3 - 600].typeList;
+            }
+            if (timeSinceStart > 15f && timeSinceStart < 30f && !addedToObsList[3])
+            {
+                UsingSetting((int)Settings.Normal_4);
+            }
+        } else if (SceneControl.Instance.roundToNight == 4) {
+            if (timeSinceStart < 15f && !addedToObsList[(int)Settings.SilverCoinStorm - 700])
+            {
+                UsingSetting((int)Settings.SilverCoinStorm);
+                curColTypeList = colSettingList[(int)CollectiveSettings.Normal_4 - 600].typeList;
+                addedToObsList[2] = false;
+            }
+            if (timeSinceStart > 15f && timeSinceStart < 30f && !addedToObsList[2])
+            {
+                UsingSetting((int)Settings.Normal_3);
+            }
+        } else if (SceneControl.Instance.roundToNight == 5){
+            if (timeSinceStart < 15f && !addedToObsList[(int)Settings.GhostStorm - 700])
+            {
+                UsingSetting((int)Settings.GhostStorm);
+                curColTypeList = colSettingList[(int)CollectiveSettings.Normal_5 - 600].typeList;
+            }
+            if (timeSinceStart > 15f && timeSinceStart < 30f && !addedToObsList[(int)Settings.GoldCoinStorm - 700])
+            {
+                UsingSetting((int)Settings.GoldCoinStorm);
+            }
+        } else {
+            UsingSetting((int)Settings.Normal_5);
             curColTypeList = colSettingList[(int)CollectiveSettings.Normal_5 - 600].typeList;
         }
-        if (timeSinceStart > 135f && timeSinceStart < 150f && !addedToObsList[(int)Settings.GoldCoinStorm - 700])
-        {
-            UsingSetting((int)Settings.GoldCoinStorm);
-        }
-        if (timeSinceStart > 150f && !addedToObsList[4])
-        {
-            UsingSetting((int)Settings.Normal_5);
-        }
-
 
         // When detect hp lost, add FairyWithHeal into the pool.
         if (GameControl.instance.getHP() < 3 && !needToHeal)
@@ -435,15 +439,12 @@ public class ObsPool : MonoBehaviour
                 coinSpawnRate = float.MaxValue;
                 colTypeIndex = (int)(curColTypeList[Random.Range(0, curColTypeList.Count)]);
                 while (colTypeIndex == (int)Collective.PandoraBox) {
-                    if (timeSinceLastPandoraBox >= 30f) 
+                    if (timeSinceLastPandoraBox >= 15f && SceneControl.Instance.roundToNight >= 2) 
                     {
                         timeSinceLastPandoraBox = 0f;
                         break;
                     }
-                    else 
-                    {
-                        colTypeIndex = (int)(curColTypeList[Random.Range(0, curColTypeList.Count)]);
-                    }
+                    colTypeIndex = (int)(curColTypeList[Random.Range(0, curColTypeList.Count)]);
                 }
                 LetItShow(colTypeIndex);
             }
@@ -549,7 +550,7 @@ public class ObsPool : MonoBehaviour
                 pandoraBox.transform.position = new Vector2(spawnXPosition, Random.Range(COL_Y_MIN, COL_Y_MAX));
                 break;
             case (int)Collective.Gem:
-                if (timeSinceLastGem >= 30f || (timeSinceLastGem >= 8f && stormMode))
+                if (timeSinceLastGem >= 15f || (timeSinceLastGem >= 8f && stormMode))
                 {
                     gem.transform.position = new Vector2(spawnXPosition, Random.Range(COL_Y_MIN, COL_Y_MAX));
                     timeSinceLastGem = 0f;
@@ -572,7 +573,7 @@ public class ObsPool : MonoBehaviour
                 }
                 break;
             case (int)Fairy.Invincible:
-                if (timeSinceLastInvincible >= 60f)
+                if (timeSinceLastInvincible >= 15f && SceneControl.Instance.roundToNight >= 3)
                 {
                     fairyWithInvincible.transform.position = new Vector2(spawnXPosition, 0f);
                     timeSinceLastInvincible = 0f;
@@ -583,7 +584,7 @@ public class ObsPool : MonoBehaviour
                 }
                 break;
             case (int)Fairy.Magnet:
-                if (timeSinceLastMagnet >= 30f)
+                if (timeSinceLastMagnet >= 10f)
                 {
                     fairyWithMagnet.transform.position = new Vector2(spawnXPosition, 0f);
                     timeSinceLastMagnet = 0f;

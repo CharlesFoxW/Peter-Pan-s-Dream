@@ -230,16 +230,19 @@ public class Bird : MonoBehaviour
             GameControl.instance.BirdScored(5);
 			asCoin.Play ();
             other.gameObject.SetActive(false);
+            other.gameObject.transform.position = new Vector3(-12f, 0);
 
         } else if (other.gameObject.CompareTag("BronzeCoin")) {
             GameControl.instance.BirdScored(1);
             asCoin.Play ();
             other.gameObject.SetActive(false);
+            other.gameObject.transform.position = new Vector3(-12f, 0);
 
         } else if (other.gameObject.CompareTag("SilverCoin")) {
             GameControl.instance.BirdScored(2);
             asCoin.Play ();
             other.gameObject.SetActive(false);
+            other.gameObject.transform.position = new Vector3(-12f, 0);
 
         } else if (other.gameObject.CompareTag("gem")) {
             GameControl.instance.BirdScored(100);

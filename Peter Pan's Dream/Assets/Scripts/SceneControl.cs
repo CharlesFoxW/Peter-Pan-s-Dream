@@ -8,6 +8,7 @@ public class SceneControl : MonoBehaviour {
     public static SceneControl Instance;
     public int HP;
     public int score;
+    public int roundToNight;
 
 	private ScoreManager theScoreManager;
 
@@ -35,6 +36,7 @@ public class SceneControl : MonoBehaviour {
         SceneManager.LoadScene("MainScene");
         HP = 3;
 		score = 0;
+        roundToNight = 0;
 		theScoreManager = FindObjectOfType<ScoreManager>();
 	}
 		
@@ -46,6 +48,8 @@ public class SceneControl : MonoBehaviour {
         Debug.Log("ChangetoNight");
        
         SceneManager.LoadScene("Night");
+
+        roundToNight++;
     }
 
     public void LoadScene2()
