@@ -1,8 +1,7 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-/**
+/*
  * STEP:
  * 1. Add your item to any one of the ENUM: Obstacle, Collective and Fairy;
  * 2. Create Prefab GameObject for your item;
@@ -15,7 +14,7 @@ using UnityEngine;
 public class ObsPool : MonoBehaviour
 {
 
-    /**
+    /*
      * [--Obstacle--]
      * Tower                0
      * Bat                  1
@@ -83,23 +82,9 @@ public class ObsPool : MonoBehaviour
 
     public enum Collective
     {
-        SingleCoinBronze = 800,
-        DoubleCoinBronze,
-        LineThreeCoinBronze,
-        SquareFourCoinBronze,
-        SquareNineCoinBronze,
-
-        SingleCoinSilver,
-        DoubleCoinSilver,
-        LineThreeCoinSilver,
-        SquareFourCoinSilver,
-        SquareNineCoinSilver,
-
-        SingleCoinGold,
-        DoubleCoinGold,
-        LineThreeCoinGold,
-        SquareFourCoinGold,
-        SquareNineCoinGold,
+        Bronze = 800,
+        Silver,
+        Gold,
 
         PandoraBox = 850,
         Gem
@@ -114,21 +99,6 @@ public class ObsPool : MonoBehaviour
 
     public GameObject towerPrefab;
     public GameObject batPrefab;
-    public GameObject singleCoinBronzePrefab;
-    public GameObject doubleCoinBronzePrefab;
-    public GameObject lineThreeCoinBronzePrefab;
-    public GameObject squareFourCoinBronzePrefab;
-    //public GameObject squareNineCoinBronzePrefab;
-    public GameObject singleCoinSilverPrefab;
-    public GameObject doubleCoinSilverPrefab;
-    public GameObject lineThreeCoinSilverPrefab;
-    public GameObject squareFourCoinSilverPrefab;
-    //public GameObject squareNineCoinSilverPrefab;
-    public GameObject singleCoinGoldPrefab;
-    public GameObject doubleCoinGoldPrefab;
-    public GameObject lineThreeCoinGoldPrefab;
-    public GameObject squareFourCoinGoldPrefab;
-    public GameObject squareNineCoinGoldPrefab;
     public GameObject pandoraBoxPrefab;
     public GameObject gemPrefab;
     public GameObject towerWithBrickPrefab;
@@ -149,21 +119,6 @@ public class ObsPool : MonoBehaviour
     private GameObject[] batWithWaves;
     private GameObject[] towerWithFireworks;
     private GameObject[] ghosts;
-    private GameObject[] singleCoinBronzes;
-    private GameObject[] doubleCoinBronzes;
-    private GameObject[] lineThreeCoinBronzes;
-    private GameObject[] squareFourCoinBronzes;
-    //private GameObject[] squareNineCoinBronzes;
-    private GameObject[] singleCoinSilvers;
-    private GameObject[] doubleCoinSilvers;
-    private GameObject[] lineThreeCoinSilvers;
-    private GameObject[] squareFourCoinSilvers;
-    //private GameObject[] squareNineCoinSilvers;
-    private GameObject[] singleCoinGolds;
-    private GameObject[] doubleCoinGolds;
-    private GameObject[] lineThreeCoinGolds;
-    private GameObject[] squareFourCoinGolds;
-    private GameObject[] squareNineCoinGolds;
     private GameObject pandoraBox;
     private GameObject gem;
     private GameObject fairyWithHeal;
@@ -217,12 +172,15 @@ public class ObsPool : MonoBehaviour
     public ArrayList curColTypeList;
     public bool needToHeal = false;
     public bool stormMode = false;
+    private CoinSetter coinSetter;
     private bool[] addedToObsList;
     private Setting[] obsSettingList;
     private Setting[] colSettingList;
 
     void Start()
     {
+        coinSetter = FindObjectOfType<CoinSetter>();
+
         timeSinceStart = 0f;
         timeSinceLastGem = 0f;
         timeSinceLastPandoraBox = 0f;
@@ -243,24 +201,6 @@ public class ObsPool : MonoBehaviour
         bats = new GameObject[DEFAULT_OBS_POOL_SIZE];
         towerWithBricks = new GameObject[DEFAULT_OBS_POOL_SIZE];
 
-        //singleCoinBronzes = new GameObject[COIN_POOL_SIZE];
-        //doubleCoinBronzes = new GameObject[COIN_POOL_SIZE];
-        lineThreeCoinBronzes = new GameObject[COIN_POOL_SIZE];
-        squareFourCoinBronzes = new GameObject[COIN_POOL_SIZE];
-        //squareNineCoinBronzes = new GameObject[COIN_POOL_SIZE];
-
-        //singleCoinSilvers = new GameObject[COIN_POOL_SIZE];
-        //doubleCoinSilvers = new GameObject[COIN_POOL_SIZE];
-        lineThreeCoinSilvers = new GameObject[COIN_POOL_SIZE];
-        squareFourCoinSilvers = new GameObject[COIN_POOL_SIZE];
-        //squareNineCoinSilvers = new GameObject[COIN_POOL_SIZE];
-
-        //singleCoinGolds = new GameObject[COIN_POOL_SIZE];
-        //doubleCoinGolds = new GameObject[COIN_POOL_SIZE];
-        lineThreeCoinGolds = new GameObject[COIN_POOL_SIZE];
-        squareFourCoinGolds = new GameObject[COIN_POOL_SIZE];
-        squareNineCoinGolds = new GameObject[COIN_POOL_SIZE];
-
         batWithWaves = new GameObject[DEFAULT_OBS_POOL_SIZE];
         towerWithFireworks = new GameObject[DEFAULT_OBS_POOL_SIZE];
         ghosts = new GameObject[GHOST_POOL_SIZE];
@@ -268,21 +208,6 @@ public class ObsPool : MonoBehaviour
         GenerateObstacles(towerPrefab, towers, DEFAULT_OBS_POOL_SIZE);
         GenerateObstacles(batPrefab, bats, DEFAULT_OBS_POOL_SIZE);
         GenerateObstacles(towerWithBrickPrefab, towerWithBricks, DEFAULT_OBS_POOL_SIZE);
-        //GenerateObstacles(singleCoinBronzePrefab, singleCoinBronzes, COIN_POOL_SIZE);
-        //GenerateObstacles(doubleCoinBronzePrefab, doubleCoinBronzes, COIN_POOL_SIZE);
-        GenerateObstacles(lineThreeCoinBronzePrefab, lineThreeCoinBronzes, COIN_POOL_SIZE);
-        GenerateObstacles(squareFourCoinBronzePrefab, squareFourCoinBronzes, COIN_POOL_SIZE);
-        //GenerateObstacles(squareNineCoinBronzePrefab, squareNineCoinBronzes, COIN_POOL_SIZE);
-        //GenerateObstacles(singleCoinSilverPrefab, singleCoinSilvers, COIN_POOL_SIZE);
-        //GenerateObstacles(doubleCoinSilverPrefab, doubleCoinSilvers, COIN_POOL_SIZE);
-        GenerateObstacles(lineThreeCoinSilverPrefab, lineThreeCoinSilvers, COIN_POOL_SIZE);
-        GenerateObstacles(squareFourCoinSilverPrefab, squareFourCoinSilvers, COIN_POOL_SIZE);
-        //GenerateObstacles(squareNineCoinSilverPrefab, squareNineCoinSilvers, COIN_POOL_SIZE);
-        //GenerateObstacles(singleCoinGoldPrefab, singleCoinGolds, COIN_POOL_SIZE);
-        //GenerateObstacles(doubleCoinGoldPrefab, doubleCoinGolds, COIN_POOL_SIZE);
-        GenerateObstacles(lineThreeCoinGoldPrefab, lineThreeCoinGolds, COIN_POOL_SIZE);
-        GenerateObstacles(squareFourCoinGoldPrefab, squareFourCoinGolds, COIN_POOL_SIZE);
-        GenerateObstacles(squareNineCoinGoldPrefab, squareNineCoinGolds, COIN_POOL_SIZE);
         GenerateObstacles(batWithWavePrefab, batWithWaves, DEFAULT_OBS_POOL_SIZE);
         GenerateObstacles(towerWithFireworkPrefab, towerWithFireworks, DEFAULT_OBS_POOL_SIZE);
         GenerateObstacles(ghostPrefab, ghosts, GHOST_POOL_SIZE);
@@ -354,61 +279,44 @@ public class ObsPool : MonoBehaviour
 
         //Special Setting 3: Bronze Coin Storm
         obsSettingList[16] = new Setting();
-        obsSettingList[16].addItem((int)Collective.LineThreeCoinBronze);
-        obsSettingList[16].addItem((int)Collective.SquareFourCoinBronze);
-        //obsSettingList[16].addItem((int)Collective.SquareNineCoinBronze);
+        obsSettingList[16].addItem((int)Collective.Bronze);
         obsSettingList[16].addItem((int)Fairy.Magnet);
 
         //Special Setting 4: Silver Coin Storm
         obsSettingList[17] = new Setting();
-        obsSettingList[17].addItem((int)Collective.LineThreeCoinSilver);
-        obsSettingList[17].addItem((int)Collective.SquareFourCoinSilver);
-        //obsSettingList[1].addItem((int)Collective.SquareNineCoinSilver);
+        obsSettingList[17].addItem((int)Collective.Silver);
         obsSettingList[17].addItem((int)Fairy.Magnet);
 
         //Special Setting 5: Gold Coin Storm
         obsSettingList[18] = new Setting();
-        obsSettingList[18].addItem((int)Collective.LineThreeCoinGold);
-        obsSettingList[18].addItem((int)Collective.SquareFourCoinGold);
-        obsSettingList[18].addItem((int)Collective.SquareNineCoinGold);
+        obsSettingList[18].addItem((int)Collective.Gold);
         obsSettingList[18].addItem((int)Fairy.Magnet);
 
         //Collection 1: 
         colSettingList[0] = new Setting();
-        //colSettingList[0].addItem((int)Collective.SingleCoinBronze);
-        //colSettingList[0].addItem((int)Collective.DoubleCoinBronze);
-        colSettingList[0].addItem((int)Collective.LineThreeCoinBronze);
+        colSettingList[0].addItem((int)Collective.Bronze);
         colSettingList[0].addItem((int)Collective.PandoraBox);
 
         //Collection 2: 
         colSettingList[1] = new Setting();
-        //colSettingList[1].addItem((int)Collective.SingleCoinSilver);
-        //colSettingList[1].addItem((int)Collective.DoubleCoinSilver);
-        //colSettingList[1].addItem((int)Collective.DoubleCoinBronze);
-        colSettingList[1].addItem((int)Collective.LineThreeCoinBronze);
+        colSettingList[1].addItem((int)Collective.Bronze);
+        colSettingList[1].addItem((int)Collective.Silver);
         colSettingList[1].addItem((int)Collective.PandoraBox);
 
         //Collection 3: 
         colSettingList[2] = new Setting();
-        //colSettingList[2].addItem((int)Collective.SingleCoinSilver);
-        //colSettingList[2].addItem((int)Collective.DoubleCoinSilver);
-        colSettingList[2].addItem((int)Collective.LineThreeCoinSilver);
+        colSettingList[2].addItem((int)Collective.Silver);
         colSettingList[2].addItem((int)Collective.PandoraBox);
 
         //Collection 4: 
         colSettingList[3] = new Setting();
-        //colSettingList[3].addItem((int)Collective.SingleCoinGold);
-        //colSettingList[3].addItem((int)Collective.DoubleCoinGold);
-        //colSettingList[3].addItem((int)Collective.DoubleCoinSilver);
-        colSettingList[3].addItem((int)Collective.LineThreeCoinSilver);
+        colSettingList[3].addItem((int)Collective.Silver);
+        colSettingList[3].addItem((int)Collective.Gold);
         colSettingList[3].addItem((int)Collective.PandoraBox);
 
         //Collection 5: 
         colSettingList[4] = new Setting();
-        //colSettingList[4].addItem((int)Collective.SingleCoinGold);
-        //colSettingList[4].addItem((int)Collective.DoubleCoinGold);
-        colSettingList[4].addItem((int)Collective.LineThreeCoinGold);
-        colSettingList[4].addItem((int)Collective.SquareFourCoinGold);
+        colSettingList[4].addItem((int)Collective.Gold);
         colSettingList[4].addItem((int)Collective.PandoraBox);
     }
 
@@ -628,50 +536,20 @@ public class ObsPool : MonoBehaviour
             case (int)Obstacle.Ghost:
                 SetupObstacles(ghosts, new Vector2(spawnXPosition, Random.Range(GHOST_Y_MIN, GHOST_Y_MAX)), (int)Obstacle.Ghost, GHOST_POOL_SIZE);
                 break;
-            case (int)Collective.SingleCoinBronze:
-                SetupCollectives(singleCoinBronzes, new Vector2(spawnXPosition, Random.Range(COL_Y_MIN, COL_Y_MAX)), (int)Collective.SingleCoinBronze, COIN_POOL_SIZE);
+            case (int)Collective.Bronze:
+                coinSetter.SetCoins(new Vector2(spawnXPosition, Random.Range(COL_Y_MIN, COL_Y_MAX)), 3);
                 break;
-            case (int)Collective.DoubleCoinBronze:
-                SetupCollectives(doubleCoinBronzes, new Vector2(spawnXPosition, Random.Range(COL_Y_MIN, COL_Y_MAX)), (int)Collective.DoubleCoinBronze, COIN_POOL_SIZE);
+            case (int)Collective.Silver:
+                coinSetter.SetCoins(new Vector2(spawnXPosition, Random.Range(COL_Y_MIN, COL_Y_MAX)), 2);
                 break;
-            case (int)Collective.LineThreeCoinBronze:
-                SetupCollectives(lineThreeCoinBronzes, new Vector2(spawnXPosition, Random.Range(COL_Y_MIN, COL_Y_MAX)), (int)Collective.LineThreeCoinBronze, COIN_POOL_SIZE);
-                break;
-            case (int)Collective.SquareFourCoinBronze:
-                SetupCollectives(squareFourCoinBronzes, new Vector2(spawnXPosition, Random.Range(COL_Y_MIN, COL_Y_MAX)), (int)Collective.SquareFourCoinBronze, COIN_POOL_SIZE);
-                break;
-            case (int)Collective.SingleCoinSilver:
-                SetupCollectives(singleCoinSilvers, new Vector2(spawnXPosition, Random.Range(COL_Y_MIN, COL_Y_MAX)), (int)Collective.SingleCoinSilver, COIN_POOL_SIZE);
-                break;
-            case (int)Collective.DoubleCoinSilver:
-                SetupCollectives(doubleCoinSilvers, new Vector2(spawnXPosition, Random.Range(COL_Y_MIN, COL_Y_MAX)), (int)Collective.DoubleCoinSilver, COIN_POOL_SIZE);
-                break;
-            case (int)Collective.LineThreeCoinSilver:
-                SetupCollectives(lineThreeCoinSilvers, new Vector2(spawnXPosition, Random.Range(COL_Y_MIN, COL_Y_MAX)), (int)Collective.LineThreeCoinSilver, COIN_POOL_SIZE);
-                break;
-            case (int)Collective.SquareFourCoinSilver:
-                SetupCollectives(squareFourCoinSilvers, new Vector2(spawnXPosition, Random.Range(COL_Y_MIN, COL_Y_MAX)), (int)Collective.SquareFourCoinGold, COIN_POOL_SIZE);
-                break;
-            case (int)Collective.SingleCoinGold:
-                SetupCollectives(singleCoinGolds, new Vector2(spawnXPosition, Random.Range(COL_Y_MIN, COL_Y_MAX)), (int)Collective.SingleCoinGold, COIN_POOL_SIZE);
-                break;
-            case (int)Collective.DoubleCoinGold:
-                SetupCollectives(doubleCoinGolds, new Vector2(spawnXPosition, Random.Range(COL_Y_MIN, COL_Y_MAX)), (int)Collective.DoubleCoinGold, COIN_POOL_SIZE);
-                break;
-            case (int)Collective.LineThreeCoinGold:
-                SetupCollectives(lineThreeCoinGolds, new Vector2(spawnXPosition, Random.Range(COL_Y_MIN, COL_Y_MAX)), (int)Collective.LineThreeCoinGold, COIN_POOL_SIZE);
-                break;
-            case (int)Collective.SquareFourCoinGold:
-                SetupCollectives(squareFourCoinGolds, new Vector2(spawnXPosition, Random.Range(COL_Y_MIN, COL_Y_MAX)), (int)Collective.SquareFourCoinGold, COIN_POOL_SIZE);
-                break;
-            case (int)Collective.SquareNineCoinGold:
-                SetupCollectives(squareNineCoinGolds, new Vector2(spawnXPosition, Random.Range(COL_Y_MIN, COL_Y_MAX)), (int)Collective.SquareNineCoinGold, COIN_POOL_SIZE);
+            case (int)Collective.Gold:
+                coinSetter.SetCoins(new Vector2(spawnXPosition, Random.Range(COL_Y_MIN, COL_Y_MAX)), 1);
                 break;
             case (int)Collective.PandoraBox:
                 pandoraBox.transform.position = new Vector2(spawnXPosition, Random.Range(COL_Y_MIN, COL_Y_MAX));
                 break;
             case (int)Collective.Gem:
-                if (timeSinceLastGem >= 60f || (timeSinceLastGem >= 8f && stormMode))
+                if (timeSinceLastGem >= 30f || (timeSinceLastGem >= 8f && stormMode))
                 {
                     gem.transform.position = new Vector2(spawnXPosition, Random.Range(COL_Y_MIN, COL_Y_MAX));
                     timeSinceLastGem = 0f;
@@ -682,7 +560,7 @@ public class ObsPool : MonoBehaviour
                 }
                 break;
             case (int)Fairy.Heal:
-                if (timeSinceLastHeal >= 30f && needToHeal)
+                if (timeSinceLastHeal >= 10f && needToHeal)
                 {
                     fairyWithHeal.transform.position = new Vector2(spawnXPosition, 0f);
                     timeSinceLastHeal = 0f;
