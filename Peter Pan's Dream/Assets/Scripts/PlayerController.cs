@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour {
 	private Rigidbody2D myRigidbody;
 	private Animator myAnimator;
 	private Collider2D myCollider;
+	private SpriteRenderer myRenderer;
 
 	public AudioSource audioJump;
 	public AudioSource audioHurt;
@@ -31,12 +32,15 @@ public class PlayerController : MonoBehaviour {
     private bool isInvincible = false;
     private float invincibleTimeElapse = 0f;
     public float invincibleTime = 2.5f;
+	private float playerBlinkingElapse = 0f;
+	private float playerBlinkingMiniDuration = 0.2f;
 
 	// Use this for initialization
 	void Start () {
         PlayerController.isDead = false;
 		myRigidbody = GetComponent<Rigidbody2D> ();
 		myAnimator = GetComponent<Animator> ();
+		myRenderer = GetComponent<SpriteRenderer> ();
 		moveSpeedStore = moveSpeed;
 	}
 
@@ -92,9 +96,22 @@ public class PlayerController : MonoBehaviour {
             invincibleTimeElapse += Time.deltaTime;
             if (invincibleTimeElapse > invincibleTime) {
                 // Add invincible animation here.
+				myRenderer.enabled = true;
                 isInvincible = false;
-                invincibleTime = 0f;
+                invincibleTimeElapse = 0f;
+            	
             }
+
+			playerBlinkingElapse += Time.deltaTime;
+			if (playerBlinkingElapse > playerBlinkingMiniDuration) {
+				if (myRenderer.enabled) {
+					myRenderer.enabled = false;
+				} else {
+					myRenderer.enabled = true;
+				}
+				playerBlinkingElapse = 0f;
+			}
+
         }
 
 
@@ -145,8 +162,8 @@ public class PlayerController : MonoBehaviour {
 			SceneControl.Instance.HP--;
 
 			if (SceneControl.Instance.HP > 0) {
+				isInvincible = true;
 				audioHurt.Play ();
-                isInvincible = true;
 			} else {
 				Debug.Log ("die2");
                 PlayerController.isDead = true;
