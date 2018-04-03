@@ -28,6 +28,9 @@ public class PlayerController : MonoBehaviour {
 	private float moveSpeedStore;
 
     public static bool isDead = false;
+    private bool isInvincible = false;
+    private float invincibleTimeElapse = 0f;
+    public float invincibleTime = 2.5f;
 
 	// Use this for initialization
 	void Start () {
@@ -85,6 +88,15 @@ public class PlayerController : MonoBehaviour {
 
         }
 
+        if (isInvincible) {
+            invincibleTimeElapse += Time.deltaTime;
+            if (invincibleTimeElapse > invincibleTime) {
+                // Add invincible animation here.
+                isInvincible = false;
+                invincibleTime = 0f;
+            }
+        }
+
 
 	}
 
@@ -128,13 +140,13 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	IEnumerator OnTriggerEnter2D(Collider2D other){
-		if (other.tag == "DTEnemy") {
+        if (!isInvincible && other.tag == "DTEnemy") {
 			
 			SceneControl.Instance.HP--;
 
 			if (SceneControl.Instance.HP > 0) {
 				audioHurt.Play ();
-
+                isInvincible = true;
 			} else {
 				Debug.Log ("die2");
                 PlayerController.isDead = true;
