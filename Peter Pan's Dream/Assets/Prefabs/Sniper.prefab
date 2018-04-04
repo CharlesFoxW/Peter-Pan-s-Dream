@@ -92,7 +92,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 1563159364885782, guid: 7bdff85de143149ff8df3129f236d824, type: 2}
-  waitBetweenShots: 2.2
+  waitBetweenShots: 3
 --- !u!212 &212089600249402344
 SpriteRenderer:
   m_ObjectHideFlags: 1

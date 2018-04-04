@@ -151,7 +151,7 @@ public class PlatformGenerator : MonoBehaviour {
                 GameObject newHealingStar = HealingStarPool.GetPooledObject();
 
                 float starXPositionOffset = Random.Range(-platformWidths[platformSelector] / 2, platformWidths[platformSelector] / 2);
-                Vector3 sniperPositionOffset = new Vector3(starXPositionOffset, 0.8f, 0f);
+                Vector3 sniperPositionOffset = new Vector3(starXPositionOffset, 0.5f, 0f);
                 newHealingStar.transform.position = transform.position + sniperPositionOffset;
                 newHealingStar.transform.rotation = transform.rotation;
                 newHealingStar.SetActive(true);
