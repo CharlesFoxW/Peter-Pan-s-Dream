@@ -52,6 +52,10 @@ public class PlatformGenerator : MonoBehaviour {
 	public float randomSniperThreshold;
 	public ObjectPooler sniperPool;
 
+	//Campfire generator:
+	public float randomCampfireThreshold;
+	public ObjectPooler campfirePool;
+
 	public ObjectPooler ropePool;
 
 
@@ -132,16 +136,19 @@ public class PlatformGenerator : MonoBehaviour {
 			Vector3 ladyBugPositionOffset = new Vector3 (0f, 0.6f, 0f);
 			Vector3 coinPositionOffset = new Vector3 (0f, 1f, 0f);
 
+
 			Bounds platformBounds = newPlatform.GetComponent<Renderer> ().bounds;
 			Bounds sniperBounds = new Bounds();
 			Bounds starBounds = new Bounds();
+			Bounds campfireBounds = new Bounds();
+
 
 			if (SceneControl.Instance.HP < 3 && Random.Range(0f, 100f) < randomHealingStarThreshold) {
                 
                 GameObject newHealingStar = HealingStarPool.GetPooledObject();
 
                 float starXPositionOffset = Random.Range(-platformWidths[platformSelector] / 2, platformWidths[platformSelector] / 2);
-                Vector3 sniperPositionOffset = new Vector3(starXPositionOffset, 1f, 0f);
+                Vector3 sniperPositionOffset = new Vector3(starXPositionOffset, 0.8f, 0f);
                 newHealingStar.transform.position = transform.position + sniperPositionOffset;
                 newHealingStar.transform.rotation = transform.rotation;
                 newHealingStar.SetActive(true);
@@ -161,7 +168,7 @@ public class PlatformGenerator : MonoBehaviour {
 				ropeRight.transform.position = transform.position + new Vector3(xOffset, yOffset, 0);
 
 			}
-				
+
 
 			if (platformWidths [platformSelector] > 5.2f) {
 				
@@ -188,6 +195,16 @@ public class PlatformGenerator : MonoBehaviour {
 					newPlatform.GetComponent<BoxCollider2D> ().size.x);
 					newLadyBug.SetActive (true);
 
+				} else if (Random.Range (0f, 100f) < randomCampfireThreshold) {
+
+					GameObject newCampfire = campfirePool.GetPooledObject ();
+					float campfireXPositionOffset = Random.Range (0f, platformWidths[platformSelector] / 2);
+					Vector3 campfirePositionOffset = new Vector3 (campfireXPositionOffset, 0.7f, 0f);
+					newCampfire.transform.position = transform.position + campfirePositionOffset;
+					newCampfire.transform.rotation = transform.rotation;
+					newCampfire.SetActive (true);
+					campfireBounds = newCampfire.GetComponent<Renderer> ().bounds;
+
 				}
 
 			}
@@ -198,7 +215,8 @@ public class PlatformGenerator : MonoBehaviour {
 					platformWidths[platformSelector],
 					platformBounds,
 					sniperBounds,
-					starBounds
+					starBounds,
+					campfireBounds
 				);
 			}
 
