@@ -93,14 +93,6 @@ public class PlayerController : MonoBehaviour {
         }
 
         if (isInvincible) {
-            invincibleTimeElapse += Time.deltaTime;
-            if (invincibleTimeElapse > invincibleTime) {
-                // Add invincible animation here.
-				myRenderer.enabled = true;
-                isInvincible = false;
-                invincibleTimeElapse = 0f;
-            	
-            }
 
 			playerBlinkingElapse += Time.deltaTime;
 			if (playerBlinkingElapse > playerBlinkingMiniDuration) {
@@ -111,6 +103,15 @@ public class PlayerController : MonoBehaviour {
 				}
 				playerBlinkingElapse = 0f;
 			}
+
+            invincibleTimeElapse += Time.deltaTime;
+            if (invincibleTimeElapse > invincibleTime) {
+                // Add invincible animation here.
+				myRenderer.enabled = true;
+                isInvincible = false;
+                invincibleTimeElapse = 0f;
+            	
+            }
 
         }
 
