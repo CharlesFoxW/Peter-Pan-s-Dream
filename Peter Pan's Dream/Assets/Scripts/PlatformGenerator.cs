@@ -212,7 +212,7 @@ public class PlatformGenerator : MonoBehaviour {
 
 					GameObject newCaptainHook = captainHookPool.GetPooledObject ();
 					float captainHookXPositionOffset = Random.Range (0f, platformWidths[platformSelector] / 2);
-					Vector3 captainHookPositionOffset = new Vector3 (captainHookXPositionOffset, 3.4f, 0f);
+					Vector3 captainHookPositionOffset = new Vector3 (captainHookXPositionOffset, 2.5f, 0f);
 					newCaptainHook.transform.position = transform.position + captainHookPositionOffset;
 					newCaptainHook.transform.rotation = transform.rotation;
 					newCaptainHook.SetActive (true);
