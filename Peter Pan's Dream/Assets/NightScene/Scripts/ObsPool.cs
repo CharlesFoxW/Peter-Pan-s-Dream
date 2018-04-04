@@ -555,7 +555,7 @@ public class ObsPool : MonoBehaviour
                 pandoraBox.transform.position = new Vector2(spawnXPosition, Random.Range(COL_Y_MIN, COL_Y_MAX));
                 break;
             case (int)Collective.Gem:
-                if (timeSinceLastGem >= 15f || (timeSinceLastGem >= 8f && stormMode))
+                if (timeSinceLastGem >= 15f || (timeSinceLastGem >= 7.5f && stormMode))
                 {
                     gem.transform.position = new Vector2(spawnXPosition, Random.Range(COL_Y_MIN, COL_Y_MAX));
                     timeSinceLastGem = 0f;
@@ -578,7 +578,7 @@ public class ObsPool : MonoBehaviour
                 }
                 break;
             case (int)Fairy.Invincible:
-                if (timeSinceLastInvincible >= 15f && SceneControl.Instance.roundToNight >= 3)
+                if (timeSinceLastInvincible >= 15f && SceneControl.Instance.roundToNight >= 2)
                 {
                     fairyWithInvincible.transform.position = new Vector2(spawnXPosition, 0f);
                     timeSinceLastInvincible = 0f;
@@ -589,7 +589,7 @@ public class ObsPool : MonoBehaviour
                 }
                 break;
             case (int)Fairy.Magnet:
-                if (timeSinceLastMagnet >= 10f)
+                if (timeSinceLastMagnet >= 15f)
                 {
                     fairyWithMagnet.transform.position = new Vector2(spawnXPosition, 0f);
                     timeSinceLastMagnet = 0f;
