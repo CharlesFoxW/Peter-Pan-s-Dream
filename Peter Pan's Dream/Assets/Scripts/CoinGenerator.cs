@@ -15,12 +15,16 @@ public class CoinGenerator : MonoBehaviour {
 
 	private Bounds sniperBounds;
 	private Bounds starBounds;
+	private Bounds campfireBounds;
 
-	public void SpawnCoins (Vector3 startPosition, float width, Bounds pb, Bounds sb, Bounds star){
+
+	public void SpawnCoins (Vector3 startPosition, float width, Bounds pb, Bounds sb, Bounds star, Bounds campfire){
 
 		platformBounds = pb;
 		sniperBounds = sb;
 		starBounds = star;
+		campfireBounds = campfire;
+
 
 		int selector = 8;
 		int pickStyle = Random.Range (0, selector + 1);
@@ -266,7 +270,8 @@ public class CoinGenerator : MonoBehaviour {
 			startPosition.z);
 		Bounds coinBounds = coin.GetComponent<Renderer> ().bounds;
 		if (coin.transform.position.y < 6 && !coinBounds.Intersects(platformBounds) &&
-			!coinBounds.Intersects(sniperBounds) && !coinBounds.Intersects(starBounds)) {
+			!coinBounds.Intersects(sniperBounds) && !coinBounds.Intersects(starBounds) &&
+			!coinBounds.Intersects(campfireBounds)) {
 			coin.SetActive (true); // ignore coins overlapping with ground
 		}
 	}
