@@ -1371,6 +1371,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HP: 0
   score: 0
+  roundToNight: 0
 --- !u!4 &857200096
 Transform:
   m_ObjectHideFlags: 0
@@ -2650,6 +2651,7 @@ GameObject:
   - component: {fileID: 1244831761}
   - component: {fileID: 1244831760}
   - component: {fileID: 1244831759}
+  - component: {fileID: 1244831762}
   m_Layer: 0
   m_Name: GameControl
   m_TagString: Untagged
@@ -2671,32 +2673,6 @@ MonoBehaviour:
   towerPrefab: {fileID: 1050440980146826, guid: 653b4fa1edf9747388f3c9e57f500f15,
     type: 2}
   batPrefab: {fileID: 1201418896705046, guid: a802d13482c0b404ca8ea84050277c50, type: 2}
-  singleCoinBronzePrefab: {fileID: 1559380952783550, guid: 6eee0bb5142df48ef8dfb02a55c33c00,
-    type: 2}
-  doubleCoinBronzePrefab: {fileID: 1014865908615654, guid: c3b59668f6f9b4c6d821ae5032b08853,
-    type: 2}
-  lineThreeCoinBronzePrefab: {fileID: 1652974232419332, guid: 6a4a6cb76a6d64c41acb6d138913e15f,
-    type: 2}
-  squareFourCoinBronzePrefab: {fileID: 1102110441280464, guid: 65b1c795815b44d6ca165238b33abc09,
-    type: 2}
-  singleCoinSilverPrefab: {fileID: 1911229318569724, guid: 52419f0c66db3456db8e924724d72187,
-    type: 2}
-  doubleCoinSilverPrefab: {fileID: 1464402953282732, guid: 7ec04a13639f1431dba04b871a415fb6,
-    type: 2}
-  lineThreeCoinSilverPrefab: {fileID: 1018273188649730, guid: 63ad99af088ae46c088b9bca4a8c4d39,
-    type: 2}
-  squareFourCoinSilverPrefab: {fileID: 1601371770940192, guid: 9aaf51311d9974a9baf1a891a3a8424a,
-    type: 2}
-  singleCoinGoldPrefab: {fileID: 1245826011887274, guid: d1354f8b748074bb6b463c88b0a3666c,
-    type: 2}
-  doubleCoinGoldPrefab: {fileID: 1505945173360202, guid: ce8715ae360e249f2bee98380673a3f9,
-    type: 2}
-  lineThreeCoinGoldPrefab: {fileID: 1871386750926962, guid: fde632bdea41c4d72925aeb6f012684e,
-    type: 2}
-  squareFourCoinGoldPrefab: {fileID: 1448281054848378, guid: 16b428dfb4f154a5fb620b73d168dda7,
-    type: 2}
-  squareNineCoinGoldPrefab: {fileID: 1429290149156600, guid: d7491b2ee183a47bda1a27a04b27ae96,
-    type: 2}
   pandoraBoxPrefab: {fileID: 1876554605677022, guid: 94afb8a8794a34d168d4e6acd9452bfc,
     type: 2}
   gemPrefab: {fileID: 1831394626278594, guid: 3ac0eeeeb03ee40a8a6bd4d0331eae6b, type: 2}
@@ -2781,6 +2757,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1244831762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1244831758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be881036962d84bedadd4b91f45deafb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  goldCoinPrefab: {fileID: 1885417615820668, guid: ebd33ef370e5e4c6fae6859c686533aa,
+    type: 2}
+  silverCoinPrefab: {fileID: 1273032100105842, guid: 5bb1d612a3b484dccbd4ef5b1804a70b,
+    type: 2}
+  bronzeConinPrefab: {fileID: 1957120284353266, guid: d3e63ef9cc249434e9c20e88977ac809,
+    type: 2}
+  curGoldCoin: -1
+  curSilverCoin: -1
+  curBronzeCoin: -1
 --- !u!1 &1329247451
 GameObject:
   m_ObjectHideFlags: 0
