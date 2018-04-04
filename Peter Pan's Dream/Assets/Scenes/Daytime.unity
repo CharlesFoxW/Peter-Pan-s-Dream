@@ -190,7 +190,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &65043139
 GameObject:
@@ -473,7 +473,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &360319429
 GameObject:
@@ -901,6 +901,49 @@ MonoBehaviour:
   hiscoreCount: 0
   pointsPerSecond: 1
   scoreIncreasing: 1
+--- !u!1 &561247036
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 561247038}
+  - component: {fileID: 561247037}
+  m_Layer: 0
+  m_Name: CaptainHookPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &561247037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 561247036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e89ce4a3a0fa5440e896fb16e87c0935, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledObject: {fileID: 1132983006801674, guid: 491efdee7853646ca9f1173834afcbc5,
+    type: 2}
+  pooledAmount: 5
+--- !u!4 &561247038
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 561247036}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.27407637, y: -0.27139065, z: 8.692446}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &564803744
 GameObject:
   m_ObjectHideFlags: 0
@@ -1406,7 +1449,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 16
+  m_RootOrder: 17
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &696152595
 GameObject:
@@ -2311,7 +2354,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &930182514
 GameObject:
@@ -2618,14 +2661,16 @@ MonoBehaviour:
   heightLevel: 3
   isFirstGround: 1
   randomCoinThreshold: 75
-  randomHealingStarThreshold: 100
+  randomHealingStarThreshold: 40
   HealingStarPool: {fileID: 1532976922}
-  randomLadyBugThreshold: 45
+  randomLadyBugThreshold: 25
   ladyBugPool: {fileID: 1862778180}
-  randomSniperThreshold: 30
+  randomSniperThreshold: 33
   sniperPool: {fileID: 47384269}
-  randomCampfireThreshold: 100
+  randomCampfireThreshold: 50
   campfirePool: {fileID: 1570330451}
+  randomCaptainHookThreshold: 100
+  captainHookPool: {fileID: 561247037}
   ropePool: {fileID: 1793565747}
 --- !u!4 &999535610
 Transform:
@@ -3808,7 +3853,7 @@ Transform:
   - {fileID: 1635154085}
   - {fileID: 360319430}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 18
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1545919467
 GameObject:
@@ -4871,7 +4916,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1800466819
 GameObject:
