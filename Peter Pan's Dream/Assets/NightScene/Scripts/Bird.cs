@@ -12,9 +12,8 @@ public class Bird : MonoBehaviour
     private float invincibleTimeElapse = 0f;
     private bool isCollided = false;
     private bool isInvincible = false;
-	//private Animator anim;					//Reference to the Animator component.
 	private Rigidbody2D rb2d;				//Holds a reference to the Rigidbody2D component of the bird.
-    private Collider2D polycollider;
+    private Collider2D birdcollider;
     private Animator anim;
     private float moveSpeed = 0.1f;
     private float currentScrollSpeed;
@@ -43,9 +42,9 @@ public class Bird : MonoBehaviour
 		//anim = GetComponent<Animator> ();
 		//Get and store a reference to the Rigidbody2D attached to this GameObject.
 		rb2d = GetComponent<Rigidbody2D>();
-        polycollider = GetComponent<PolygonCollider2D>();
+        birdcollider = GetComponent<CapsuleCollider2D>();
         anim = GetComponent<Animator>();
-        polycollider.isTrigger = true;
+        birdcollider.isTrigger = true;
 	}
 
 	void Update()
@@ -92,8 +91,9 @@ public class Bird : MonoBehaviour
         //Don't allow control if the bird has died.
         if (isDead == false) 
 		{
-            if (Input.GetKey(KeyCode.UpArrow)) 
+            if (Input.GetKey(KeyCode.UpArrow))
             {
+                anim.SetBool("flying", true);
                 if (reverseControl)
                     transform.position = new Vector2(transform.position.x, transform.position.y - moveSpeed);
                 else
@@ -101,30 +101,34 @@ public class Bird : MonoBehaviour
             }
             else if (Input.GetKey(KeyCode.DownArrow))
             {
+                anim.SetBool("flying", true);
                 if (reverseControl)
                     transform.position = new Vector2(transform.position.x, transform.position.y + moveSpeed);
                 else
                     transform.position = new Vector2(transform.position.x, transform.position.y - moveSpeed);
             }
+            else
+                anim.SetBool("flying", false);
+
 
             //Control script for PC testing
-            if (Input.GetMouseButtonDown(0))
-            {
-                startPos_y = Input.mousePosition.y;
-            }
-            if (Input.GetMouseButton(0))
-            {
-                float offset = Input.mousePosition.y - startPos_y;
-                float curMoveSpeed = offset / Screen.height * 0.5f;
-                if (curMoveSpeed > 0.2)
-                    curMoveSpeed = 0.2f;
-
-
-                if (reverseControl)
-                    transform.position = new Vector2(transform.position.x, transform.position.y - curMoveSpeed);
-                else
-                    transform.position = new Vector2(transform.position.x, transform.position.y + curMoveSpeed);
-            }
+//            if (Input.GetMouseButtonDown(0))
+//            {
+//                startPos_y = Input.mousePosition.y;
+//            }
+//            if (Input.GetMouseButton(0))
+//            {
+//                float offset = Input.mousePosition.y - startPos_y;
+//                float curMoveSpeed = offset / Screen.height * 0.5f;
+//                if (curMoveSpeed > 0.2)
+//                    curMoveSpeed = 0.2f;
+//
+//
+//                if (reverseControl)
+//                    transform.position = new Vector2(transform.position.x, transform.position.y - curMoveSpeed);
+//                else
+//                    transform.position = new Vector2(transform.position.x, transform.position.y + curMoveSpeed);
+//            }
 
 
             //Control script for phone
@@ -298,7 +302,7 @@ public class Bird : MonoBehaviour
     }
 
     void BirdDie() {
-        polycollider.isTrigger = false;
+        birdcollider.isTrigger = false;
         rb2d.velocity = Vector2.zero;
         rb2d.gravityScale = 1f;
         isDead = true;

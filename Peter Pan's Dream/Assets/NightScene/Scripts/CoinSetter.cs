@@ -46,7 +46,7 @@ public class CoinSetter : MonoBehaviour {
         //if startPosition is lower than -2, then reset y to -2f
         if (startPosition.y < -2)
             startPosition = new Vector2(startPosition.x, -2f);
-        else if (startPosition.y < 0)
+        if (startPosition.y < 0)
             selectedStyle = Random.Range(1, 3);
         else
             selectedStyle = Random.Range(1, styleAmount + 1);
