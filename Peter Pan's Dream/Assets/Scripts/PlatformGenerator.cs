@@ -56,6 +56,9 @@ public class PlatformGenerator : MonoBehaviour {
 	public float randomCampfireThreshold;
 	public ObjectPooler campfirePool;
 
+	public float randomCaptainHookThreshold;
+	public ObjectPooler captainHookPool;
+
 	public ObjectPooler ropePool;
 
 
@@ -141,7 +144,7 @@ public class PlatformGenerator : MonoBehaviour {
 			Bounds sniperBounds = new Bounds();
 			Bounds starBounds = new Bounds();
 			Bounds campfireBounds = new Bounds();
-
+			Bounds captainHookBounds = new Bounds();
 
 			if (SceneControl.Instance.HP < 3 && Random.Range(0f, 100f) < randomHealingStarThreshold) {
                 
@@ -205,6 +208,16 @@ public class PlatformGenerator : MonoBehaviour {
 					newCampfire.SetActive (true);
 					campfireBounds = newCampfire.GetComponent<Renderer> ().bounds;
 
+				}	else if (Random.Range (0f, 100f) < randomCaptainHookThreshold) {
+
+					GameObject newCaptainHook = captainHookPool.GetPooledObject ();
+					float captainHookXPositionOffset = Random.Range (0f, platformWidths[platformSelector] / 2);
+					Vector3 captainHookPositionOffset = new Vector3 (captainHookXPositionOffset, 3.4f, 0f);
+					newCaptainHook.transform.position = transform.position + captainHookPositionOffset;
+					newCaptainHook.transform.rotation = transform.rotation;
+					newCaptainHook.SetActive (true);
+					captainHookBounds = newCaptainHook.GetComponent<Renderer> ().bounds;
+
 				}
 
 			}
@@ -216,7 +229,8 @@ public class PlatformGenerator : MonoBehaviour {
 					platformBounds,
 					sniperBounds,
 					starBounds,
-					campfireBounds
+					campfireBounds,
+					captainHookBounds
 				);
 			}
 
