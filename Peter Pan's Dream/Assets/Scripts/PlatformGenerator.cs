@@ -82,7 +82,7 @@ public class PlatformGenerator : MonoBehaviour {
 		//platformByLevel[1] = new List<int>{8};
 		//platformByLevel[2] = new List<int>{4, 5};
 		platformByLevel[0] = new List<int>{6, 7, 8};
-		platformByLevel[1] = new List<int>{0, 1, 2, 3, 6};
+		platformByLevel[1] = new List<int>{0, 1, 2, 3};
 		platformByLevel[2] = new List<int>{0, 1, 2, 3, 4, 5};
 
 		theCoinGenerator = FindObjectOfType<CoinGenerator> ();
