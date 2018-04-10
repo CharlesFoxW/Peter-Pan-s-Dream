@@ -118,14 +118,14 @@ public class GameControl : MonoBehaviour
         {
             if (!existDizzyBird)
             {
-                dizzyBirdsPrefab.transform.position = Player.transform.position + new Vector3(0.54f, 0.22f);
+                dizzyBirdsPrefab.transform.position = Player.transform.position + new Vector3(0.45f, 0.68f);
                 // Start Animation
                 dizzyBirdsPrefab.SetActive(true);
                 existDizzyBird = true;
             }
             else
             {
-                dizzyBirdsPrefab.transform.position = Player.transform.position + new Vector3(0.54f, 0.22f);
+                dizzyBirdsPrefab.transform.position = Player.transform.position + new Vector3(0.45f, 0.68f);
             }
         } 
         else 

@@ -202,7 +202,6 @@ public class Bird : MonoBehaviour
                     backgroundSound.Stop();
                     fireworkClip.Play();
                 }
-                dieSound.Play();
 				BirdDie ();
 			} else {
                 hurtSound.Play();
@@ -307,6 +306,7 @@ public class Bird : MonoBehaviour
         rb2d.gravityScale = 1f;
         isDead = true;
 		backgroundSound.Stop ();
+        dieSound.Play();
         GameControl.instance.BirdDied();
     }
 }

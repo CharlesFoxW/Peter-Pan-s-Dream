@@ -239,8 +239,8 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.07581431, y: 0.0000000034606045}
-  m_Size: {x: 0.3918345, y: 1.13}
+  m_Offset: {x: 0.0765607, y: -0.021959282}
+  m_Size: {x: 0.22762911, y: 0.88233495}
   m_Direction: 0
 --- !u!1 &334696047
 GameObject:
@@ -2939,7 +2939,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1345155286}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.172, y: 2.914, z: 0}
+  m_LocalPosition: {x: 2.172, y: 2.6, z: 0}
   m_LocalScale: {x: 0.738191, y: 0.738191, z: 0.738191}
   m_Children: []
   m_Father: {fileID: 518979757}
@@ -3743,7 +3743,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 0b9092ac3b3ed44ad88b484891a4a8c4, type: 3}
+  m_audioClip: {fileID: 8300000, guid: d2d33bc7dd9154c85be384eaf04e2055, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -4276,7 +4276,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -203.5, y: -28.199951}
+  m_AnchoredPosition: {x: -253.2, y: -29.9}
   m_SizeDelta: {x: 269.1, y: 56.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2129455699
