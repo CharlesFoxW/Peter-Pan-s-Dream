@@ -21,21 +21,6 @@ public class DaytimeControl : MonoBehaviour {
     void Update()
     {
         timepast += Time.deltaTime;
-        if (!PlayerController.isDead && timepast >= timebar)
-        {
-            Debug.Log("inchange");
-            timepast = 0f;
-            SceneControl.Instance.score = myScoreManager.getScore();
-            StartCoroutine(FadeScene());
-        }
     }
 
-    IEnumerator FadeScene()
-    {
-        Time.timeScale = 0.5f;
-        float time = myFade.GetComponent<FadeScene>().BeginFade(1);
-        yield return new WaitForSeconds(time);
-        Time.timeScale = 1f;
-        SceneControl.Instance.LoadScene1();
-    }
 }

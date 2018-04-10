@@ -22,12 +22,11 @@ public class FadeScene : MonoBehaviour {
 
     void OnGUI()
     {
-        if ((fadeDir > 0 && alpha <= 1f) || (fadeDir < 0 && alpha >= 0f))
-        {
+        if ((fadeDir > 0 && alpha <= 1f) || (fadeDir < 0 && alpha >= 0f)) {
             alpha += fadeDir * fadeSpeed * Time.deltaTime;
         }
-        GUI.color = new Color(GUI.color.r, GUI.color.g, GUI.color.b, alpha);
-        GUI.DrawTexture(new Rect(0, 0, Screen.width, Screen.height), blackTexture);
+		GUI.color = new Color (GUI.color.r, GUI.color.g, GUI.color.b, alpha);
+		GUI.DrawTexture (new Rect (0, 0, Screen.width, Screen.height), blackTexture); 
     }
     public float BeginFade(int direction)
     {

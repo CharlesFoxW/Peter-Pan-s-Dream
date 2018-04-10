@@ -61,6 +61,8 @@ public class PlatformGenerator : MonoBehaviour {
 
 	public ObjectPooler ropePool;
 
+	public ObjectPooler blackholePool;
+
 
 	// Use this for initialization
 	void Start () {
@@ -232,6 +234,15 @@ public class PlatformGenerator : MonoBehaviour {
 					campfireBounds,
 					captainHookBounds
 				);
+			}
+
+			if (DaytimeControl.timepast >= 10f) {
+				GameObject newBlackhole = blackholePool.GetPooledObject ();
+				Vector3 blackholePositionOffset = new Vector3 (0f, 2.5f, 0f);
+				newBlackhole.transform.position = transform.position + blackholePositionOffset;
+				newBlackhole.transform.rotation = transform.rotation;
+				newBlackhole.SetActive (true);
+				DaytimeControl.timepast = 0f;
 			}
 
 			transform.position = new Vector3(transform.position.x + (platformWidths[platformSelector] / 2), 

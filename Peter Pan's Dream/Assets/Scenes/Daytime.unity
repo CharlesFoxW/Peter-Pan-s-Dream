@@ -301,6 +301,49 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!1 &93642631
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 93642633}
+  - component: {fileID: 93642632}
+  m_Layer: 0
+  m_Name: BlackholePool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &93642632
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 93642631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e89ce4a3a0fa5440e896fb16e87c0935, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pooledObject: {fileID: 1052806337575590, guid: 78afa326e719b4634bf134bfd1ff0063,
+    type: 2}
+  pooledAmount: 2
+--- !u!4 &93642633
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 93642631}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.6715242, y: -0.21948025, z: 2.2330172}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &155019610
 GameObject:
   m_ObjectHideFlags: 0
@@ -2342,7 +2385,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blackTexture: {fileID: 2800000, guid: 4345cd7b0bd5d4d21aee720da7166bc0, type: 3}
-  fadeSpeed: 0.6
+  fadeSpeed: 0.4
 --- !u!4 &911581242
 Transform:
   m_ObjectHideFlags: 0
@@ -2354,7 +2397,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 20
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &930182514
 GameObject:
@@ -2672,6 +2715,7 @@ MonoBehaviour:
   randomCaptainHookThreshold: 100
   captainHookPool: {fileID: 561247037}
   ropePool: {fileID: 1793565747}
+  blackholePool: {fileID: 93642632}
 --- !u!4 &999535610
 Transform:
   m_ObjectHideFlags: 0
@@ -5261,6 +5305,7 @@ MonoBehaviour:
   moveSpeed: 5
   jumpForce: 20
   gameManager: {fileID: 1079225070}
+  myFade: {fileID: 911581240}
   audioJump: {fileID: 1618135514}
   audioHurt: {fileID: 65043141}
   audioDie: {fileID: 1355043394}

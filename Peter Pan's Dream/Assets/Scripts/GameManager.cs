@@ -60,6 +60,8 @@ public class GameManager : MonoBehaviour {
 			
 
 		thePlayer.gameObject.SetActive (true);
+		PlayerController.PlayerAlpha = 0f;
+		PlayerController.PlayerFadeDir = 1;
         PlayerController.isDead = false;
 		SceneControl.Instance.HP = 3;
 		theScoreManager.scoreCount = 0;

@@ -18,6 +18,8 @@ public class PlayerController : MonoBehaviour {
 	private Animator myAnimator;
 	private Collider2D myCollider;
 	private SpriteRenderer myRenderer;
+	private ScoreManager myScoreManager;
+	public GameObject myFade;
 
 	public AudioSource audioJump;
 	public AudioSource audioHurt;
@@ -25,6 +27,10 @@ public class PlayerController : MonoBehaviour {
 	public AudioSource audioBg;
 	public AudioSource audioHealUp;
 
+	public static float PlayerAlpha = 0f;
+	public static int PlayerFadeDir = 1;
+	private float fadeSpeed = 0.6f;
+	private bool isChangingScene = false;
 
 	private float moveSpeedStore;
 
@@ -38,10 +44,13 @@ public class PlayerController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         PlayerController.isDead = false;
+		PlayerAlpha = 0f;
+		PlayerFadeDir = 1;
 		myRigidbody = GetComponent<Rigidbody2D> ();
 		myAnimator = GetComponent<Animator> ();
 		myRenderer = GetComponent<SpriteRenderer> ();
 		moveSpeedStore = moveSpeed;
+		myScoreManager = FindObjectOfType<ScoreManager>();
 	}
 
     // Update is called once per frame
@@ -91,8 +100,8 @@ public class PlayerController : MonoBehaviour {
 
 
         }
-
-        if (isInvincible) {
+		// Blinking Animation:
+        if (!isChangingScene && isInvincible) {
 
 			playerBlinkingElapse += Time.deltaTime;
 			if (playerBlinkingElapse > playerBlinkingMiniDuration) {
@@ -115,6 +124,13 @@ public class PlayerController : MonoBehaviour {
 
         }
 
+		if ((PlayerFadeDir > 0 && PlayerAlpha <= 1f) || (PlayerFadeDir < 0 && PlayerAlpha >= 0f)) {
+			PlayerAlpha += PlayerFadeDir * fadeSpeed * Time.deltaTime;
+
+			myRenderer.material.color = new Color(myRenderer.material.color.r, 
+				myRenderer.material.color.g, myRenderer.material.color.b, PlayerAlpha);
+		}
+
 
 	}
 
@@ -135,7 +151,7 @@ public class PlayerController : MonoBehaviour {
 
 		}
 
-		if (collision.collider.gameObject.tag == "killbox" ){
+		if (!isChangingScene && collision.collider.gameObject.tag == "killbox" ){
 			Debug.Log ("die1");
             PlayerController.isDead = true;
 			audioDie.Play ();
@@ -158,7 +174,7 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	IEnumerator OnTriggerEnter2D(Collider2D other){
-        if (!isInvincible && other.tag == "DTEnemy") {
+		if (!isInvincible && other.tag == "DTEnemy") {
 			
 			SceneControl.Instance.HP--;
 
@@ -167,7 +183,7 @@ public class PlayerController : MonoBehaviour {
 				audioHurt.Play ();
 			} else {
 				Debug.Log ("die2");
-                PlayerController.isDead = true;
+				PlayerController.isDead = true;
 				audioDie.Play ();
 				audioBg.Stop ();
 				moveSpeed = 0;
@@ -189,14 +205,31 @@ public class PlayerController : MonoBehaviour {
 				// initalize parameters while restarting the game
 				moveSpeed = moveSpeedStore;
 			}
-        } else if (other.tag == "Heal") {
-            if (SceneControl.Instance.HP < 3 && SceneControl.Instance.HP > 0) {
-                Debug.Log("Healing by 1...");
-                SceneControl.Instance.HP++;
-            }
+		} else if (other.tag == "Heal") {
+			if (SceneControl.Instance.HP < 3 && SceneControl.Instance.HP > 0) {
+				Debug.Log ("Healing by 1...");
+				SceneControl.Instance.HP++;
+			}
 			audioHealUp.Play ();
-            other.gameObject.SetActive(false);
-        }
+			other.gameObject.SetActive (false);
+
+		} else if (other.tag == "Blackhole" && !PlayerController.isDead) {
+			Debug.Log("inchange");
+			SceneControl.Instance.score = myScoreManager.getScore();
+			Time.timeScale = 0.5f;
+			PlayerFadeDir = -1;
+			fadeSpeed = 2.0f;
+			isChangingScene = true;
+			isInvincible = true;
+			float time = myFade.GetComponent<FadeScene>().BeginFade(1);
+			yield return new WaitForSeconds(time);
+			isChangingScene = false;
+			isInvincible = false;
+			PlayerFadeDir = 0;
+			fadeSpeed = 0.6f;
+			Time.timeScale = 1f;
+			SceneControl.Instance.LoadScene1();
+		}
 
 	}
 
