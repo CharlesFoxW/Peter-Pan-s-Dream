@@ -47,6 +47,7 @@ public class PlayerController : MonoBehaviour {
 		PlayerAlpha = 0f;
 		PlayerFadeDir = 1;
 		myRigidbody = GetComponent<Rigidbody2D> ();
+		myCollider = GetComponent<Collider2D> ();
 		myAnimator = GetComponent<Animator> ();
 		myRenderer = GetComponent<SpriteRenderer> ();
 		moveSpeedStore = moveSpeed;
@@ -56,7 +57,9 @@ public class PlayerController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        myRigidbody.velocity = new Vector2(moveSpeed, myRigidbody.velocity.y); // keep running
+		if (!isChangingScene) {
+        	myRigidbody.velocity = new Vector2(moveSpeed, myRigidbody.velocity.y); // keep running
+		}
 
 
         // jump movement
@@ -218,9 +221,10 @@ public class PlayerController : MonoBehaviour {
 			SceneControl.Instance.score = myScoreManager.getScore();
 			Time.timeScale = 0.5f;
 			PlayerFadeDir = -1;
-			fadeSpeed = 2.0f;
+			fadeSpeed = 2.4f;
 			isChangingScene = true;
 			isInvincible = true;
+			myRigidbody.velocity = new Vector2 (1.67f, myRigidbody.velocity.y / 3f);
 			float time = myFade.GetComponent<FadeScene>().BeginFade(1);
 			yield return new WaitForSeconds(time);
 			isChangingScene = false;
