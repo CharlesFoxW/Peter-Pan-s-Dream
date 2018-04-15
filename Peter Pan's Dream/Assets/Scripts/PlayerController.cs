@@ -218,7 +218,6 @@ public class PlayerController : MonoBehaviour {
 
 		} else if (other.tag == "Blackhole" && !PlayerController.isDead) {
 			Debug.Log("inchange");
-			SceneControl.Instance.score = myScoreManager.getScore();
 			Time.timeScale = 0.5f;
 			PlayerFadeDir = -1;
 			fadeSpeed = 2.4f;

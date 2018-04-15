@@ -20,12 +20,14 @@ public class MainMenu : MonoBehaviour {
 
 	public void HighestScore(){
 		Debug.Log ("HigestScore");
-		int higestscores = 0;
+	
 		if (isShowScore){
 			scoreText.text = "Highest Scores";
 			isShowScore = false;
 			return;
 		}
+
+		int higestscores = 0;
 		if (PlayerPrefs.HasKey ("HighestScores")) {
 			higestscores = PlayerPrefs.GetInt ("HighestScores");
 		} else {

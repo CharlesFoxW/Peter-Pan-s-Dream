@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class PauseUI : MonoBehaviour {
@@ -9,6 +10,8 @@ public class PauseUI : MonoBehaviour {
 	public static bool GameIsOver = false;
 
 	private GameManager gameManager;
+
+	public Text scoreinfo;
 
 	// Use this for initialization
 	void Start(){
@@ -29,9 +32,7 @@ public class PauseUI : MonoBehaviour {
         }
 
         if (GameIsOver){
-			pauseUI.SetActive (true);
-			DaytimeControl.timepast = 0f;
-			Time.timeScale = 0f;
+			gameOver ();
 		}
 	}
 
@@ -48,8 +49,24 @@ public class PauseUI : MonoBehaviour {
 
 	void Pause(){
 		pauseUI.SetActive (true);
+		scoreinfo.text = "";
 		Time.timeScale = 0f;
 		GameIsPaused = true;
+	}
+
+
+	public void gameOver(){
+		pauseUI.SetActive (true);
+		int highestscore = PlayerPrefs.GetInt ("HighestScores");
+		if (SceneControl.Instance.score >= highestscore){
+			PlayerPrefs.SetInt ("HighestScores", SceneControl.Instance.score);
+			scoreinfo.text = "CONGRADULATIONS!!!\n YOU GOT THE HIGHEST SCORES " + SceneControl.Instance.score; 
+		}else{
+			scoreinfo.text = "YOU GOT " + SceneControl.Instance.score + "\n" +
+				"HIGHEST SCORE : " +  highestscore;
+		}
+		DaytimeControl.timepast = 0f;
+		Time.timeScale = 0f;
 	}
 
 	public void Restart(){

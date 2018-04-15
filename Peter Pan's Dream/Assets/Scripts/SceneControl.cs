@@ -37,6 +37,10 @@ public class SceneControl : MonoBehaviour {
         HP = 3;
 		score = 0;
         roundToNight = 0;
+		if (!PlayerPrefs.HasKey ("HighestScores")) {
+			PlayerPrefs.SetInt ("HighestScores", 0);
+		}
+
 		theScoreManager = FindObjectOfType<ScoreManager>();
 	}
 		
