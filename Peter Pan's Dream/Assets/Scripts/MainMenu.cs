@@ -5,6 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
 
+	public Text scoreText = null;
+	private bool isShowScore = false;
+
 	public void PlayGame(){
 		Debug.Log ("play");
 	}
@@ -13,5 +16,24 @@ public class MainMenu : MonoBehaviour {
 	public void QuitGame(){
 		Debug.Log ("QUIT!");
 		Application.Quit ();
+	}
+
+	public void HighestScore(){
+		Debug.Log ("HigestScore");
+		int higestscores = 0;
+		if (isShowScore){
+			scoreText.text = "Highest Scores";
+			isShowScore = false;
+			return;
+		}
+		if (PlayerPrefs.HasKey ("HighestScores")) {
+			higestscores = PlayerPrefs.GetInt ("HighestScores");
+		} else {
+			PlayerPrefs.SetInt ("HighestScores", higestscores);
+		}
+		if (!isShowScore) {
+			scoreText.text = higestscores.ToString ();
+			isShowScore = true;
+		}
 	}
 }
