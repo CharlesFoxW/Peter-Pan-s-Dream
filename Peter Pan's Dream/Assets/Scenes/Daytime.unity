@@ -2779,15 +2779,15 @@ MonoBehaviour:
   heightLevel: 3
   isFirstGround: 1
   randomCoinThreshold: 75
-  randomHealingStarThreshold: 40
+  randomHealingStarThreshold: 30
   HealingStarPool: {fileID: 1532976922}
   randomLadyBugThreshold: 25
   ladyBugPool: {fileID: 1862778180}
-  randomSniperThreshold: 33
+  randomSniperThreshold: 25
   sniperPool: {fileID: 47384269}
-  randomCampfireThreshold: 50
+  randomCampfireThreshold: 40
   campfirePool: {fileID: 1570330451}
-  randomCaptainHookThreshold: 100
+  randomCaptainHookThreshold: 33
   captainHookPool: {fileID: 561247037}
   ropePool: {fileID: 1793565747}
   blackholePool: {fileID: 93642632}
