@@ -97,7 +97,7 @@ public class PlatformGenerator : MonoBehaviour {
 		
 		if (transform.position.x < generationPoint.position.x){
 			
-
+			bool isReadyForBlackhole = true;
 			int level = Random.Range (0, 3);
 
 			if (level != prevLevel) {
@@ -158,6 +158,7 @@ public class PlatformGenerator : MonoBehaviour {
                 newHealingStar.transform.rotation = transform.rotation;
                 newHealingStar.SetActive(true);
 				starBounds = newHealingStar.GetComponent<Renderer> ().bounds;
+				isReadyForBlackhole = false;
             }
 
 			if (platformSelector == 4 || platformSelector == 5) {
@@ -171,7 +172,6 @@ public class PlatformGenerator : MonoBehaviour {
 
 				ropeLeft.transform.position = transform.position + new Vector3(-xOffset, yOffset, 0);
 				ropeRight.transform.position = transform.position + new Vector3(xOffset, yOffset, 0);
-
 			}
 
 
@@ -187,6 +187,7 @@ public class PlatformGenerator : MonoBehaviour {
 					newSniper.transform.rotation = transform.rotation;
 					newSniper.SetActive (true);
 					sniperBounds = newSniper.GetComponent<Renderer> ().bounds;
+					isReadyForBlackhole = false;
 				} else if (Random.Range (0f, 100f) < randomLadyBugThreshold) {
 					
 					GameObject newLadyBug = ladyBugPool.GetPooledObject ();
@@ -199,7 +200,7 @@ public class PlatformGenerator : MonoBehaviour {
 					LadyBugController.PassParameters (newLadyBug, newPlatform.transform.position, 
 					newPlatform.GetComponent<BoxCollider2D> ().size.x);
 					newLadyBug.SetActive (true);
-
+					isReadyForBlackhole = false;
 				} else if (Random.Range (0f, 100f) < randomCampfireThreshold) {
 
 					GameObject newCampfire = campfirePool.GetPooledObject ();
@@ -209,7 +210,7 @@ public class PlatformGenerator : MonoBehaviour {
 					newCampfire.transform.rotation = transform.rotation;
 					newCampfire.SetActive (true);
 					campfireBounds = newCampfire.GetComponent<Renderer> ().bounds;
-
+					isReadyForBlackhole = false;
 				}	else if (Random.Range (0f, 100f) < randomCaptainHookThreshold) {
 
 					GameObject newCaptainHook = captainHookPool.GetPooledObject ();
@@ -219,7 +220,7 @@ public class PlatformGenerator : MonoBehaviour {
 					newCaptainHook.transform.rotation = transform.rotation;
 					newCaptainHook.SetActive (true);
 					captainHookBounds = newCaptainHook.GetComponent<Renderer> ().bounds;
-
+					isReadyForBlackhole = false;
 				}
 
 			}
@@ -234,11 +235,12 @@ public class PlatformGenerator : MonoBehaviour {
 					campfireBounds,
 					captainHookBounds
 				);
+				isReadyForBlackhole = false;
 			}
 
-			if (DaytimeControl.timepast >= 10f) {
+			if (level < 1.5 && isReadyForBlackhole && DaytimeControl.timepast >= 45f) {
 				GameObject newBlackhole = blackholePool.GetPooledObject ();
-				Vector3 blackholePositionOffset = new Vector3 (0f, 2.5f, 0f);
+				Vector3 blackholePositionOffset = new Vector3 (0f, 2f, 0f);
 				newBlackhole.transform.position = transform.position + blackholePositionOffset;
 				newBlackhole.transform.rotation = transform.rotation;
 				newBlackhole.SetActive (true);
