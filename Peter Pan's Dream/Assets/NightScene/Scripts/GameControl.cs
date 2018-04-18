@@ -12,11 +12,11 @@ public class GameControl : MonoBehaviour
     public GameObject Player;
     public GameObject magnetPrefab;
     public GameObject dizzyBirdsPrefab;
-    private float speedUpInterval = 20f;
-    private float speedUpRate = -1f;
+    //private float speedUpInterval = 20f;
+    //private float speedUpRate = -1f;
     public float maxSpeed = -10f;
     public float globalTimer = 0;
-    private float pTime = 0;                    //Timer for auto-speed up
+    //private float pTime = 0;                    //Timer for auto-speed up
 
 	public int score = 0;						//The player's score.
 	public bool gameOver = false;				//Is the game over?
@@ -171,8 +171,10 @@ public class GameControl : MonoBehaviour
 	public void BirdDied() {
 		//Activate the game over text.
 		//gameOvertext.SetActive (true);
-		//Set the game to be over.
-		gameOver = true;
+		//Set the game to be over.		
+        nightTimeElapsed = 0f;
+        SceneControl.Instance.score = score;
+        gameOver = true;
 	}
 
 	public bool ReduceHP(int lostHPAmount) {

@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class PauseuiNight : MonoBehaviour {
 
 	public GameObject pauseUI;
 	public static bool GameIsPaused = false;
+
+    public Text scoreinfo;
 
 	// Use this for initialization
     void Start(){		
@@ -21,14 +24,25 @@ public class PauseuiNight : MonoBehaviour {
 		}
         if (GameControl.instance.gameOver)
         {
-            pauseUI.SetActive (true);
-            Time.timeScale = 0f;
+            gameOver();
         }
         if (GameIsPaused) {
             Pause();
         }
 	}
 
+    public void gameOver(){
+        pauseUI.SetActive (true);
+        int highestscore = PlayerPrefs.GetInt ("HighestScores");
+        if (SceneControl.Instance.score >= highestscore){
+            PlayerPrefs.SetInt ("HighestScores", SceneControl.Instance.score);
+            scoreinfo.text = "CONGRADULATIONS!!!\n YOU GOT THE HIGHEST SCORES " + SceneControl.Instance.score; 
+        }else{
+            scoreinfo.text = "YOU GOT " + SceneControl.Instance.score + "\n" +
+                "HIGHEST SCORE : " +  highestscore;
+        }
+        Time.timeScale = 0f;
+    }
 
 	public void Resume(){
         pauseUI.SetActive (false);
