@@ -15,15 +15,12 @@ public class BulletControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		myRigidbody.velocity = new Vector2 (-flyingSpeed, 0.1f);
+		myRigidbody.velocity = new Vector2 (-flyingSpeed, 0f);
 	}
 
 	void OnTriggerEnter2D(Collider2D other) {
 		if (other.name == "Player") {
-			Debug.Log ("be shot!");
-
-
-
+			Debug.Log ("Got shot!");
 		}
 
 

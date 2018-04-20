@@ -235,7 +235,6 @@ public class PlatformGenerator : MonoBehaviour {
 					campfireBounds,
 					captainHookBounds
 				);
-				isReadyForBlackhole = false;
 			}
 
 			if (level < 1.5 && isReadyForBlackhole && DaytimeControl.timepast >= 45f) {

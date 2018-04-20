@@ -218,8 +218,12 @@ public class GameControl : MonoBehaviour
     IEnumerator FadeScene()
     {
         Time.timeScale = 0.5f;
+		Bird.PlayerFadeDir = -1;
+		Bird.FadeSpeed = 2.4f;
         float time = myFade.GetComponent<FadeScene>().BeginFade(1);
         yield return new WaitForSeconds(time);
+		Bird.PlayerFadeDir = 0;
+		Bird.FadeSpeed = 0.6f;
         Time.timeScale = 1f;
         SceneControl.Instance.LoadScene2();
     }

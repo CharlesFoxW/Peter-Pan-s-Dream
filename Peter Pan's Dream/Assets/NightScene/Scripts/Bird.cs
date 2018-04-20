@@ -23,6 +23,12 @@ public class Bird : MonoBehaviour
     private float reverseSoundTime = 0f;
     private float startPos_y;
 
+	// Fade the Player as the Daytime
+	private SpriteRenderer myRenderer;
+	public float playerAlpha = 0f;
+	public static int PlayerFadeDir = 1;
+	public static float FadeSpeed = 0.6f;
+
 	public AudioSource asCoin;
     public AudioSource gemSound;
     public AudioSource hurtSound;
@@ -44,11 +50,22 @@ public class Bird : MonoBehaviour
 		rb2d = GetComponent<Rigidbody2D>();
         birdcollider = GetComponent<CapsuleCollider2D>();
         anim = GetComponent<Animator>();
+		myRenderer = GetComponent<SpriteRenderer> ();
         birdcollider.isTrigger = true;
+		playerAlpha = 0f;
+		PlayerFadeDir = 1;
 	}
 
 	void Update()
     {
+
+		if ((PlayerFadeDir > 0 && playerAlpha <= 1f) || (PlayerFadeDir < 0 && playerAlpha >= 0f)) {
+			playerAlpha += PlayerFadeDir * FadeSpeed * Time.deltaTime;
+
+			myRenderer.material.color = new Color(myRenderer.material.color.r, 
+				myRenderer.material.color.g, myRenderer.material.color.b, playerAlpha);
+		}
+
         if (isCollided)
         {
             protectTimeElapse += Time.deltaTime;
@@ -110,55 +127,6 @@ public class Bird : MonoBehaviour
             else
                 anim.SetBool("flying", false);
 
-
-            //Control script for PC testing
-//            if (Input.GetMouseButtonDown(0))
-//            {
-//                startPos_y = Input.mousePosition.y;
-//            }
-//            if (Input.GetMouseButton(0))
-//            {
-//                float offset = Input.mousePosition.y - startPos_y;
-//                float curMoveSpeed = offset / Screen.height * 0.5f;
-//                if (curMoveSpeed > 0.2)
-//                    curMoveSpeed = 0.2f;
-//
-//
-//                if (reverseControl)
-//                    transform.position = new Vector2(transform.position.x, transform.position.y - curMoveSpeed);
-//                else
-//                    transform.position = new Vector2(transform.position.x, transform.position.y + curMoveSpeed);
-//            }
-
-
-            //Control script for phone
-//            if (Input.touchCount > 0)
-//            {
-//                Touch touch = Input.GetTouch(0);
-//
-//                // Handle finger movements based on touch phase.
-//                switch (touch.phase)
-//                {
-//                    // Record initial touch position.
-//                    case TouchPhase.Began:
-//                        startPos_y = touch.position.y;
-//                        break;
-//
-//                        // Determine direction by comparing the current touch position with the initial one.
-//                    case TouchPhase.Moved:
-//                        float offset = touch.position.y - startPos_y;
-//                        float curMoveSpeed = offset / Screen.height * 0.5f;
-//                        if (curMoveSpeed > 0.2)
-//                            curMoveSpeed = 0.2f;
-//
-//                        if (reverseControl)
-//                            transform.position = new Vector2(transform.position.x, transform.position.y - curMoveSpeed);
-//                        else
-//                            transform.position = new Vector2(transform.position.x, transform.position.y + curMoveSpeed);
-//                        break;
-//
-//                }
-//            }
 
             //Control for phone mode B
             if (Input.touchCount > 0)
