@@ -131,6 +131,7 @@ public class Bird : MonoBehaviour
             //Control for phone mode B
             if (Input.touchCount > 0)
             {
+                anim.SetBool("flying", true);
                 Touch touch = Input.GetTouch(0);
                 float mid_y = Screen.height / 2;
                 if (touch.position.y - mid_y > 0)
@@ -149,6 +150,8 @@ public class Bird : MonoBehaviour
                 }
 
             }
+            else
+                anim.SetBool("flying", false);
 
 
             scoreTimeElapse += Time.deltaTime;
