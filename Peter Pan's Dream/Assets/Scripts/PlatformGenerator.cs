@@ -242,6 +242,10 @@ public class PlatformGenerator : MonoBehaviour {
 				Vector3 blackholePositionOffset = new Vector3 (0f, 2f, 0f);
 				newBlackhole.transform.position = transform.position + blackholePositionOffset;
 				newBlackhole.transform.rotation = transform.rotation;
+				newBlackhole.GetComponent<SpriteRenderer> ().material.color = new Color (
+					newBlackhole.GetComponent<SpriteRenderer> ().material.color.r, 
+					newBlackhole.GetComponent<SpriteRenderer> ().material.color.g, 
+					newBlackhole.GetComponent<SpriteRenderer> ().material.color.b, 0.825f);
 				newBlackhole.SetActive (true);
 				DaytimeControl.timepast = 0f;
 			}
